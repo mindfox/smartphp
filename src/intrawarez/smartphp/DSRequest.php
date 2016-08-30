@@ -11,19 +11,19 @@ class DSRequest
     private $componentId;
     
     /**
-     * 
+     *
      * @var array
      */
     private $data;
     
     /**
-     * 
+     *
      * @var string
      */
     private $dataSource;
     
     /**
-     * 
+     *
      * @var string
      */
     private $operationType;
