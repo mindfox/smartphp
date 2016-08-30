@@ -1,7 +1,7 @@
 {
-    "name": "intrawarez/slim-smartclient",
-    "description": "A PHP7 utilitiy library, inspired by Java and others",
-    "homepage": "https://intrawarez.github.io/sabertooth/",
+    "name": "intrawarez/smartphp",
+    "description": "PHP backend utilities for Isomorphic SmartClient",
+    "homepage": "https://intrawarez.github.io/smartphp/",
     "authors": [
         {
             "name": "Maximilian Meffert",

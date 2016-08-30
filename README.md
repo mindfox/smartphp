@@ -1,2 +1,2 @@
-# slim-smartclient
-Slim backend utility for Isomorphic SmartClient 
+# smartphp
+PHP backend utilities for Isomorphic SmartClient 
