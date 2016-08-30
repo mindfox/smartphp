@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\slimsmartclient;
+namespace intrawarez\smartphp;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Interop\Container\ContainerInterface;

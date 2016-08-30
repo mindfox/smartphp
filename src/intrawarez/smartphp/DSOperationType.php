@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\slimsmartclient;
+namespace intrawarez\smartphp;
 
 abstract class DSOperationType
 {

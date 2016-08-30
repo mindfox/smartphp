@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\slimsmartclient;
+namespace intrawarez\smartphp;
 
 class DSRequest
 {
