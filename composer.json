@@ -23,6 +23,7 @@
     "require": {
         "php": ">=7",
         "intrawarez/slim-annotations": "*",
-		"doctrine/orm": "^2.5"
+		"doctrine/orm": "^2.5",
+        "symfony/serializer": "^3.1"
     }
 }
