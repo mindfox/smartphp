@@ -11,7 +11,7 @@ interface DataSourceInterface extends \Countable
     /**
      * 
      */
-    public function fetch();
+    public function fetch($object = null);
     
     /**
      * 

@@ -18,6 +18,12 @@ class DSRequest
     
     /**
      *
+     * @var array
+     */
+    private $oldValues;
+    
+    /**
+     *
      * @var string
      */
     private $dataSource;
@@ -52,6 +58,16 @@ class DSRequest
     public function setData(array $data)
     {
         $this->data = $data;
+    }
+    
+    public function getOldValues(): array
+    {
+        return $this->oldValues;
+    }
+    
+    public function setOldValues(array $oldValues)
+    {
+        $this->oldValues = $oldValues;
     }
     
     public function getDataSource(): string

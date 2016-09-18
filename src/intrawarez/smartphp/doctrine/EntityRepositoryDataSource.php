@@ -3,9 +3,53 @@ namespace intrawarez\smartphp\doctrine;
 
 use Doctrine\ORM\EntityRepository;
 use intrawarez\smartphp\DataSourceInterface;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use Doctrine\Common\Collections\Collection;
 
 abstract class EntityRepositoryDataSource extends EntityRepository implements DataSourceInterface
 {
+    protected function isEntityInstance($object): bool
+    {
+        $entityClass = $this->getEntityName();
+        
+        return $object instanceof $entityClass;
+    }
+    
+    protected function createCriteriaArray($object): array
+    {
+        if (!$this->isEntityInstance($object)) {
+            throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
+        }
+        
+        $criteria = [];
+        
+        $fieldNames = array_merge(
+            $this->getClassMetadata()->getFieldNames(),
+            $this->getClassMetadata()->getAssociationNames()
+        );
+        
+        $idNames = $this->getClassMetadata()->getIdentifierFieldNames();
+        
+        $nidNames = array_diff($fieldNames, $idNames);
+                
+        foreach ($nidNames as $nidName) {
+            $value = $this->getClassMetadata()->getFieldValue($object, $nidName);
+        
+            if ($value instanceof Collection) {
+                if (!$value->isEmpty()) {
+                    $criteria[$nidName] = $value;
+                }
+            }
+            else if (!empty($value)) {
+                $criteria[$nidName] = $value;
+            }
+        }
+        
+        
+        
+        return $criteria;
+    }
+    
     /**
      * 
      */
@@ -36,8 +80,20 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::fetch()
      */
-    public function fetch()
-    {   
+    public function fetch($object = null)
+    {
+        if (!is_null($object)) {
+            if (!$this->isEntityInstance($object)) {
+                throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
+            }
+            
+            if (empty($this->getClassMetadata()->getIdentifierValues($object))) {
+                return $this->findBy($this->createCriteriaArray($object));
+            }
+            
+            return $this->find($object);
+        }
+        
         return $this->findAll();
     }
     
@@ -72,6 +128,12 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      */
     public function delete($object)
     {
+        if (!$this->getEntityManager()->contains($object)) {
+            $object = $this->find($object);
+        }
+        
         $this->getEntityManager()->remove($object);
+        
+        return $object;
     }
 }
