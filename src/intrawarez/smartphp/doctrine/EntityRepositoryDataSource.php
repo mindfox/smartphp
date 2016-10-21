@@ -1,10 +1,9 @@
 <?php
 namespace intrawarez\smartphp\doctrine;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityRepository;
 use intrawarez\smartphp\DataSourceInterface;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
-use Doctrine\Common\Collections\Collection;
 
 abstract class EntityRepositoryDataSource extends EntityRepository implements DataSourceInterface
 {
@@ -80,7 +79,7 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::fetch()
      */
-    public function fetch($object = null)
+    public function fetch($object = null): array
     {
         if (!is_null($object)) {
             if (!$this->isEntityInstance($object)) {
@@ -102,11 +101,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::insert()
      */
-    public function insert($object)
+    public function insert($object): array
     {
         $this->getEntityManager()->persist($object);
         
-        return $object;
+        return [$object];
     }
     
     /**
@@ -114,11 +113,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::update()
      */
-    public function update($object)
+    public function update($object): array
     {
         $entity = $this->getEntityManager()->merge($object);
         
-        return $entity;
+        return [$entity];
     }
     
     /**
@@ -126,7 +125,7 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::delete()
      */
-    public function delete($object)
+    public function delete($object): array
     {
         if (!$this->getEntityManager()->contains($object)) {
             $object = $this->find($object);
@@ -134,6 +133,6 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
         
         $this->getEntityManager()->remove($object);
         
-        return $object;
+        return [$object];
     }
 }
