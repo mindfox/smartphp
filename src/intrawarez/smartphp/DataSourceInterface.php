@@ -1,14 +1,16 @@
 <?php
 namespace intrawarez\smartphp;
 
-interface DataSourceInterface
+interface DataSourceInterface extends \Countable
 {
     
-    public function fetch(DSRequest $dsRequest);
+    public function size();
     
-    public function insert(DSRequest $dsRequest);
+    public function fetch();
     
-    public function update(DSRequest $dsRequest);
+    public function insert($object);
     
-    public function delete(DSRequest $dsRequest);
+    public function update($object);
+    
+    public function delete($object);
 }
