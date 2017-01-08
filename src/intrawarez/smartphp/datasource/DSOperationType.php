@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\smartphp\datasource;
+namespace intrawarez\smartphp;
 
 abstract class DSOperationType
 {

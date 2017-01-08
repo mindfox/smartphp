@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\smartphp\datasource;
+namespace intrawarez\smartphp;
 
 class DSRequest
 {
@@ -8,37 +8,37 @@ class DSRequest
      *
      * @var string
      */
-    private $componentId = "";
+    private $componentId;
     
     /**
      *
      * @var array
      */
-    private $data = [];
+    private $data;
     
     /**
      *
      * @var array
      */
-    private $oldValues = [];
+    private $oldValues;
     
     /**
      *
      * @var string
      */
-    private $dataSource = "";
+    private $dataSource;
     
     /**
      *
      * @var string
      */
-    private $operationType = "";
+    private $operationType;
 
     /**
      *
      * @var string
      */
-    private $textMatchStyle = "";
+    private $textMatchStyle;
     
     public function getComponentId(): string
     {

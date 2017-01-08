@@ -11,23 +11,23 @@ interface DataSourceInterface extends \Countable
     /**
      * 
      */
-    public function fetch($object = null): array;
+    public function fetch($object = null, $textMatchStyle = DSTextMatchStyle::EXACT);
     
     /**
      * 
      * @param object $object
      */
-    public function insert($object): array;
+    public function insert($object);
     
     /**
      * 
      * @param object $object
      */
-    public function update($object): array;
+    public function update($object);
     
     /**
      * 
      * @param object $object
      */
-    public function delete($object): array;
+    public function delete($object);
 }

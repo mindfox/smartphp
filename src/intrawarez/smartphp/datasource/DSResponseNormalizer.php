@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\smartphp\datasource;
+namespace intrawarez\smartphp;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 

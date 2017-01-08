@@ -7,8 +7,16 @@ use Doctrine\ORM\EntityRepository;
 use intrawarez\smartphp\DataSourceInterface;
 use intrawarez\smartphp\DSTextMatchStyle;
 
+/**
+ * The DataSource implemenation for Doctrine2 entity repositories.
+ * @author maxmeffert
+ */
 abstract class EntityRepositoryDataSource extends EntityRepository implements DataSourceInterface
 {
+    /**
+     * @param mixed $object
+     * @return bool
+     */
     protected function isEntityInstance($object): bool
     {
         $entityClass = $this->getEntityName();
@@ -16,16 +24,35 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
         return $object instanceof $entityClass;
     }
     
+    /**
+     * @param mixed $object
+     * @throws \InvalidArgumentException
+     */
+    protected function assertEntityInstance($object)
+    {
+        if (!$this->isEntityInstance($object)) {
+            throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
+        }
+    }
+    
+    /**
+     * @param object $object
+     * @return bool
+     */
     protected function isIdentifiable($object): bool
     {
         return !empty($this->getClassMetadata()->getIdentifierValues($object));
     }
     
+    /**
+     * 
+     * @param object $object
+     * @throws \InvalidArgumentException
+     * @return array
+     */
     protected function createCriteriaArray($object): array
     {
-        if (!$this->isEntityInstance($object)) {
-            throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
-        }
+        $this->assertEntityInstance($object);
         
         $criteria = [];
         
@@ -110,9 +137,7 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
             return $this->findAll();
         }
         
-        if (!$this->isEntityInstance($object)) {
-            throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
-        }
+        $this->assertEntityInstance($object);
         
         if ($this->isIdentifiable($object)) {
             return $this->find($object);
@@ -123,12 +148,6 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
         }
         
         return $this->matching($this->createCriteria($object));
-        
-//         if (empty($this->getClassMetadata()->getIdentifierValues($object))) {
-//             return $this->findBy($this->createCriteriaArray($object));
-//         }
-        
-//         return $this->find($object);
     }
     
     /**
@@ -138,8 +157,8 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      */
     public function insert($object)
     {
+        $this->assertEntityInstance($object);
         $this->getEntityManager()->persist($object);
-        
         return $object;
     }
     
@@ -150,8 +169,8 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      */
     public function update($object)
     {
+        $this->assertEntityInstance($object);
         $entity = $this->getEntityManager()->merge($object);
-        
         return $entity;
     }
     
@@ -162,12 +181,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      */
     public function delete($object)
     {
+        $this->assertEntityInstance($object);
         if (!$this->getEntityManager()->contains($object)) {
             $object = $this->find($object);
         }
-        
         $this->getEntityManager()->remove($object);
-        
         return $object;
     }
 }
