@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\smartphp;
+namespace intrawarez\smartphp\datasource;
 
 use Psr\Http\Message\ServerRequestInterface;
 

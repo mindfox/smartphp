@@ -1,5 +1,5 @@
 <?php
-namespace intrawarez\smartphp;
+namespace intrawarez\smartphp\datasource;
 
 abstract class Enum
 {

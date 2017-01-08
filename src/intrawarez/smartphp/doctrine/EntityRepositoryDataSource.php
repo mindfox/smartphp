@@ -4,8 +4,8 @@ namespace intrawarez\smartphp\doctrine;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
-use intrawarez\smartphp\DataSourceInterface;
-use intrawarez\smartphp\DSTextMatchStyle;
+use intrawarez\smartphp\datasource\DataSourceInterface;
+use intrawarez\smartphp\datasource\DSTextMatchStyle;
 
 /**
  * The DataSource implemenation for Doctrine2 entity repositories.
