@@ -2,8 +2,10 @@
 namespace intrawarez\smartphp\doctrine;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 use intrawarez\smartphp\DataSourceInterface;
+use intrawarez\smartphp\DSTextMatchStyle;
 
 abstract class EntityRepositoryDataSource extends EntityRepository implements DataSourceInterface
 {
@@ -12,6 +14,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
         $entityClass = $this->getEntityName();
         
         return $object instanceof $entityClass;
+    }
+    
+    protected function isIdentifiable($object): bool
+    {
+        return !empty($this->getClassMetadata()->getIdentifierValues($object));
     }
     
     protected function createCriteriaArray($object): array
@@ -50,6 +57,24 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
     }
     
     /**
+     * @param object $object
+     * @return Criteria
+     */
+    protected function createCriteria($object): Criteria
+    {
+        $exprBuilder = Criteria::expr();
+        $exprArray = [];
+        
+        foreach ($this->createCriteriaArray($object) as $field => $value) {
+            $exprArray[] = $exprBuilder->contains($field, $value);
+        }
+        
+        $expression = call_user_func_array([$exprBuilder,"andX"], $exprArray);
+        
+        return Criteria::create()->where($expression);
+    }
+    
+    /**
      * 
      */
     public function count()
@@ -79,21 +104,31 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::fetch()
      */
-    public function fetch($object = null): array
+    public function fetch($object = null, $textMatchStyle = DSTextMatchStyle::EXACT)
     {
-        if (!is_null($object)) {
-            if (!$this->isEntityInstance($object)) {
-                throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
-            }
-            
-            if (empty($this->getClassMetadata()->getIdentifierValues($object))) {
-                return $this->findBy($this->createCriteriaArray($object));
-            }
-            
+        if (is_null($object)) {
+            return $this->findAll();
+        }
+        
+        if (!$this->isEntityInstance($object)) {
+            throw new \InvalidArgumentException("Parameter must be instance of {$this->getEntityName()}");
+        }
+        
+        if ($this->isIdentifiable($object)) {
             return $this->find($object);
         }
         
-        return $this->findAll();
+        if ($textMatchStyle == DSTextMatchStyle::EXACT) {
+            return $this->findBy($this->createCriteriaArray($object));
+        }
+        
+        return $this->matching($this->createCriteria($object));
+        
+//         if (empty($this->getClassMetadata()->getIdentifierValues($object))) {
+//             return $this->findBy($this->createCriteriaArray($object));
+//         }
+        
+//         return $this->find($object);
     }
     
     /**
@@ -101,11 +136,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::insert()
      */
-    public function insert($object): array
+    public function insert($object)
     {
         $this->getEntityManager()->persist($object);
         
-        return [$object];
+        return $object;
     }
     
     /**
@@ -113,11 +148,11 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::update()
      */
-    public function update($object): array
+    public function update($object)
     {
         $entity = $this->getEntityManager()->merge($object);
         
-        return [$entity];
+        return $entity;
     }
     
     /**
@@ -125,7 +160,7 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
      * {@inheritDoc}
      * @see \intrawarez\smartphp\DataSourceInterface::delete()
      */
-    public function delete($object): array
+    public function delete($object)
     {
         if (!$this->getEntityManager()->contains($object)) {
             $object = $this->find($object);
@@ -133,6 +168,6 @@ abstract class EntityRepositoryDataSource extends EntityRepository implements Da
         
         $this->getEntityManager()->remove($object);
         
-        return [$object];
+        return $object;
     }
 }
