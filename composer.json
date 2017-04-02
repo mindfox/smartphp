@@ -1,29 +1,29 @@
 {
-    "name": "maxmeffert/smartphp",
-    "description": "PHP backend utilities for Isomorphic SmartClient",
-    "homepage": "https://intrawarez.github.io/smartphp/",
-    "authors": [
-        {
-            "name": "Maximilian Meffert",
-            "email": "packagist@intrawarez.de"
-        }
-    ],
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-        	"": "src/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "phpunit/phpunit": "5.4.*",
-        "squizlabs/php_codesniffer": "^2.6"
-    },
-    "require": {
-        "php": ">=7",
-		"doctrine/orm": "^2.5",
-        "symfony/serializer": "^3.1",
-        "psr/http-message": "^1.0"
-    }
+	"name" : "maxmeffert/smartphp",
+	"description" : "PHP backend utilities for Isomorphic SmartClient",
+	"homepage" : "https://intrawarez.github.io/smartphp/",
+	"authors" : [{
+			"name" : "Maximilian Meffert",
+			"email" : "packagist@intrawarez.de"
+		}
+	],
+	"license" : "MIT",
+	"autoload" : {
+		"psr-4" : {
+			"" : "src/"
+		}
+	},
+	"minimum-stability" : "dev",
+	"prefer-stable" : true,
+	"require-dev" : {
+		"phpunit/phpunit" : "5.4.*",
+		"squizlabs/php_codesniffer" : "^2.6"
+	},
+	"require" : {
+		"php" : ">=7",
+		"doctrine/orm" : "^2.5",
+		"symfony/serializer" : "^3.1",
+		"psr/http-message" : "^1.0",
+		"slim/slim": "^3.8"
+	}
 }
