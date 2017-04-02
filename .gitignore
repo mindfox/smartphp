@@ -6,7 +6,7 @@ vendor
 cache
 public
 
-example/isomorphic
+example/public/isomorphic
 
 composer.phar
 composer.lock
