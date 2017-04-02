@@ -1,17 +1,9 @@
 <?php
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use SmartPHP\Example\DataSources\CompanyDataSource;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
-use SmartPHP\Services\DataSourceFactory;
-use SmartPHP\Services\DataSourceInvokator;
-use SmartPHP\Services\DataSourceMessageFactory;
-use SmartPHP\Services\DataSourceMessageSerializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use SmartPHP\Example\Services\CompanyService;
 
 $container = $app->getContainer();
@@ -52,37 +44,6 @@ $container["EntityManager"] = function (ContainerInterface $container) {
     $entityManager = EntityManager::create($database, $config);
     
     return $entityManager;
-};
-
-$container["Serializer"] = function (ContainerInterface $c) {
-    $encoders = [
-        new JsonEncoder()
-    ];
-    
-    $normalizers = [
-        new GetSetMethodNormalizer()
-    ];
-    
-    $serializer = new Serializer($normalizers, $encoders);
-    
-    return $serializer;
-};
-
-$container["SmartPHP/Serializer"] = function (ContainerInterface $c) {
-    $serializer = $c->get("Serializer");
-    return new DataSourceMessageSerializer($serializer);
-};
-
-$container["SmartPHP/MessageFactory"] = function (ContainerInterface $c) {
-    return new DataSourceMessageFactory();
-};
-
-$container["SmartPHP/ServiceFactory"] = function (ContainerInterface $c) {
-    return new DataSourceFactory($c);
-};
-
-$container["SmartPHP/ServiceInvokator"] = function (ContainerInterface $c) {
-    return new DataSourceInvokator();
 };
 
 $container["CompanyRepository"] = function (ContainerInterface $container) {

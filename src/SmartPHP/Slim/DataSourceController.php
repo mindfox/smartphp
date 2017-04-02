@@ -38,10 +38,11 @@ class DataSourceController
 
     public function __construct(ContainerInterface $container)
     {
-        $this->messageSerializer = $container->get("SmartPHP/Serializer");
-        $this->messageFactory = $container->get("SmartPHP/MessageFactory");
-        $this->dataSourceFactory = $container->get("SmartPHP/ServiceFactory");
-        $this->dataSourceInvokator = $container->get("SmartPHP/ServiceInvokator");
+        $container = DefaultDependencyProvider::register($container);
+        $this->messageSerializer = $container->get(DependencyIds::MESSAGE_SERIALIZER);
+        $this->messageFactory = $container->get(DependencyIds::MESSAGE_FACTORY);
+        $this->dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
+        $this->dataSourceInvokator = $container->get(DependencyIds::DATASORUCE_INVOKATOR);
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
