@@ -1,10 +1,10 @@
 <?php
 namespace SmartPHP\Example\Repositories;
 
-use Doctrine\ORM\EntityRepository;
+use SmartPHP\Doctrine\GenericEntityRepository;
 use SmartPHP\Example\Models\Entities\DepartmentEntity;
 
-class DepartmentRepository extends EntityRepository implements DepartmentRepositoryInterface
+class DepartmentRepository extends GenericEntityRepository implements DepartmentRepositoryInterface
 {
     
     /**
@@ -15,7 +15,7 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function fetchAll(): array
     {
-        return $this->findAll();
+        return $this->fetchAllEntities();
     }
     
     /**
@@ -26,7 +26,7 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function fetchOne(DepartmentEntity $department): DepartmentEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchOneEntity($department);
     }
     
     /**
@@ -37,7 +37,7 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function fetch(DepartmentEntity $department = null)
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchEntity($department);
     }
     
     /**
@@ -47,9 +47,7 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function add(DepartmentEntity $department): DepartmentEntity
     {
-        $this->getEntityManager()->persist($department);
-        $this->getEntityManager()->flush();
-        return $department;
+        return $this->addEntity($department);
     }
     
     /**
@@ -60,7 +58,7 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function update(DepartmentEntity $department): DepartmentEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->updateEntity($department);
     }
     
     /**
@@ -71,6 +69,6 @@ class DepartmentRepository extends EntityRepository implements DepartmentReposit
      */
     public function remove(DepartmentEntity $department): DepartmentEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->removeEntity($department);
     }
 }

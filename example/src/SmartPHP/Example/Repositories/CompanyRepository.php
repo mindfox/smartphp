@@ -1,10 +1,10 @@
 <?php
 namespace SmartPHP\Example\Repositories;
 
-use Doctrine\ORM\EntityRepository;
+use SmartPHP\Doctrine\GenericEntityRepository;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
 
-class CompanyRepository extends EntityRepository implements CompanyRepositoryInterface
+class CompanyRepository extends GenericEntityRepository implements CompanyRepositoryInterface
 {
 
     /**
@@ -15,7 +15,7 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
      */
     public function fetchAll(): array
     {
-        return $this->findAll();
+        return $this->fetchAllEntities();
     }
 
     /**
@@ -26,7 +26,7 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
      */
     public function fetchOne(CompanyEntity $company): CompanyEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchOneEntity($company);
     }
 
     /**
@@ -41,15 +41,13 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
     }
 
     /**
-     * 
-     * @param CompanyEntity $company
+     *
+     * @param CompanyEntity $company            
      * @return CompanyEntity
      */
     public function add(CompanyEntity $company): CompanyEntity
     {
-        $this->getEntityManager()->persist($company);
-        $this->getEntityManager()->flush();
-        return $company;
+        return $this->addEntity($company);
     }
 
     /**
@@ -60,7 +58,7 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
      */
     public function update(CompanyEntity $company): CompanyEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->updateEntity($company);
     }
 
     /**
@@ -71,6 +69,6 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
      */
     public function remove(CompanyEntity $company): CompanyEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->removeEntity($company);
     }
 }

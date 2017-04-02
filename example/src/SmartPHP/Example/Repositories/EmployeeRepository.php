@@ -1,10 +1,10 @@
 <?php
 namespace SmartPHP\Example\Repositories;
 
-use Doctrine\ORM\EntityRepository;
+use SmartPHP\Doctrine\GenericEntityRepository;
 use SmartPHP\Example\Models\Entities\EmployeeEntity;
 
-class EmployeeRepository extends EntityRepository implements EmployeeRepositoryInterface
+class EmployeeRepository extends GenericEntityRepository implements EmployeeRepositoryInterface
 {
     
     /**
@@ -15,7 +15,7 @@ class EmployeeRepository extends EntityRepository implements EmployeeRepositoryI
      */
     public function fetchAll(): array
     {
-        return $this->findAll();
+        return $this->fetchAllEntities();
     }
     
     /**
@@ -26,7 +26,7 @@ class EmployeeRepository extends EntityRepository implements EmployeeRepositoryI
      */
     public function fetchOne(EmployeeEntity $employee): EmployeeEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchOneEntity($employee);
     }
     
     /**
@@ -47,9 +47,7 @@ class EmployeeRepository extends EntityRepository implements EmployeeRepositoryI
      */
     public function add(EmployeeEntity $employee): EmployeeEntity
     {
-        $this->getEntityManager()->persist($employee);
-        $this->getEntityManager()->flush();
-        return $employee;
+        return $this->addEntity($employee);
     }
     
     /**
@@ -60,7 +58,7 @@ class EmployeeRepository extends EntityRepository implements EmployeeRepositoryI
      */
     public function update(EmployeeEntity $employee): EmployeeEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->updateEntity($employee);
     }
     
     /**
@@ -71,6 +69,6 @@ class EmployeeRepository extends EntityRepository implements EmployeeRepositoryI
      */
     public function remove(EmployeeEntity $employee): EmployeeEntity
     {
-        // TODO: Auto-generated method stub
+        return $this->removeEntity($employee);
     }
 }
