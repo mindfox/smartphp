@@ -1,28 +1,25 @@
 <?php
-namespace SmartPHP\Example\Services;
+namespace SmartPHP\Example\DataSources;
 
-use SmartPHP\Example\Converters\CompanyConverterTrait;
-use SmartPHP\Example\Models\Dtos\CompanyDto;
-use SmartPHP\Example\Repositories\CompanyRepository;
-use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceMessageInterface;
-use SmartPHP\Interfaces\DataSourceServiceInterface;
 use SmartPHP\Traits\ModelBinderTrait;
+use SmartPHP\Example\Services\CompanyServiceInterface;
+use SmartPHP\Example\Models\Dtos\CompanyDto;
 
-class CompanyDSService implements DataSourceServiceInterface
+class CompanyDataSource implements DataSourceInterface
 {
     use ModelBinderTrait;
-    use CompanyConverterTrait;
     
     /**
      * 
-     * @var CompanyRepositoryInterface
+     * @var CompanyServiceInterface
      */
-    private $companyRepository;
+    private $companyService;
     
-    public function __construct(CompanyRepositoryInterface$companyRepository)
+    public function __construct(CompanyServiceInterface $companyService)
     {
-        $this->companyRepository = $companyRepository;
+        $this->companyService= $companyService;
     }
     
     /**
@@ -33,12 +30,11 @@ class CompanyDSService implements DataSourceServiceInterface
      */
     public function fetch(DataSourceMessageInterface $message): DataSourceMessageInterface
     {
-        $companies = $this->companyRepository->findAll();
-        $data = $this->toCompanyDtos($companies);
-        $message->setData($data);
+        $companies = $this->companyService->fetchAll();
+        $message->setData($companies);
         $message->setStartRow(0);
-        $message->setEndRow(count($data)-1);
-        $message->setTotalRows(count($data));
+        $message->setEndRow(count($companies)-1);
+        $message->setTotalRows(count($companies));
         return $message;
     }
 
@@ -50,12 +46,9 @@ class CompanyDSService implements DataSourceServiceInterface
      */
     public function add(DataSourceMessageInterface $message): DataSourceMessageInterface
     {
-        $data = $message->getData();
-        $dto = $this->bind($data, CompanyDto::class);
-        $company = $this->toCompanyEntity($dto);
-        $company = $this->companyRepository->add($company);
-        $dto = $this->toCompanyDto($company);
-        $message->setData($dto);
+        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->companyService->add($company);
+        $message->setData($company);
         return $message;
     }
 

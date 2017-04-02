@@ -6,8 +6,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmartPHP\Interfaces\DataSourceMessageSerializerInterface;
 use SmartPHP\Interfaces\DataSourceMessageFactoryInterface;
-use SmartPHP\Interfaces\DataSourceServiceFactoryInterface;
-use SmartPHP\Interfaces\DataSourceServiceInvokatorInterface;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
+use SmartPHP\Interfaces\DataSourceInvokatorInterface;
 
 class DataSourceController
 {
@@ -26,29 +26,29 @@ class DataSourceController
 
     /**
      *
-     * @var DataSourceServiceFactoryInterface
+     * @var DataSourceFactoryInterface
      */
-    private $serviceFactory;
+    private $dataSourceFactory;
 
     /**
      *
-     * @var DataSourceServiceInvokatorInterface
+     * @var DataSourceInvokatorInterface
      */
-    private $serviceInvokator;
+    private $dataSourceInvokator;
 
     public function __construct(ContainerInterface $container)
     {
         $this->messageSerializer = $container->get("SmartPHP/Serializer");
         $this->messageFactory = $container->get("SmartPHP/MessageFactory");
-        $this->serviceFactory = $container->get("SmartPHP/ServiceFactory");
-        $this->serviceInvokator = $container->get("SmartPHP/ServiceInvokator");
+        $this->dataSourceFactory = $container->get("SmartPHP/ServiceFactory");
+        $this->dataSourceInvokator = $container->get("SmartPHP/ServiceInvokator");
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
         $message = $this->messageFactory->createFromServerRequest($request);
-        $service = $this->serviceFactory->createFromDataSourceMessage($message);
-        $message = $this->serviceInvokator->invokeService($service, $message);
+        $service = $this->dataSourceFactory->createFromDataSourceMessage($message);
+        $message = $this->dataSourceInvokator->invokeDataSource($service, $message);
         
         $response->getBody()->write($this->messageSerializer->serialize($message));
         

@@ -1,17 +1,18 @@
 <?php
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
-use SmartPHP\Example\Services\CompanyDSService;
+use SmartPHP\Example\DataSources\CompanyDataSource;
+use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Services\DataSourceFactory;
+use SmartPHP\Services\DataSourceInvokator;
 use SmartPHP\Services\DataSourceMessageFactory;
 use SmartPHP\Services\DataSourceMessageSerializer;
-use SmartPHP\Services\DataSourceServiceFactory;
-use SmartPHP\Services\DataSourceServiceInvokator;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Doctrine\ORM\EntityManagerInterface;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Services\CompanyService;
 
 $container = $app->getContainer();
 
@@ -35,7 +36,7 @@ $container["EntityManager"] = function (ContainerInterface $container) {
         __DIR__ . "/SmartPHP/Example/Models/Entities"
     ];
     
-//     var_dump(file_exists($paths[0])); die();
+    // var_dump(file_exists($paths[0])); die();
     
     $isDevMode = true;
     
@@ -46,7 +47,7 @@ $container["EntityManager"] = function (ContainerInterface $container) {
     $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
     $config->addEntityNamespace("", "SmartPHP\Example\Models\Entities");
     
-//         var_dump($database); die();
+    // var_dump($database); die();
     
     $entityManager = EntityManager::create($database, $config);
     
@@ -77,18 +78,22 @@ $container["SmartPHP/MessageFactory"] = function (ContainerInterface $c) {
 };
 
 $container["SmartPHP/ServiceFactory"] = function (ContainerInterface $c) {
-    return new DataSourceServiceFactory($c);
+    return new DataSourceFactory($c);
 };
 
 $container["SmartPHP/ServiceInvokator"] = function (ContainerInterface $c) {
-    return new DataSourceServiceInvokator();
+    return new DataSourceInvokator();
 };
 
-$container["CompanyDS"] = function (ContainerInterface $c) {
-    /**
-     * @var EntityManagerInterface $em
-     */
-    $em = $c->get("EntityManager");
-    return new CompanyDSService($em->getRepository(CompanyEntity::class));
+$container["CompanyRepository"] = function (ContainerInterface $container) {
+    return $container->get("EntityManager")->getRepository(CompanyEntity::class);
+};
+
+$container["CompanyService"] = function (ContainerInterface $container) {
+    return new CompanyService($container->get("CompanyRepository"));
+};
+
+$container["CompanyDS"] = function (ContainerInterface $container) {
+    return new CompanyDataSource($container->get("CompanyService"));
 };
 

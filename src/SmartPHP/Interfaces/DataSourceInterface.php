@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Interfaces;
 
-interface DataSourceServiceInterface
+interface DataSourceInterface
 {
     public function fetch(DataSourceMessageInterface $message): DataSourceMessageInterface;
     public function add(DataSourceMessageInterface $message): DataSourceMessageInterface;

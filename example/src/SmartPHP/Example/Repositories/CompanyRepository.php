@@ -15,7 +15,7 @@ class CompanyRepository extends EntityRepository implements CompanyRepositoryInt
      */
     public function fetchAll(): array
     {
-        // TODO: Auto-generated method stub
+        return $this->findAll();
     }
 
     /**

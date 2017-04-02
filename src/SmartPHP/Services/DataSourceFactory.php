@@ -2,11 +2,11 @@
 namespace SmartPHP\Services;
 
 use Interop\Container\ContainerInterface;
-use SmartPHP\Interfaces\DataSourceServiceFactoryInterface;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Interfaces\DataSourceMessageInterface;
-use SmartPHP\Interfaces\DataSourceServiceInterface;
+use SmartPHP\Interfaces\DataSourceInterface;
 
-class DataSourceServiceFactory implements DataSourceServiceFactoryInterface
+class DataSourceFactory implements DataSourceFactoryInterface
 {
 
     /**
@@ -25,7 +25,7 @@ class DataSourceServiceFactory implements DataSourceServiceFactoryInterface
      *
      * @see \SmartPHP\DataSourceServiceFactoryInterface::createFromDataSourceMessage()
      */
-    public function createFromDataSourceMessage(DataSourceMessageInterface $message): DataSourceServiceInterface
+    public function createFromDataSourceMessage(DataSourceMessageInterface $message): DataSourceInterface
     {
         $id = trim($message->getDataSource());
         return $this->container->get($id);

@@ -1,12 +1,12 @@
 <?php
 namespace SmartPHP\Services;
 
-use SmartPHP\Interfaces\DataSourceServiceInvokatorInterface;
-use SmartPHP\Interfaces\DataSourceServiceInterface;
+use SmartPHP\Interfaces\DataSourceInvokatorInterface;
+use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceMessageInterface;
 use SmartPHP\Models\DataSourceOperationType;
 
-class DataSourceServiceInvokator implements DataSourceServiceInvokatorInterface
+class DataSourceInvokator implements DataSourceInvokatorInterface
 {
 
     /**
@@ -15,9 +15,9 @@ class DataSourceServiceInvokator implements DataSourceServiceInvokatorInterface
      *
      * @see \SmartPHP\DataSourceServiceInvokatorInterface::invokeService()
      */
-    public function invokeService(DataSourceServiceInterface $service, DataSourceMessageInterface $message): DataSourceMessageInterface
+    public function invokeDataSource(DataSourceInterface $service, DataSourceMessageInterface $message): DataSourceMessageInterface
     {
-        switch(strtolower($message->getOperationType())) {
+        switch (strtolower($message->getOperationType())) {
             case DataSourceOperationType::FETCH:
                 return $service->fetch($message);
             case DataSourceOperationType::ADD:
