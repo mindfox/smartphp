@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Tests\Services;
+namespace SmartPHP\Services\Tests;
 
 use PHPUnit\Framework\TestCase;
 use SmartPHP\Interfaces\DataSourceMessageInterface;

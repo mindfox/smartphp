@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Tests\Services;
+namespace SmartPHP\Services\Tests;
 
 use Phake;
 use PHPUnit\Framework\TestCase;
