@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Converters;
+namespace SmartPHP\Traits;
 
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 

@@ -1,13 +1,13 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Interfaces\DataSourceServiceInterface;
-use SmartPHP\Interfaces\DataSourceMessageInterface;
-use Doctrine\ORM\EntityRepository;
 use SmartPHP\Example\Converters\CompanyConverterTrait;
-use SmartPHP\Example\Converters\ModelBinderTrait;
 use SmartPHP\Example\Models\Dtos\CompanyDto;
 use SmartPHP\Example\Repositories\CompanyRepository;
+use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Interfaces\DataSourceMessageInterface;
+use SmartPHP\Interfaces\DataSourceServiceInterface;
+use SmartPHP\Traits\ModelBinderTrait;
 
 class CompanyDSService implements DataSourceServiceInterface
 {
@@ -16,11 +16,11 @@ class CompanyDSService implements DataSourceServiceInterface
     
     /**
      * 
-     * @var CompanyRepository
+     * @var CompanyRepositoryInterface
      */
     private $companyRepository;
     
-    public function __construct(CompanyRepository $companyRepository)
+    public function __construct(CompanyRepositoryInterface$companyRepository)
     {
         $this->companyRepository = $companyRepository;
     }
