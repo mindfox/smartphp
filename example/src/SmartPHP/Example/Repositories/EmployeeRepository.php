@@ -37,7 +37,7 @@ class EmployeeRepository extends GenericEntityRepository implements EmployeeRepo
      */
     public function fetch(EmployeeEntity $employee = null)
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchEntity($employee);
     }
     
     /**

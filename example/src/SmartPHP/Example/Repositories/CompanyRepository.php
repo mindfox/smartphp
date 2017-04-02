@@ -37,7 +37,7 @@ class CompanyRepository extends GenericEntityRepository implements CompanyReposi
      */
     public function fetch(CompanyEntity $company = null)
     {
-        // TODO: Auto-generated method stub
+        return $this->fetchEntity($company);
     }
 
     /**

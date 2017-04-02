@@ -10,35 +10,38 @@ class GenericEntityRepository extends EntityRepository
     {
         return $this->findAll();
     }
-    
-    protected function fetchOneEntity($object)
+
+    protected function fetchOneEntity($entity)
     {
-        return $this->find($object);
+        return $this->find($entity);
     }
-    
-    protected function fetchEntity($object= null)
+
+    protected function fetchEntity($entity = null)
     {
-        
+        if (is_null($entity)) {
+            return $this->fetchAllEntities();
+        }
+        return $this->fetchOneEntity($entity);
     }
-    
-    protected function addEntity($object)
+
+    protected function addEntity($entity)
     {
-        $this->getEntityManager()->persist($object);
+        $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
-        return $object;
+        return $entity;
     }
-    
-    protected function updateEntity($object)
+
+    protected function updateEntity($entity)
     {
-        $object = $this->getEntityManager()->merge($object);
+        $entity = $this->getEntityManager()->merge($entity);
         $this->getEntityManager()->flush();
-        return $object;
+        return $entity;
     }
-    
-    protected function removeEntity($object)
+
+    protected function removeEntity($entity)
     {
-        $this->getEntityManager()->remove($object);
+        $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
-        return $object;
+        return $entity;
     }
 }
