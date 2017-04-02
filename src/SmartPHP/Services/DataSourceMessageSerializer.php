@@ -31,6 +31,7 @@ class DataSourceMessageSerializer implements DataSourceMessageSerializerInterfac
             "response" => $message
         ];
         $format = $message->getDataFormat();
-        return $this->serializer->serialize($data, $format);
+        $serialized = $this->serializer->serialize($data, $format);
+        return $serialized ?? "";
     }
 }

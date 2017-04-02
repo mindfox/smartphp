@@ -24,43 +24,43 @@ interface DataSourceMessageInterface
 
     public function getComponentId(): string;
 
-    public function setComponentId(string $componentId): self;
+    public function setComponentId(string $componentId): DataSourceMessageInterface;
 
     public function getData();
 
-    public function setData($data): self;
+    public function setData($data): DataSourceMessageInterface;
 
     public function getDataSource(): string;
 
-    public function setDataSource(string $dataSource): self;
+    public function setDataSource(string $dataSource): DataSourceMessageInterface;
 
     public function getEndRow(): int;
 
-    public function setEndRow(int $endRow): self;
+    public function setEndRow(int $endRow): DataSourceMessageInterface;
 
     public function getOldValues();
 
-    public function setOldValues($oldValues): self;
+    public function setOldValues($oldValues): DataSourceMessageInterface;
 
     public function getOperationType(): string;
 
-    public function setOperationType($operationType): self;
+    public function setOperationType($operationType): DataSourceMessageInterface;
 
     public function getStartRow(): int;
 
-    public function setStartRow(int $startRow): self;
+    public function setStartRow(int $startRow): DataSourceMessageInterface;
 
     public function getTotalRows(): int;
 
-    public function setTotalRows(int $totalRows): self;
+    public function setTotalRows(int $totalRows): DataSourceMessageInterface;
 
     public function getTextMatchStyle(): string;
 
-    public function setTextMatchStyle(string $textMatchStyle): self;
+    public function setTextMatchStyle(string $textMatchStyle): DataSourceMessageInterface;
 
     public function hasDataFormat(): bool;
 
     public function getDataFormat(): string;
 
-    public function setDataFormat(string $dataFormat): self;
+    public function setDataFormat(string $dataFormat): DataSourceMessageInterface;
 }
