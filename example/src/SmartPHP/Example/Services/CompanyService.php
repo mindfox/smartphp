@@ -9,13 +9,13 @@ class CompanyService implements CompanyServiceInterface
 {
     
     use CompanyConverterTrait;
-    
+
     /**
      *
      * @var CompanyRepositoryInterface
      */
     private $companyRepository;
-    
+
     public function __construct(CompanyRepositoryInterface $companyRepository)
     {
         $this->companyRepository = $companyRepository;
@@ -41,7 +41,10 @@ class CompanyService implements CompanyServiceInterface
      */
     public function fetchOne(CompanyDto $company): CompanyDto
     {
-        // TODO: Auto-generated method stub
+        $company = $this->toCompanyEntity($company);
+        $company = $this->companyRepository->fetchOne($company);
+        $company = $this->toCompanyDto($company);
+        return $company;
     }
 
     /**
@@ -52,7 +55,14 @@ class CompanyService implements CompanyServiceInterface
      */
     public function fetch(CompanyDto $company = null)
     {
-        // TODO: Auto-generated method stub
+        if (is_null($company)) {
+            $company = $this->companyRepository->fetch();
+        } else {
+            $company = $this->toCompanyEntity($company);
+            $company = $this->companyRepository->fetch($company);
+        }
+        $company = $this->toCompanyDto($company);
+        return $company;
     }
 
     /**
@@ -77,7 +87,10 @@ class CompanyService implements CompanyServiceInterface
      */
     public function update(CompanyDto $company): CompanyDto
     {
-        // TODO: Auto-generated method stub
+        $company = $this->toCompanyEntity($company);
+        $company = $this->companyRepository->update($company);
+        $company = $this->toCompanyDto($company);
+        return $company;
     }
 
     /**
@@ -88,6 +101,9 @@ class CompanyService implements CompanyServiceInterface
      */
     public function remove(CompanyDto $company): CompanyDto
     {
-        // TODO: Auto-generated method stub
+        $company = $this->toCompanyEntity($company);
+        $company = $this->companyRepository->remove($company);
+        $company = $this->toCompanyDto($company);
+        return $company;
     }
 }

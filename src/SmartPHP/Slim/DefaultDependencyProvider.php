@@ -77,6 +77,7 @@ final class DefaultDependencyProvider
 
     public static function register(ContainerInterface $container): ContainerInterface
     {
+        $container = self::registerSerializer($container);
         $container = self::registerMessageSerializer($container);
         $container = self::registerMessageFactory($container);
         $container = self::registerDataSourceFactory($container);
