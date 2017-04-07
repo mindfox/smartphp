@@ -19,45 +19,23 @@ use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeService;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
 use function DI\object;
-use Doctrine\ORM\EntityManagerInterface;
 
-$container = $app->getContainer();
+// $container = $app->getContainer();
 
-$container["DatabaseConnection"] = function (ContainerInterface $container) {
-    return [
-        
-        'driver' => 'pdo_mysql',
-        
-        'host' => '127.0.0.1',
-        
-        'dbname' => 'smartphp',
-        
-        'user' => 'root',
-        
-        'password' => '1234'
-    
-    ];
-};
+$container = [];
 
 $container["EntityManagerConfiguration"] = function (ContainerInterface $container) {
-    $paths = [
-        __DIR__ . "/SmartPHP/Example/Models/Entities"
-    ];
-    
-    $isDevMode = true;
-    
-    $proxyDir = __DIR__ . "/SmartPHP/Example/Models/Proxies";
-    $cache = null;
-    $useSimpleAnnotationReader = false;
-    
-    $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
-    $config->addEntityNamespace("", "SmartPHP\Example\Models\Entities");
-    
+    $settings = $container->get("doctrine")["annotationMetadataConfiguration"];
+    $entityNamespaces = $container->get("doctrine")["entityNamespaces"];
+    $config = Setup::createAnnotationMetadataConfiguration($settings["paths"], $settings["isDevMode"], $settings["proxyDir"], $settings["cache"], $settings["useSimpleAnnotationReader"]);
+    foreach ($entityNamespaces as $alias => $namespace) {
+        $config->addEntityNamespace($alias, $namespace);
+    }
     return $config;
 };
 
 $container["EntityManager"] = function (ContainerInterface $container) {
-    $database = $container->get("DatabaseConnection");
+    $database = $container->get("databases")["smartphp"];
     $config = $container->get("EntityManagerConfiguration");
     $entityManager = EntityManager::create($database, $config);
     return $entityManager;
@@ -117,3 +95,4 @@ $container["EmployeeDataSource"] = function (ContainerInterface $container) {
     return $container->get("DI")->get(EmployeeDataSource::class);
 };
 
+return $container;
