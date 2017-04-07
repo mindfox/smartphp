@@ -1,4 +1,5 @@
 <?php
+use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
@@ -8,9 +9,17 @@ use SmartPHP\Example\DataSources\EmployeeDataSource;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
 use SmartPHP\Example\Models\Entities\DepartmentEntity;
 use SmartPHP\Example\Models\Entities\EmployeeEntity;
+use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
+use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Services\CompanyService;
+use SmartPHP\Example\Services\CompanyServiceInterface;
 use SmartPHP\Example\Services\DepartmentService;
+use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeService;
+use SmartPHP\Example\Services\EmployeeServiceInterface;
+use function DI\object;
+use Doctrine\ORM\EntityManagerInterface;
 
 $container = $app->getContainer();
 
@@ -55,44 +64,56 @@ $container["EntityManager"] = function (ContainerInterface $container) {
 };
 
 // ===================================================================================
+// DI Configuration
 
-$container["CompanyRepository"] = function (ContainerInterface $container) {
-    return $container->get("EntityManager")->getRepository(CompanyEntity::class);
+$container["DI-Definitions"] = function (ContainerInterface $container) {
+    return [
+        
+        CompanyRepositoryInterface::class => function () use ($container) {
+            return $container->get("EntityManager")->getRepository(CompanyEntity::class);
+        },
+        
+        DepartmentRepositoryInterface::class => function () use ($container) {
+            return $container->get("EntityManager")->getRepository(DepartmentEntity::class);
+        },
+        
+        EmployeeRepositoryInterface::class => function () use ($container) {
+            return $container->get("EntityManager")->getRepository(EmployeeEntity::class);
+        },
+        
+        CompanyServiceInterface::class => object(CompanyService::class),
+        
+        DepartmentServiceInterface::class => object(DepartmentService::class),
+        
+        EmployeeServiceInterface::class => object(EmployeeService::class),
+        
+        CompanyDataSource::class => object(CompanyDataSource::class),
+        
+        DepartmentDataSource::class => object(DepartmentDataSource::class),
+        
+        EmployeeDataSource::class => object(EmployeeDataSource::class)
+    
+    ];
 };
 
-$container["CompanyService"] = function (ContainerInterface $container) {
-    return new CompanyService($container->get("CompanyRepository"));
-};
-
-$container["CompanyDataSource"] = function (ContainerInterface $container) {
-    return new CompanyDataSource($container->get("CompanyService"));
+$container["DI"] = function (ContainerInterface $container) {
+    $builder = new ContainerBuilder();
+    $builder->addDefinitions($container->get("DI-Definitions"));
+    return $builder->build();
 };
 
 // ===================================================================================
+// DataSources
 
-$container["DepartmentRepository"] = function (ContainerInterface $container) {
-    return $container->get("EntityManager")->getRepository(DepartmentEntity::class);
-};
-
-$container["DepartmentService"] = function (ContainerInterface $container) {
-    return new DepartmentService($container->get("DepartmentRepository"));
+$container["CompanyDataSource"] = function (ContainerInterface $container) {
+    return $container->get("DI")->get(CompanyDataSource::class);
 };
 
 $container["DepartmentDataSource"] = function (ContainerInterface $container) {
-    return new DepartmentDataSource($container->get("DepartmentService"));
-};
-
-// ===================================================================================
-
-$container["EmployeeRepository"] = function (ContainerInterface $container) {
-    return $container->get("EntityManager")->getRepository(EmployeeEntity::class);
-};
-
-$container["EmployeeService"] = function (ContainerInterface $container) {
-    return new EmployeeService($container->get("EmployeeRepository"));
+    return $container->get("DI")->get(DepartmentDataSource::class);
 };
 
 $container["EmployeeDataSource"] = function (ContainerInterface $container) {
-    return new EmployeeDataSource($container->get("EmployeeService"));
+    return $container->get("DI")->get(EmployeeDataSource::class);
 };
 

@@ -60,6 +60,9 @@ class CompanyDataSource implements DataSourceInterface
      */
     public function update(DataSourceMessageInterface $message): DataSourceMessageInterface
     {
+        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->companyService->update($company);
+        $message->setData($company);
         return $message;
     }
 
@@ -71,6 +74,9 @@ class CompanyDataSource implements DataSourceInterface
      */
     public function remove(DataSourceMessageInterface $message): DataSourceMessageInterface
     {
+        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->companyService->remove($company);
+        $message->setData($company);
         return $message;
     }
 }
