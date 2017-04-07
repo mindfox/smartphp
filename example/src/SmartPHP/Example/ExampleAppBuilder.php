@@ -49,12 +49,12 @@ class ExampleAppBuilder extends AppBuilder
                 "annotationMetadataConfiguration" => [
                     
                     "paths" => [
-                        __DIR__ . "/SmartPHP/Example/Models/Entities"
+                        __DIR__ . "/Models/Entities"
                     ],
                     
                     "isDevMode" => true,
                     
-                    "proxyDir" => __DIR__ . "/SmartPHP/Example/Models/Proxies",
+                    "proxyDir" => __DIR__ . "/Models/Proxies",
                     
                     "cache" => null,
                     
