@@ -82,6 +82,7 @@ class DataSourceController
         $request= $this->requestFactory->createFromServerRequest($request);
         $content = $this->executeDataSourceRequest($request);
         $response->getBody()->write($content);
+        
         return $response;
     }
 }
