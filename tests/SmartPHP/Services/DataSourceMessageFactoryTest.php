@@ -2,7 +2,7 @@
 namespace SmartPHP\Services\Tests;
 
 use PHPUnit\Framework\TestCase;
-use SmartPHP\Interfaces\DataSourceMessageInterface;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
 use SmartPHP\Services\DataSourceMessageFactory;
 
 class DataSourceMessageFactoryTest extends TestCase
@@ -13,7 +13,7 @@ class DataSourceMessageFactoryTest extends TestCase
         $messageFactor = new DataSourceMessageFactory();
         $message = $messageFactor->createFromArray($array);
         
-        $this->assertInstanceOf(DataSourceMessageInterface::class, $message);
+        $this->assertInstanceOf(DataSourceOperationInterface::class, $message);
         
     }
 }

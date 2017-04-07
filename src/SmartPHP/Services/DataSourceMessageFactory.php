@@ -3,8 +3,8 @@ namespace SmartPHP\Services;
 
 use Psr\Http\Message\ServerRequestInterface;
 use SmartPHP\Interfaces\DataSourceMessageFactoryInterface;
-use SmartPHP\Interfaces\DataSourceMessageInterface;
-use SmartPHP\Models\DataSourceMessage;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Models\DataSourceOperation;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class DataSourceMessageFactory implements DataSourceMessageFactoryInterface
@@ -36,8 +36,9 @@ class DataSourceMessageFactory implements DataSourceMessageFactoryInterface
     public function createFromArray(array $array): DataSourceMessageInterface
     {
         $array = $this->normalizeArray($array);
+        var_dump($array); die();
         $normalizer = new GetSetMethodNormalizer();
-        $message = $normalizer->denormalize($array, DataSourceMessage::class);
+        $message = $normalizer->denormalize($array, DataSourceOperation::class);
         return $message;
     }
 

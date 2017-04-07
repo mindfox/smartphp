@@ -3,7 +3,7 @@ namespace SmartPHP\Services\Tests;
 
 use Phake;
 use PHPUnit\Framework\TestCase;
-use SmartPHP\Interfaces\DataSourceMessageInterface;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use SmartPHP\Services\DataSourceMessageSerializer;
 

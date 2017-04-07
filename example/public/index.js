@@ -50,16 +50,23 @@
 	    ID:"DepartmentDataSource",
 	    fields:[ {
 	    	name:"id",
-	    	title:"Department ID",
+	    	title:"ID",
 	    	primaryKey:true,
 	    	canEdit:false
 	    }, {
 	    	name:"companyId",
-	    	title:"Company ID",
-	    	canEdit:false
+	    	title:"Company",
+	    	foreignKey: "CompanyDataSource.id",
+	    	valueField : "id",
+	    	displayField : "name",
+			optionDataSource : CompanyDataSource,
+			pickListWidth : 330,
+			pickListFields : [ {
+				name : "name"
+			}, ],
 	    }, {
 	    	name:"name", 
-	    	title:"Department Name"
+	    	title:"Name"
 	    } ],
 	    dataFormat:"json",
 	    operationBindings : operationBindings,
@@ -95,12 +102,26 @@
 	
 	isc.ListGrid.create({
 	    ID: "CompanyList",
-	    top:"50px",
+	    top:"30px",
 	    width:"100%",
-	    height:"250px",
+	    height:"100px",
 	    alternateRecordStyles:true,
 	    emptyCellValue: "--",
 	    dataSource: CompanyDataSource,
+	    useAllDataSourceFields:true,
+	    dataPageSize: 50,
+	    autoFetchData:true,
+	    canEdit:true
+	});
+	
+	isc.ListGrid.create({
+	    ID: "DepartmentList",
+	    top:"130px",
+	    width:"100%",
+	    height:"100px",
+	    alternateRecordStyles:true,
+	    emptyCellValue: "--",
+	    dataSource: DepartmentDataSource,
 	    useAllDataSourceFields:true,
 	    dataPageSize: 50,
 	    autoFetchData:true,

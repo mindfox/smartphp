@@ -8,15 +8,27 @@ use SmartPHP\Interfaces\DataSourceMessageSerializerInterface;
 use SmartPHP\Interfaces\DataSourceMessageFactoryInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Interfaces\DataSourceInvokatorInterface;
+use SmartPHP\Interfaces\DataSourceRequestFactoryInterface;
+use SmartPHP\Interfaces\DataSourceExecutorInterface;
+use SmartPHP\Interfaces\DataSourceResponseSerializerInterface;
+use SmartPHP\Interfaces\DataSourceRequestInterface;
+use SmartPHP\Interfaces\DataSourceTransactionInterface;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
 
 class DataSourceController
 {
 
     /**
      *
-     * @var DataSourceMessageSerializerInterface
+     * @var DataSourceRequestFactoryInterface
      */
-    private $messageSerializer;
+    private $requestFactory;
+
+    /**
+     *
+     * @var DataSourceResponseSerializerInterface
+     */
+    private $responseSerializer;
 
     /**
      *
@@ -32,9 +44,9 @@ class DataSourceController
 
     /**
      *
-     * @var DataSourceInvokatorInterface
+     * @var DataSourceExecutorInterface
      */
-    private $dataSourceInvokator;
+    private $dataSourceExecutor;
 
     public function __construct(ContainerInterface $container)
     {
@@ -45,14 +57,31 @@ class DataSourceController
         $this->dataSourceInvokator = $container->get(DependencyIds::DATASORUCE_INVOKATOR);
     }
 
+    private function executeDataSourceTransaction(DataSourceTransactionInterface $transaction): string
+    {
+        $responses = $this->dataSourceExecutor->executeTransaction($dataSource, $transaction);
+        return $this->responseSerializer->serializeResponses($responses);
+    }
+
+    private function executeDataSourceOperation(DataSourceOperationInterface $operation): string
+    {
+        $response = $this->dataSourceExecutor->executeOperation($dataSource, $operation);
+        return $this->responseSerializer->serializeResponse($response);
+    }
+
+    private function executeDataSourceRequest(DataSourceRequestInterface $request): string
+    {
+        if ($request->isTransaction()) {
+            return $this->executeDataSourceTransaction($transaction);
+        }
+        return $this->executeDataSourceOperation($operation);
+    }
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $message = $this->messageFactory->createFromServerRequest($request);
-        $service = $this->dataSourceFactory->createFromDataSourceMessage($message);
-        $message = $this->dataSourceInvokator->invokeDataSource($service, $message);
-        
-        $response->getBody()->write($this->messageSerializer->serialize($message));
-        
+        $request= $this->requestFactory->createFromServerRequest($request);
+        $content = $this->executeDataSourceRequest($request);
+        $response->getBody()->write($content);
         return $response;
     }
 }

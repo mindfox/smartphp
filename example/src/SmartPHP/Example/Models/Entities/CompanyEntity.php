@@ -27,6 +27,14 @@ class CompanyEntity
      * @ORM\Column(name="Name", type="string", length=255, nullable=false)
      */
     private $name;
+    
+    /**
+     * 
+     * @var unknown
+     * 
+     * @ORM\OneToMany(targetEntity="DepartmentEntity", mappedBy="company")
+     */
+    private $departments;
 
     /**
      * Get id
@@ -67,5 +75,46 @@ class CompanyEntity
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->departments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add department
+     *
+     * @param \SmartPHP\Example\Models\Entities\DepartmentEntity $department
+     *
+     * @return CompanyEntity
+     */
+    public function addDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department)
+    {
+        $this->departments[] = $department;
+
+        return $this;
+    }
+
+    /**
+     * Remove department
+     *
+     * @param \SmartPHP\Example\Models\Entities\DepartmentEntity $department
+     */
+    public function removeDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department)
+    {
+        $this->departments->removeElement($department);
+    }
+
+    /**
+     * Get departments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDepartments()
+    {
+        return $this->departments;
     }
 }

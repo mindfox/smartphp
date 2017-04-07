@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\DataSources;
 
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceMessageInterface;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
 use SmartPHP\Traits\ModelBinderTrait;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
 use SmartPHP\Example\Models\Dtos\EmployeeDto;
@@ -28,7 +28,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceMessageInterface $message): DataSourceMessageInterface
+    public function fetch(DataSourceOperationInterface $message): DataSourceMessageInterface
     {
         $companies = $this->employeeService->fetchAll();
         $message->setData($companies);
@@ -44,7 +44,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceMessageInterface $message): DataSourceMessageInterface
+    public function add(DataSourceOperationInterface $message): DataSourceMessageInterface
     {
         $employee = $this->bind($message->getData(), EmployeeDto::class);
         $employee = $this->employeeService->add($employee);
@@ -58,7 +58,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceMessageInterface $message): DataSourceMessageInterface
+    public function update(DataSourceOperationInterface $message): DataSourceMessageInterface
     {
         return $message;
     }
@@ -69,7 +69,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceMessageInterface $message): DataSourceMessageInterface
+    public function remove(DataSourceOperationInterface $message): DataSourceMessageInterface
     {
         return $message;
     }

@@ -72,7 +72,7 @@ class ExampleAppBuilder extends AppBuilder
         
         ];
     }
-    
+
     protected function registerDependencies(ContainerInterface $container): AppBuilder
     {
         $container["EntityManagerConfiguration"] = function (ContainerInterface $container) {
@@ -121,8 +121,8 @@ class ExampleAppBuilder extends AppBuilder
                 DepartmentDataSource::class => object(DepartmentDataSource::class),
                 
                 EmployeeDataSource::class => object(EmployeeDataSource::class)
-                
-                ];
+            
+            ];
         };
         
         $container["DI"] = function (ContainerInterface $container) {
@@ -146,8 +146,6 @@ class ExampleAppBuilder extends AppBuilder
             return $container->get("DI")->get(EmployeeDataSource::class);
         };
         
-//         var_dump($container); die();
-        
         return parent::registerDependencies($container);
     }
 
@@ -158,5 +156,4 @@ class ExampleAppBuilder extends AppBuilder
         
         return parent::registerRoutes($app);
     }
-
 }

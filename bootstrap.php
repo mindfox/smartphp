@@ -1,17 +1,13 @@
 <?php
-use Slim\App;
+use SmartPHP\Example\ExampleAppBuilder;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$app = new App();
-
-// Get dependencies
-$dependencies = require __DIR__ . '/example/src/dependencies.php';
-
+$app = ExampleAppBuilder::create()->build();
 
 /**
  *
  * @var Doctrine\ORM\EntityManager $entityManager
  */
-$entityManager = $container->get("EntityManager");
+$entityManager = $app->getContainer()->get("EntityManager");
 

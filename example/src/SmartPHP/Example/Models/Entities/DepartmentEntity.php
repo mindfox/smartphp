@@ -30,6 +30,14 @@ class DepartmentEntity
     private $name;
     
     /**
+     * @var unknown
+     * 
+     * @ORM\ManyToOne(targetEntity="CompanyEntity", inversedBy="departments")
+     * @ORM\JoinColumn(name="CompanyID", referencedColumnName="ID")
+     */
+    private $company;
+    
+    /**
      * 
      * @var Collection
      * 
@@ -122,5 +130,29 @@ class DepartmentEntity
     public function getEmployees()
     {
         return $this->employees;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \SmartPHP\Example\Models\Entities\CompanyEntity $company
+     *
+     * @return DepartmentEntity
+     */
+    public function setCompany(\SmartPHP\Example\Models\Entities\CompanyEntity $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \SmartPHP\Example\Models\Entities\CompanyEntity
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 }

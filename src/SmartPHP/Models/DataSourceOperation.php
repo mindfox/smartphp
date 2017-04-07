@@ -1,9 +1,9 @@
 <?php
 namespace SmartPHP\Models;
 
-use SmartPHP\Interfaces\DataSourceMessageInterface;
+use SmartPHP\Interfaces\DataSourceOperationInterface;
 
-class DataSourceMessage implements DataSourceMessageInterface
+class DataSourceOperation implements DataSourceOperationInterface
 {
 
     /**
@@ -83,7 +83,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasComponentId()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasComponentId()
      */
     public function hasComponentId(): bool
     {
@@ -94,7 +94,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasData()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasData()
      */
     public function hasData(): bool
     {
@@ -105,7 +105,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasDataSource()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasDataSource()
      */
     public function hasDataSource(): bool
     {
@@ -116,7 +116,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasEndRow()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasEndRow()
      */
     public function hasEndRow(): bool
     {
@@ -127,7 +127,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasOldValues()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasOldValues()
      */
     public function hasOldValues(): bool
     {
@@ -138,7 +138,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasOperationType()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasOperationType()
      */
     public function hasOperationType(): bool
     {
@@ -149,7 +149,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasStartRow()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasStartRow()
      */
     public function hasStartRow(): bool
     {
@@ -160,7 +160,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasTextMatchStyle()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasTextMatchStyle()
      */
     public function hasTextMatchStyle(): bool
     {
@@ -171,7 +171,7 @@ class DataSourceMessage implements DataSourceMessageInterface
      *
      * {@inheritdoc}
      *
-     * @see \maxmeffert\smartphp\DataSourceMessageInterface::hasTotalRows()
+     * @see \maxmeffert\smartphp\DataSourceOperationInterface::hasTotalRows()
      */
     public function hasTotalRows(): bool
     {
@@ -183,7 +183,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->componentId;
     }
 
-    public function setComponentId(string $componentId): DataSourceMessageInterface
+    public function setComponentId(string $componentId): DataSourceOperationInterface
     {
         $this->componentId = $componentId;
         return $this;
@@ -194,7 +194,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->data;
     }
 
-    public function setData($data): DataSourceMessageInterface
+    public function setData($data): DataSourceOperationInterface
     {
         $this->data = $data;
         return $this;
@@ -205,7 +205,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->dataSource;
     }
 
-    public function setDataSource(string $dataSource): DataSourceMessageInterface
+    public function setDataSource(string $dataSource): DataSourceOperationInterface
     {
         $this->dataSource = $dataSource;
         return $this;
@@ -216,7 +216,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->endRow;
     }
 
-    public function setEndRow(int $endRow): DataSourceMessageInterface
+    public function setEndRow(int $endRow): DataSourceOperationInterface
     {
         $this->endRow = $endRow;
         return $this;
@@ -227,7 +227,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->oldValues;
     }
 
-    public function setOldValues($oldValues): DataSourceMessageInterface
+    public function setOldValues($oldValues): DataSourceOperationInterface
     {
         $this->oldValues = $oldValues;
         return $this;
@@ -238,7 +238,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->operationType;
     }
 
-    public function setOperationType($operationType): DataSourceMessageInterface
+    public function setOperationType($operationType): DataSourceOperationInterface
     {
         $this->operationType = strtolower($operationType);
         return $this;
@@ -249,7 +249,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->startRow;
     }
 
-    public function setStartRow(int $startRow): DataSourceMessageInterface
+    public function setStartRow(int $startRow): DataSourceOperationInterface
     {
         $this->startRow = $startRow;
         return $this;
@@ -260,7 +260,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->totalRows;
     }
 
-    public function setTotalRows(int $totalRows): DataSourceMessageInterface
+    public function setTotalRows(int $totalRows): DataSourceOperationInterface
     {
         $this->totalRows = $totalRows;
         return $this;
@@ -271,7 +271,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->textMatchStyle;
     }
 
-    public function setTextMatchStyle(string $textMatchStyle): DataSourceMessageInterface
+    public function setTextMatchStyle(string $textMatchStyle): DataSourceOperationInterface
     {
         $this->textMatchStyle = $textMatchStyle;
         return $this;
@@ -287,7 +287,7 @@ class DataSourceMessage implements DataSourceMessageInterface
         return $this->dataFormat;
     }
 
-    public function setDataFormat(string $dataFormat): DataSourceMessageInterface
+    public function setDataFormat(string $dataFormat): DataSourceOperationInterface
     {
         $this->dataFormat = $dataFormat;
         return $this;

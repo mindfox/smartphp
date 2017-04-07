@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Interfaces;
 
-interface DataSourceMessageInterface
+interface DataSourceOperationInterface
 {
 
     public function hasComponentId(): bool;
@@ -24,43 +24,43 @@ interface DataSourceMessageInterface
 
     public function getComponentId(): string;
 
-    public function setComponentId(string $componentId): DataSourceMessageInterface;
+    public function setComponentId(string $componentId): DataSourceOperationInterface;
 
     public function getData();
 
-    public function setData($data): DataSourceMessageInterface;
+    public function setData($data): DataSourceOperationInterface;
 
     public function getDataSource(): string;
 
-    public function setDataSource(string $dataSource): DataSourceMessageInterface;
+    public function setDataSource(string $dataSource): DataSourceOperationInterface;
 
     public function getEndRow(): int;
 
-    public function setEndRow(int $endRow): DataSourceMessageInterface;
+    public function setEndRow(int $endRow): DataSourceOperationInterface;
 
     public function getOldValues();
 
-    public function setOldValues($oldValues): DataSourceMessageInterface;
+    public function setOldValues($oldValues): DataSourceOperationInterface;
 
     public function getOperationType(): string;
 
-    public function setOperationType($operationType): DataSourceMessageInterface;
+    public function setOperationType($operationType): DataSourceOperationInterface;
 
     public function getStartRow(): int;
 
-    public function setStartRow(int $startRow): DataSourceMessageInterface;
+    public function setStartRow(int $startRow): DataSourceOperationInterface;
 
     public function getTotalRows(): int;
 
-    public function setTotalRows(int $totalRows): DataSourceMessageInterface;
+    public function setTotalRows(int $totalRows): DataSourceOperationInterface;
 
     public function getTextMatchStyle(): string;
 
-    public function setTextMatchStyle(string $textMatchStyle): DataSourceMessageInterface;
+    public function setTextMatchStyle(string $textMatchStyle): DataSourceOperationInterface;
 
     public function hasDataFormat(): bool;
 
     public function getDataFormat(): string;
 
-    public function setDataFormat(string $dataFormat): DataSourceMessageInterface;
+    public function setDataFormat(string $dataFormat): DataSourceOperationInterface;
 }
