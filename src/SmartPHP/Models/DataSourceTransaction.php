@@ -6,8 +6,22 @@ use SmartPHP\Interfaces\DataSourceTransactionInterface;
 class DataSourceTransaction implements DataSourceTransactionInterface
 {
 
-    private $transactionNum;
+    /**
+     * 
+     * @var int
+     */
+    private $transactionNum = -1;
+    
+    /**
+     * 
+     * @var string
+     */
+    private $dataFormat = "";
 
+    /**
+     * 
+     * @var array
+     */
     private $operations = [];
 
     public function getTransactionNum(): int
@@ -29,6 +43,29 @@ class DataSourceTransaction implements DataSourceTransactionInterface
     public function addOperation(DataSourceOperation $operation): DataSourceTransactionInterface
     {
         $this->operations[] = $operation;
+        return $this;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Interfaces\DataSourceTransactionInterface::getDataFormat()
+     */
+    public function getDataFormat(): string
+    {
+        return $this->dataFormat;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Interfaces\DataSourceTransactionInterface::setDataFormat()
+     */
+    public function setDataFormat(string $dataFormat): DataSourceTransactionInterface
+    {
+        $this->dataFormat = $dataFormat;
         return $this;
     }
 }

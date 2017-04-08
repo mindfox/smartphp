@@ -10,9 +10,26 @@ use SmartPHP\Interfaces\DataSourceResponsesInterface;
 use SmartPHP\Interfaces\DataSourceTransactionInterface;
 use SmartPHP\Models\DataSourceResponse;
 use SmartPHP\Models\DataSourceResponses;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
 
 class DataSourceExecutor implements DataSourceExecutorInterface
 {
+
+    /**
+     *
+     * @var DataSourceFactoryInterface
+     */
+    private $dataSourceFactory;
+
+    public function __construct(DataSourceFactoryInterface $dataSourceFactory)
+    {
+        $this->dataSourceFactory = $dataSourceFactory;
+    }
+
+    private function getDataSource(DataSourceOperationInterface $operation): DataSourceInterface
+    {
+        return $this->dataSourceFactory->createFromDataSourceMessage($operation);
+    }
 
     /**
      *
@@ -20,8 +37,9 @@ class DataSourceExecutor implements DataSourceExecutorInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceExecutorInterface::executeOperation()
      */
-    public function executeOperation(DataSourceInterface $dataSource, DataSourceOperationInterface $operation): DataSourceResponseInterface
+    public function executeOperation(DataSourceOperationInterface $operation): DataSourceResponseInterface
     {
+        $dataSource = $this->getDataSource($operation);
         $response = new DataSourceResponse();
         
         switch (strtolower($operation->getOperationType())) {
@@ -57,12 +75,12 @@ class DataSourceExecutor implements DataSourceExecutorInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceExecutorInterface::executeTransaction()
      */
-    public function executeTransaction(DataSourceInterface $dataSource, DataSourceTransactionInterface $transaction): DataSourceResponsesInterface
+    public function executeTransaction(DataSourceTransactionInterface $transaction): DataSourceResponsesInterface
     {
         $responses = new DataSourceResponses();
         
         foreach ($transaction->getOperations() as $operation) {
-            $responses->addResponse($this->executeOperation($dataSource, $operation));
+            $responses->addResponse($this->executeOperation($operation));
         }
         
         return $responses;

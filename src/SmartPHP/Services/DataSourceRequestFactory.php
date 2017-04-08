@@ -8,6 +8,13 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class DataSourceRequestFactory implements DataSourceRequestFactoryInterface
 {
+    
+    public function createDSRequestFromArray(array $array): DataSourceRequestInterface
+    {
+        $dsRequest = new DataSourceRequest();
+        $dsRequest->setData($array);
+        return $dsRequest;
+    }
 
     /**
      *
@@ -17,8 +24,9 @@ class DataSourceRequestFactory implements DataSourceRequestFactoryInterface
      */
     public function createFromServerRequest(ServerRequestInterface $request): DataSourceRequestInterface
     {
-        $dsRequest = new DataSourceRequest();
-        $dsRequest->setData((array) $request->getParsedBody());
-        return $dsRequest;
+        $parsedBody = (array) $request->getParsedBody();
+        $queryParams = $request->getQueryParams();
+        $array = array_merge($queryParams, $parsedBody);
+        return $this->createDSRequestFromArray($array);
     }
 }

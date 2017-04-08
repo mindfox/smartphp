@@ -11,16 +11,16 @@ class DataSourceResponses implements DataSourceResponsesInterface
      *
      * @var array
      */
-    private $responses = [];
+    private $response = [];
 
     public function getResponses(): array
     {
-        return $this->responses;
+        return $this->response;
     }
 
     public function addResponse(DataSourceResponseInterface $response): DataSourceResponsesInterface
     {
-        $this->responses[] = $response;
+        $this->response[] = $response;
         return $this;
     }
 }

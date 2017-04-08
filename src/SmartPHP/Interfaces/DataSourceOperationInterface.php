@@ -57,10 +57,4 @@ interface DataSourceOperationInterface
     public function getTextMatchStyle(): string;
 
     public function setTextMatchStyle(string $textMatchStyle): DataSourceOperationInterface;
-
-    public function hasDataFormat(): bool;
-
-    public function getDataFormat(): string;
-
-    public function setDataFormat(string $dataFormat): DataSourceOperationInterface;
 }

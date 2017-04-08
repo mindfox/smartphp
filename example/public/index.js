@@ -39,6 +39,8 @@
 	    	title:"Company Name"
 	    } ],
 	    dataFormat:"json",
+	    jsonPrefix:"",
+	    jsonSuffix:"",
 	    operationBindings : operationBindings,
 	    fetchDataURL:url,
 	    addDataURL:url,
@@ -69,6 +71,8 @@
 	    	title:"Name"
 	    } ],
 	    dataFormat:"json",
+	    jsonPrefix:"",
+	    jsonSuffix:"",
 	    operationBindings : operationBindings,
 	    fetchDataURL:url,
 	    addDataURL:url,
@@ -88,6 +92,8 @@
 	    	title:"Company Name"
 	    } ],
 	    dataFormat:"json",
+	    jsonPrefix:"",
+	    jsonSuffix:"",
 	    operationBindings : operationBindings,
 	    fetchDataURL:url,
 	    addDataURL:url,

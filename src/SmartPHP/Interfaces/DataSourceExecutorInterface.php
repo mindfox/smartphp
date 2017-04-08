@@ -4,7 +4,7 @@ namespace SmartPHP\Interfaces;
 interface DataSourceExecutorInterface
 {
 
-    public function executeOperation(DataSourceInterface $dataSource, DataSourceOperationInterface $operation): DataSourceResponseInterface;
+    public function executeOperation(DataSourceOperationInterface $operation): DataSourceResponseInterface;
 
-    public function executeTransaction(DataSourceInterface $dataSource, DataSourceTransactionInterface $transaction): DataSourceResponsesInterface;
+    public function executeTransaction(DataSourceTransactionInterface $transaction): DataSourceResponsesInterface;
 }

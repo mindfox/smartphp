@@ -6,5 +6,7 @@ namespace SmartPHP\Interfaces;
 interface DataSourceOperationFactoryInterface
 {
 
-    public function createFromDSRequest(DataSourceRequestInterface $request): DataSourceOperationInterface;
+    public function createFromArray(array $array): DataSourceOperationInterface;
+    
+    public function createFromDSRequest(DataSourceRequestInterface $dsRequest): DataSourceOperationInterface;
 }

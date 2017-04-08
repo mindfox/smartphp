@@ -10,74 +10,55 @@ class DataSourceOperation implements DataSourceOperationInterface
      *
      * @var string
      */
-    private $dataFormat;
-
-    /**
-     *
-     * @var string
-     */
-    private $componentId;
+    private $componentId = "";
 
     /**
      *
      * @var mixed
      */
-    private $data;
+    private $data = [];
 
     /**
      *
      * @var string
      */
-    private $dataSource;
+    private $dataSource = "";
 
     /**
      *
      * @var int
      */
-    private $endRow;
+    private $endRow = 0;
 
     /**
      *
      * @var mixed
      */
-    private $oldValues;
+    private $oldValues = [];
 
     /**
      *
      * @var string
      */
-    private $operationType;
+    private $operationType = "";
 
     /**
      *
      * @var int
      */
-    private $startRow;
+    private $startRow = 0;
 
     /**
      *
      * @var int
      */
-    private $totalRows;
+    private $totalRows = 0;
 
     /**
      *
      * @var string
      */
-    private $textMatchStyle;
-
-    public function __construct(string $componentId = "", string $dataSource = "", string $operationType = "", string $textMatchStyle = "", int $startRow = 0, int $endRow = 0, int $totalRows = 0, $data = null, $oldValues = null)
-    {
-        $this->componentId = $componentId;
-        $this->dataSource = $dataSource;
-        $this->operationType = $operationType;
-        $this->startRow = $startRow;
-        $this->endRow = $endRow;
-        $this->totalRows = $totalRows;
-        $this->textMatchStyle = $textMatchStyle;
-        $this->data = $data;
-        $this->oldValues = $oldValues;
-    }
+    private $textMatchStyle = "";
 
     /**
      *
@@ -268,28 +249,12 @@ class DataSourceOperation implements DataSourceOperationInterface
 
     public function getTextMatchStyle(): string
     {
-        return $this->textMatchStyle;
+        return strval($this->textMatchStyle);
     }
 
     public function setTextMatchStyle(string $textMatchStyle): DataSourceOperationInterface
     {
         $this->textMatchStyle = $textMatchStyle;
-        return $this;
-    }
-
-    public function hasDataFormat(): bool
-    {
-        return ! empty($this->dataFormat);
-    }
-
-    public function getDataFormat(): string
-    {
-        return $this->dataFormat;
-    }
-
-    public function setDataFormat(string $dataFormat): DataSourceOperationInterface
-    {
-        $this->dataFormat = $dataFormat;
         return $this;
     }
 }

@@ -26,9 +26,8 @@ class DataSourceResponseSerializer implements DataSourceResponseSerializerInterf
      *
      * @see \SmartPHP\Interfaces\DataSourceResponseSerializerInterface::serializeResponse()
      */
-    public function serializeResponse(DataSourceResponseInterface $response)
+    public function serializeResponse(DataSourceResponseInterface $response, string $format): string
     {
-        $format = $response->getDataFormat();
         $serialized = $this->serializer->serialize($response, $format);
         return $serialized ?? "";
     }
@@ -39,10 +38,9 @@ class DataSourceResponseSerializer implements DataSourceResponseSerializerInterf
      *
      * @see \SmartPHP\Interfaces\DataSourceResponseSerializerInterface::serializeResponses()
      */
-    public function serializeResponses(DataSourceResponsesInterface $responses)
+    public function serializeResponses(DataSourceResponsesInterface $responses, string $format): string
     {
-        $format = $responses->getDataFormat();
-        $serialized = $this->serializer->serialize($responses, $format);
+        $serialized = $this->serializer->serialize($responses->getResponses(), $format);
         return $serialized ?? "";
     }
 }

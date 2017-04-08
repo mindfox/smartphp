@@ -28,7 +28,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function fetch(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $companies = $this->employeeService->fetchAll();
         $message->setData($companies);
@@ -44,7 +44,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function add(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $employee = $this->bind($message->getData(), EmployeeDto::class);
         $employee = $this->employeeService->add($employee);
@@ -58,7 +58,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function update(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         return $message;
     }
@@ -69,7 +69,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function remove(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         return $message;
     }

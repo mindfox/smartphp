@@ -6,7 +6,7 @@ abstract class DependencyIds
 
     const SERIALIZER = "SmartPHP/Serializer";
 
-    const MESSAGE_SERIALIZER = "SmartPHP/MessageSerializer";
+    const RESPONSE_SERIALIZER = "SmartPHP/ResponseSerializer";
 
     const MESSAGE_FACTORY = "SmartPHP/MessageFactory";
 

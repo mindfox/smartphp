@@ -28,7 +28,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function fetch(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $companies = $this->departmentService->fetchAll();
         $message->setData($companies);
@@ -44,7 +44,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function add(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $department = $this->bind($message->getData(), DepartmentDto::class);
         $department = $this->departmentService->add($department);
@@ -58,7 +58,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function update(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         return $message;
     }
@@ -69,7 +69,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function remove(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         return $message;
     }
