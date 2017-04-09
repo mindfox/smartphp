@@ -3,8 +3,8 @@ namespace SmartPHP\Interfaces;
 
 interface DataSourceInterface
 {
-    public function fetch(DataSourceMessageInterface $message): DataSourceMessageInterface;
-    public function add(DataSourceMessageInterface $message): DataSourceMessageInterface;
-    public function update(DataSourceMessageInterface $message): DataSourceMessageInterface;
-    public function remove(DataSourceMessageInterface $message): DataSourceMessageInterface;
+    public function fetch(DataSourceOperationInterface $message): DataSourceOperationInterface;
+    public function add(DataSourceOperationInterface $message): DataSourceOperationInterface;
+    public function update(DataSourceOperationInterface $message): DataSourceOperationInterface;
+    public function remove(DataSourceOperationInterface $message): DataSourceOperationInterface;
 }

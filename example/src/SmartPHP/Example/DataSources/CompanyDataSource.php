@@ -28,7 +28,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function fetch(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $companies = $this->companyService->fetchAll();
         $message->setData($companies);
@@ -44,7 +44,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function add(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->add($company);
@@ -58,7 +58,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function update(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->update($company);
@@ -72,7 +72,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $message): DataSourceMessageInterface
+    public function remove(DataSourceOperationInterface $message): DataSourceOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->remove($company);

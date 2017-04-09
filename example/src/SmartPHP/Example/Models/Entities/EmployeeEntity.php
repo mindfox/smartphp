@@ -2,10 +2,11 @@
 namespace SmartPHP\Example\Models\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineProxies\__CG__\SmartPHP\Example\Models\Entities\DepartmentEntity;
 
 /**
  * @ORM\Table(name="smartphp_employees")
- * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\EmployeeRepository")
+ * @ORM\Entity
  */
 class EmployeeEntity
 {
@@ -51,6 +52,15 @@ class EmployeeEntity
      * @ORM\Column(name="Salary", type="integer", length=255, nullable=false)
      */
     private $salary;
+    
+    /**
+     * 
+     * @var DepartmentEntity
+     * 
+     * @ORM\ManyToOne(targetEntity="DepartmentEntity", inversedBy="employees")
+     * @ORM\JoinColumn(name="DepartmentID", referencedColumnName="ID")
+     */
+    private $department;
     
     /**
      * Get id
@@ -187,5 +197,29 @@ class EmployeeEntity
     public function getSalary()
     {
         return $this->salary;
+    }
+
+    /**
+     * Set department
+     *
+     * @param \SmartPHP\Example\Models\Entities\DepartmentEntity $department
+     *
+     * @return EmployeeEntity
+     */
+    public function setDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department = null)
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    /**
+     * Get department
+     *
+     * @return \SmartPHP\Example\Models\Entities\DepartmentEntity
+     */
+    public function getDepartment()
+    {
+        return $this->department;
     }
 }

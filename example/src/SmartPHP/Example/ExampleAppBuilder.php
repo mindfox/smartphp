@@ -24,6 +24,10 @@ use SmartPHP\Example\Services\EmployeeServiceInterface;
 use function DI\object;
 use SmartPHP\Slim\DataSourceController;
 use Slim\App;
+use Doctrine\ORM\EntityManagerInterface;
+use SmartPHP\Example\Repositories\DepartmentRepository;
+use SmartPHP\Example\Repositories\CompanyRepository;
+use SmartPHP\Example\Repositories\EmployeeRepository;
 
 class ExampleAppBuilder extends AppBuilder
 {
@@ -86,9 +90,9 @@ class ExampleAppBuilder extends AppBuilder
         };
         
         $container["EntityManager"] = function (ContainerInterface $container) {
-            $database = $container->get("databases")["smartphp"];
+            $conn = $container->get("databases")["smartphp"];
             $config = $container->get("EntityManagerConfiguration");
-            $entityManager = EntityManager::create($database, $config);
+            $entityManager = EntityManager::create($conn, $config);
             return $entityManager;
         };
         
@@ -98,17 +102,15 @@ class ExampleAppBuilder extends AppBuilder
         $container["DI-Definitions"] = function (ContainerInterface $container) {
             return [
                 
-                CompanyRepositoryInterface::class => function () use ($container) {
-                    return $container->get("EntityManager")->getRepository(CompanyEntity::class);
+                EntityManagerInterface::class => function () use ($container) {
+                    return $container->get("EntityManager");
                 },
                 
-                DepartmentRepositoryInterface::class => function () use ($container) {
-                    return $container->get("EntityManager")->getRepository(DepartmentEntity::class);
-                },
+                CompanyRepositoryInterface::class => object(CompanyRepository::class),
                 
-                EmployeeRepositoryInterface::class => function () use ($container) {
-                    return $container->get("EntityManager")->getRepository(EmployeeEntity::class);
-                },
+                DepartmentRepositoryInterface::class => object(DepartmentRepository::class),
+                
+                EmployeeRepositoryInterface::class => object(EmployeeRepository::class),
                 
                 CompanyServiceInterface::class => object(CompanyService::class),
                 
