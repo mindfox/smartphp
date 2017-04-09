@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Interfaces;
 
-interface DataSourceOperationInterface
+interface DSOperationInterface
 {
 
     /**
@@ -13,9 +13,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param string $componentId
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setComponentId($componentId): DataSourceOperationInterface;
+    public function setComponentId($componentId): DSOperationInterface;
 
     /**
      * 
@@ -26,9 +26,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param string $dataSource
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setDataSource($dataSource): DataSourceOperationInterface;
+    public function setDataSource($dataSource): DSOperationInterface;
 
     /**
      * @return array|object
@@ -38,9 +38,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param array|object $data
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setData($data): DataSourceOperationInterface;
+    public function setData($data): DSOperationInterface;
 
     /**
      * @return array|object
@@ -50,9 +50,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param array|object $oldValues
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setOldValues($oldValues): DataSourceOperationInterface;
+    public function setOldValues($oldValues): DSOperationInterface;
 
     /**
      * 
@@ -63,9 +63,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param string $operationType
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setOperationType($operationType): DataSourceOperationInterface;
+    public function setOperationType($operationType): DSOperationInterface;
 
     /**
      * 
@@ -76,9 +76,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param string $textMatchStyle
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setTextMatchStyle($textMatchStyle): DataSourceOperationInterface;
+    public function setTextMatchStyle($textMatchStyle): DSOperationInterface;
 
     /**
      * 
@@ -89,9 +89,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param string $startRow
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setStartRow($startRow): DataSourceOperationInterface;
+    public function setStartRow($startRow): DSOperationInterface;
 
     /**
      * 
@@ -102,9 +102,9 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param int $endRow
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setEndRow($endRow): DataSourceOperationInterface;
+    public function setEndRow($endRow): DSOperationInterface;
 
     /**
      * 
@@ -115,7 +115,7 @@ interface DataSourceOperationInterface
     /**
      * 
      * @param int $totalRows
-     * @return DataSourceOperationInterface
+     * @return DSOperationInterface
      */
-    public function setTotalRows($totalRows): DataSourceOperationInterface;
+    public function setTotalRows($totalRows): DSOperationInterface;
 }

@@ -1,8 +1,8 @@
 <?php
 namespace SmartPHP\Traits;
 
-use SmartPHP\Interfaces\DataSourceOperationInterface;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use SmartPHP\Interfaces\DSOperationInterface;
 
 trait ModelBinderTrait
 {
@@ -19,7 +19,7 @@ trait ModelBinderTrait
         return $this->bind($data, $class);
     }
     
-    public function bindOperation(DataSourceOperationInterface $operation, string $class)
+    public function bindOperation(DSOperationInterface $operation, string $class)
     {
         return $this->bindMerged($operation->getData(), $operation->getOldValues(), $class);
     }

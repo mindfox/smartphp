@@ -1,15 +1,15 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceRequestFactoryInterface;
-use SmartPHP\Interfaces\DataSourceRequestInterface;
-use SmartPHP\DefaultImpl\DataSourceRequest;
 use Psr\Http\Message\ServerRequestInterface;
+use SmartPHP\DefaultImpl\DataSourceRequest;
+use SmartPHP\Interfaces\DSRequestFactoryInterface;
+use SmartPHP\Interfaces\DSRequestInterface;
 
-class DataSourceRequestFactory implements DataSourceRequestFactoryInterface
+class DataSourceRequestFactory implements DSRequestFactoryInterface
 {
     
-    public function createDSRequestFromArray(array $array): DataSourceRequestInterface
+    public function createDSRequestFromArray(array $array): DSRequestInterface
     {
         $dsRequest = new DataSourceRequest();
         $dsRequest->setData($array);
@@ -22,7 +22,7 @@ class DataSourceRequestFactory implements DataSourceRequestFactoryInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceRequestFactoryInterface::createFromServerRequest()
      */
-    public function createFromServerRequest(ServerRequestInterface $request): DataSourceRequestInterface
+    public function createFromServerRequest(ServerRequestInterface $request): DSRequestInterface
     {
         $parsedBody = (array) $request->getParsedBody();
         $queryParams = $request->getQueryParams();

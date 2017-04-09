@@ -4,5 +4,5 @@ namespace SmartPHP\Interfaces;
 interface DataSourceFactoryInterface
 {
 
-    public function createFromDataSourceMessage(DataSourceOperationInterface $message): DataSourceInterface;
+    public function createDataSourceFromOperation(DSOperationInterface $dsOperation): DataSourceInterface;
 }

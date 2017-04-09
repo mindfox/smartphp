@@ -1,9 +1,9 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 
-class DataSourceOperation implements DataSourceOperationInterface
+class DataSourceOperation implements DSOperationInterface
 {
 
     /**
@@ -65,7 +65,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->componentId;
     }
 
-    public function setComponentId($componentId): DataSourceOperationInterface
+    public function setComponentId($componentId): DSOperationInterface
     {
         $this->componentId = strval($componentId);
         return $this;
@@ -76,7 +76,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->dataSource;
     }
 
-    public function setDataSource($dataSource): DataSourceOperationInterface
+    public function setDataSource($dataSource): DSOperationInterface
     {
         $this->dataSource = strval($dataSource);
         return $this;
@@ -87,7 +87,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->data;
     }
 
-    public function setData($data): DataSourceOperationInterface
+    public function setData($data): DSOperationInterface
     {
         $this->data = $data ?? [];
         return $this;
@@ -98,7 +98,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->oldValues;
     }
 
-    public function setOldValues($oldValues): DataSourceOperationInterface
+    public function setOldValues($oldValues): DSOperationInterface
     {
         $this->oldValues = $oldValues ?? [];
         return $this;
@@ -109,7 +109,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->operationType;
     }
 
-    public function setOperationType($operationType): DataSourceOperationInterface
+    public function setOperationType($operationType): DSOperationInterface
     {
         $this->operationType = strval($operationType);
         return $this;
@@ -120,7 +120,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->textMatchStyle;
     }
 
-    public function setTextMatchStyle($textMatchStyle): DataSourceOperationInterface
+    public function setTextMatchStyle($textMatchStyle): DSOperationInterface
     {
         $this->textMatchStyle = strval($textMatchStyle);
         return $this;
@@ -131,7 +131,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->startRow;
     }
 
-    public function setStartRow($startRow): DataSourceOperationInterface
+    public function setStartRow($startRow): DSOperationInterface
     {
         $this->startRow = intval($startRow);
         return $this;
@@ -142,7 +142,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->endRow;
     }
 
-    public function setEndRow($endRow): DataSourceOperationInterface
+    public function setEndRow($endRow): DSOperationInterface
     {
         $this->endRow = intval($endRow);
         return $this;
@@ -153,7 +153,7 @@ class DataSourceOperation implements DataSourceOperationInterface
         return $this->totalRows;
     }
 
-    public function setTotalRows($totalRows): DataSourceOperationInterface
+    public function setTotalRows($totalRows): DSOperationInterface
     {
         $this->totalRows = intval($totalRows);
         return $this;

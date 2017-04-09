@@ -1,9 +1,9 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceRequestInterface;
+use SmartPHP\Interfaces\DSRequestInterface;
 
-class DataSourceRequest implements DataSourceRequestInterface
+class DataSourceRequest implements DSRequestInterface
 {
 
     private static $KeyPrefix = "isc_";
@@ -58,7 +58,7 @@ class DataSourceRequest implements DataSourceRequestInterface
         return $this->data;
     }
 
-    public function setData(array $data): DataSourceRequestInterface
+    public function setData(array $data): DSRequestInterface
     {
         $this->data = $this->normalizeArray($data);
         return $this;

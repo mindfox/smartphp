@@ -3,19 +3,19 @@ namespace SmartPHP\DefaultImpl;
 
 use Interop\Container\ContainerInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
-use SmartPHP\Interfaces\DataSourceInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 
 class DataSourceFactory implements DataSourceFactoryInterface
 {
 
     /**
-     * 
+     *
      * @var ContainerInterface
      */
     private $container;
-    
-    public function __construct(ContainerInterface $container) {
+
+    public function __construct(ContainerInterface $container)
+    {
         $this->container = $container;
     }
     
@@ -23,11 +23,11 @@ class DataSourceFactory implements DataSourceFactoryInterface
      *
      * {@inheritdoc}
      *
-     * @see \SmartPHP\DataSourceServiceFactoryInterface::createFromDataSourceMessage()
+     * @see \SmartPHP\Interfaces\DataSourceFactoryInterface::createDataSourceFromOperation()
      */
-    public function createFromDataSourceMessage(DataSourceOperationInterface $message): DataSourceInterface
+    public function createDataSourceFromOperation(DSOperationInterface $dsOperation)
     {
-        $id = trim($message->getDataSource());
+        $id = trim($dsOperation->getDataSource());
         return $this->container->get($id);
     }
 }

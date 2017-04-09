@@ -1,14 +1,13 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceOperationFactoryInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
-use SmartPHP\Interfaces\DataSourceRequestInterface;
 use SmartPHP\DefaultImpl\DataSourceOperation;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use SmartPHP\Interfaces\DSOperationFactoryInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
+use SmartPHP\Interfaces\DSRequestInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
-class DataSourceOperationFactory implements DataSourceOperationFactoryInterface
+class DataSourceOperationFactory implements DSOperationFactoryInterface
 {
 
     /**
@@ -28,7 +27,7 @@ class DataSourceOperationFactory implements DataSourceOperationFactoryInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceOperationFactoryInterface::createFromDSRequest()
      */
-    public function createFromDSRequest(DataSourceRequestInterface $request): DataSourceOperationInterface
+    public function createFromDSRequest(DSRequestInterface $request): DSOperationInterface
     {
         return $this->createFromArray($request->getData());
     }
@@ -39,7 +38,7 @@ class DataSourceOperationFactory implements DataSourceOperationFactoryInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceOperationFactoryInterface::createFromArray()
      */
-    public function createFromArray(array $array): DataSourceOperationInterface
+    public function createFromArray(array $array): DSOperationInterface
     {
 //         var_dump($array); die();
 //         $default = $this->denormalizer->normalize(new DataSourceOperation());

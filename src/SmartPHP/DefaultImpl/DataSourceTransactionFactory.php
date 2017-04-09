@@ -1,19 +1,19 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceTransactionFactoryInterface;
-use SmartPHP\Interfaces\DataSourceRequestInterface;
-use SmartPHP\Interfaces\DataSourceTransactionInterface;
-use SmartPHP\Interfaces\DataSourceOperationFactoryInterface;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use SmartPHP\DefaultImpl\DataSourceTransaction;
+use SmartPHP\Interfaces\DSOperationFactoryInterface;
+use SmartPHP\Interfaces\DSRequestInterface;
+use SmartPHP\Interfaces\DSTransactionFactoryInterface;
+use SmartPHP\Interfaces\DSTransactionInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class DataSourceTransactionFactory implements DataSourceTransactionFactoryInterface
+class DataSourceTransactionFactory implements DSTransactionFactoryInterface
 {
 
     /**
      *
-     * @var DataSourceOperationFactoryInterface
+     * @var DSOperationFactoryInterface
      */
     private $dsOperationFactory;
 
@@ -23,7 +23,7 @@ class DataSourceTransactionFactory implements DataSourceTransactionFactoryInterf
      */
     private $denormalizer;
 
-    public function __construct(DataSourceOperationFactoryInterface $dsOperationFactory, DenormalizerInterface $denormalizer)
+    public function __construct(DSOperationFactoryInterface $dsOperationFactory, DenormalizerInterface $denormalizer)
     {
         $this->dsOperationFactory = $dsOperationFactory;
         $this->denormalizer = $denormalizer;
@@ -35,7 +35,7 @@ class DataSourceTransactionFactory implements DataSourceTransactionFactoryInterf
      *
      * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createFromDSRequest()
      */
-    public function createFromDSRequest(DataSourceRequestInterface $dsRequest): DataSourceTransactionInterface
+    public function createFromDSRequest(DSRequestInterface $dsRequest): DSTransactionFactoryInterface
     {
         return $this->createFromArray($dsRequest->getData());
     }
@@ -46,7 +46,7 @@ class DataSourceTransactionFactory implements DataSourceTransactionFactoryInterf
      *
      * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createFromArray()
      */
-    public function createFromArray(array $array): DataSourceTransactionInterface
+    public function createFromArray(array $array): DSTransactionInterface
     {
         /**
          *

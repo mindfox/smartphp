@@ -7,10 +7,9 @@ use SmartPHP\DefaultImpl\DataSourceResponses;
 use SmartPHP\Interfaces\DataSourceExecutorInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
-use SmartPHP\Interfaces\DataSourceResponseInterface;
-use SmartPHP\Interfaces\DataSourceResponsesInterface;
-use SmartPHP\Interfaces\DataSourceTransactionInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
+use SmartPHP\Interfaces\DSResponseInterface;
+use SmartPHP\Interfaces\DSTransactionInterface;
 
 class DataSourceExecutor implements DataSourceExecutorInterface
 {
@@ -26,7 +25,7 @@ class DataSourceExecutor implements DataSourceExecutorInterface
         $this->dataSourceFactory = $dataSourceFactory;
     }
 
-    private function getDataSource(DataSourceOperationInterface $operation): DataSourceInterface
+    private function getDataSource(DSOperationInterface $operation): DataSourceInterface
     {
         return $this->dataSourceFactory->createFromDataSourceMessage($operation);
     }
@@ -37,7 +36,7 @@ class DataSourceExecutor implements DataSourceExecutorInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceExecutorInterface::executeOperation()
      */
-    public function executeOperation(DataSourceOperationInterface $operation): DataSourceResponseInterface
+    public function executeOperation(DSOperationInterface $operation): DSResponseInterface
     {
         $dataSource = $this->getDataSource($operation);
         $response = new DataSourceResponse();
@@ -75,7 +74,7 @@ class DataSourceExecutor implements DataSourceExecutorInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceExecutorInterface::executeTransaction()
      */
-    public function executeTransaction(DataSourceTransactionInterface $transaction): DataSourceResponsesInterface
+    public function executeTransaction(DSTransactionInterface $transaction): DSResponseInterface
     {
         $responses = new DataSourceResponses();
         

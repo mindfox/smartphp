@@ -3,10 +3,10 @@ namespace SmartPHP\Services\Tests;
 
 use PHPUnit\Framework\TestCase;
 use SmartPHP\DefaultImpl\DataSourceOperationFactory;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class DataSourceMessageFactoryTest extends TestCase
+class DSOperationFactoryTest extends TestCase
 {
     public function testCreateFromArray()
     {
@@ -14,7 +14,7 @@ class DataSourceMessageFactoryTest extends TestCase
         $operationFactory = new DataSourceOperationFactory(new GetSetMethodNormalizer());
         $operation = $operationFactory->createFromArray($array);
         
-        $this->assertInstanceOf(DataSourceOperationInterface::class, $operation);
+        $this->assertInstanceOf(DSOperationInterface::class, $operation);
         
     }
 }

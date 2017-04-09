@@ -1,9 +1,9 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\Interfaces\DataSourceTransactionInterface;
+use SmartPHP\Interfaces\DSTransactionInterface;
 
-class DataSourceTransaction implements DataSourceTransactionInterface
+class DataSourceTransaction implements DSTransactionInterface
 {
 
     /**
@@ -29,7 +29,7 @@ class DataSourceTransaction implements DataSourceTransactionInterface
         return $this->transactionNum;
     }
 
-    public function setTransactionNum(int $transactionNum): DataSourceTransactionInterface
+    public function setTransactionNum(int $transactionNum): DSTransactionInterface
     {
         $this->transactionNum = $transactionNum;
         return $this;
@@ -40,7 +40,7 @@ class DataSourceTransaction implements DataSourceTransactionInterface
         return $this->operations;
     }
 
-    public function addOperation(DataSourceOperation $operation): DataSourceTransactionInterface
+    public function addOperation(DataSourceOperation $operation): DSTransactionInterface
     {
         $this->operations[] = $operation;
         return $this;
@@ -63,7 +63,7 @@ class DataSourceTransaction implements DataSourceTransactionInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceTransactionInterface::setDataFormat()
      */
-    public function setDataFormat(string $dataFormat): DataSourceTransactionInterface
+    public function setDataFormat(string $dataFormat): DSTransactionInterface
     {
         $this->dataFormat = $dataFormat;
         return $this;

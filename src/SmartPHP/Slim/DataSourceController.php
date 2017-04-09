@@ -6,42 +6,41 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmartPHP\Interfaces\DataSourceExecutorInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
-use SmartPHP\Interfaces\DataSourceOperationFactoryInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
-use SmartPHP\Interfaces\DataSourceRequestFactoryInterface;
-use SmartPHP\Interfaces\DataSourceRequestInterface;
-use SmartPHP\Interfaces\DataSourceResponseInterface;
-use SmartPHP\Interfaces\DataSourceResponseSerializerInterface;
-use SmartPHP\Interfaces\DataSourceResponsesInterface;
-use SmartPHP\Interfaces\DataSourceTransactionFactoryInterface;
-use SmartPHP\Interfaces\DataSourceTransactionInterface;
+use SmartPHP\Interfaces\DSOperationFactoryInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
+use SmartPHP\Interfaces\DSRequestFactoryInterface;
+use SmartPHP\Interfaces\DSRequestInterface;
+use SmartPHP\Interfaces\DSResponseInterface;
+use SmartPHP\Interfaces\DSResponseSerializerInterface;
+use SmartPHP\Interfaces\DSTransactionFactoryInterface;
+use SmartPHP\Interfaces\DSTransactionInterface;
 
 class DataSourceController
 {
 
     /**
      *
-     * @var DataSourceRequestFactoryInterface
+     * @var DSRequestFactoryInterface
      */
-    private $requestFactory;
+    private $dsRequestFactory;
 
     /**
      *
-     * @var DataSourceResponseSerializerInterface
+     * @var DSResponseSerializerInterface
      */
-    private $responseSerializer;
+    private $dsResponseSerializer;
 
     /**
      *
-     * @var DataSourceOperationFactoryInterface
+     * @var DSOperationFactoryInterface
      */
-    private $operationFactory;
+    private $dsOperationFactory;
 
     /**
      *
-     * @var DataSourceTransactionFactoryInterface
+     * @var DSTransactionFactoryInterface
      */
-    private $transactionFactory;
+    private $dsTransactionFactory;
 
     /**
      *
@@ -58,64 +57,59 @@ class DataSourceController
     public function __construct(ContainerInterface $container)
     {
         $container = DefaultDependencyProvider::register($container);
-        $this->responseSerializer = $container->get(DependencyIds::RESPONSE_SERIALIZER);
-        $this->operationFactory = $container->get("SmartPHP/OperationFactory");
-        $this->transactionFactory = $container->get("SmartPHP/TransactionFactory");
-        $this->requestFactory = $container->get("SmartPHP/RequestFactory");
+        $this->dsResponseSerializer = $container->get(DependencyIds::RESPONSE_SERIALIZER);
+        $this->dsOperationFactory = $container->get("SmartPHP/OperationFactory");
+        $this->dsTransactionFactory = $container->get("SmartPHP/TransactionFactory");
+        $this->dsRequestFactory = $container->get("SmartPHP/RequestFactory");
         $this->dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
         $this->dataSourceExecutor = $container->get(DependencyIds::DATASORUCE_INVOKATOR);
     }
 
-    private function serializeResponse(DataSourceResponseInterface $dsResponse, string $format): string
+    private function serializeResponse(DSResponseInterface $dsResponse, string $format): string
     {
-        return $this->responseSerializer->serializeResponse($dsResponse, $format);
+        return $this->dsResponseSerializer->serializeResponse($dsResponse, $format);
     }
 
-    private function serializeResponses(DataSourceResponsesInterface $dsResponses, string $format): string
+    private function createRequest(ServerRequestInterface $request): DSRequestInterface
     {
-        return $this->responseSerializer->serializeResponses($dsResponses, $format);
+        return $this->dsRequestFactory->createFromServerRequest($request);
     }
 
-    private function createRequest(ServerRequestInterface $request): DataSourceRequestInterface
+    private function createOperation(DSRequestInterface $dsRequest): DSOperationInterface
     {
-        return $this->requestFactory->createFromServerRequest($request);
+        return $this->dsOperationFactory->createFromDSRequest($dsRequest);
     }
 
-    private function createOperation(DataSourceRequestInterface $dsRequest): DataSourceOperationInterface
+    private function createTransaction(DSRequestInterface $dsRequest): DSTransactionInterface
     {
-        return $this->operationFactory->createFromDSRequest($dsRequest);
+        return $this->dsTransactionFactory->createFromDSRequest($dsRequest);
     }
 
-    private function createTransaction(DataSourceRequestInterface $dsRequest): DataSourceTransactionInterface
-    {
-        return $this->transactionFactory->createFromDSRequest($dsRequest);
-    }
-
-    private function executeOperation(DataSourceOperationInterface $operation): DataSourceResponseInterface
+    private function executeOperation(DSOperationInterface $operation): DSResponseInterface
     {
         return $this->dataSourceExecutor->executeOperation($operation);
     }
 
-    private function executeTransaction(DataSourceTransactionInterface $transaction): DataSourceResponsesInterface
+    private function executeTransaction(DSTransactionInterface $transaction): DSResponseInterface
     {
         return $this->dataSourceExecutor->executeTransaction($transaction);
     }
 
-    private function executeTransactionRequest(DataSourceRequestInterface $dsRequest): string
+    private function executeTransactionRequest(DSRequestInterface $dsRequest): string
     {
         $transaction = $this->createTransaction($dsRequest);
-        $dsResponses = $this->executeTransaction($transaction);
-        return $this->serializeResponses($dsResponses, $dsRequest->getDataFormat());
+        $dsResponse = $this->executeTransaction($transaction);
+        return $this->serializeResponse($dsResponse, $dsRequest->getDataFormat());
     }
 
-    private function executeOperationRequest(DataSourceRequestInterface $dsRequest): string
+    private function executeOperationRequest(DSRequestInterface $dsRequest): string
     {
         $operation = $this->createOperation($dsRequest);
         $dsResponse = $this->executeOperation($operation);
         return $this->serializeResponse($dsResponse, $dsRequest->getDataFormat());
     }
 
-    private function executeDataSourceRequest(DataSourceRequestInterface $dsRequest): string
+    private function executeDataSourceRequest(DSRequestInterface $dsRequest): string
     {
         if ($dsRequest->isTransaction()) {
             return $this->executeTransactionRequest($dsRequest);
