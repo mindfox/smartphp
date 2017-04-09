@@ -4,57 +4,118 @@ namespace SmartPHP\Interfaces;
 interface DataSourceOperationInterface
 {
 
-    public function hasComponentId(): bool;
-
-    public function hasData(): bool;
-
-    public function hasDataSource(): bool;
-
-    public function hasEndRow(): bool;
-
-    public function hasOldValues(): bool;
-
-    public function hasOperationType(): bool;
-
-    public function hasStartRow(): bool;
-
-    public function hasTextMatchStyle(): bool;
-
-    public function hasTotalRows(): bool;
-
+    /**
+     * 
+     * @return string
+     */
     public function getComponentId(): string;
 
-    public function setComponentId(string $componentId): DataSourceOperationInterface;
+    /**
+     * 
+     * @param string $componentId
+     * @return DataSourceOperationInterface
+     */
+    public function setComponentId($componentId): DataSourceOperationInterface;
 
-    public function getData();
-
-    public function setData($data): DataSourceOperationInterface;
-
+    /**
+     * 
+     * @return string
+     */
     public function getDataSource(): string;
 
-    public function setDataSource(string $dataSource): DataSourceOperationInterface;
+    /**
+     * 
+     * @param string $dataSource
+     * @return DataSourceOperationInterface
+     */
+    public function setDataSource($dataSource): DataSourceOperationInterface;
 
-    public function getEndRow(): int;
+    /**
+     * @return array|object
+     */
+    public function getData();
 
-    public function setEndRow(int $endRow): DataSourceOperationInterface;
+    /**
+     * 
+     * @param array|object $data
+     * @return DataSourceOperationInterface
+     */
+    public function setData($data): DataSourceOperationInterface;
 
+    /**
+     * @return array|object
+     */
     public function getOldValues();
 
+    /**
+     * 
+     * @param array|object $oldValues
+     * @return DataSourceOperationInterface
+     */
     public function setOldValues($oldValues): DataSourceOperationInterface;
 
+    /**
+     * 
+     * @return string
+     */
     public function getOperationType(): string;
 
+    /**
+     * 
+     * @param string $operationType
+     * @return DataSourceOperationInterface
+     */
     public function setOperationType($operationType): DataSourceOperationInterface;
 
-    public function getStartRow(): int;
-
-    public function setStartRow(int $startRow): DataSourceOperationInterface;
-
-    public function getTotalRows(): int;
-
-    public function setTotalRows(int $totalRows): DataSourceOperationInterface;
-
+    /**
+     * 
+     * @return string
+     */
     public function getTextMatchStyle(): string;
 
-    public function setTextMatchStyle(string $textMatchStyle): DataSourceOperationInterface;
+    /**
+     * 
+     * @param string $textMatchStyle
+     * @return DataSourceOperationInterface
+     */
+    public function setTextMatchStyle($textMatchStyle): DataSourceOperationInterface;
+
+    /**
+     * 
+     * @return int
+     */
+    public function getStartRow(): int;
+
+    /**
+     * 
+     * @param string $startRow
+     * @return DataSourceOperationInterface
+     */
+    public function setStartRow($startRow): DataSourceOperationInterface;
+
+    /**
+     * 
+     * @return int
+     */
+    public function getEndRow(): int;
+
+    /**
+     * 
+     * @param int $endRow
+     * @return DataSourceOperationInterface
+     */
+    public function setEndRow($endRow): DataSourceOperationInterface;
+
+    /**
+     * 
+     * @return int
+     */
+    public function getTotalRows(): int;
+
+    /**
+     * 
+     * @param int $totalRows
+     * @return DataSourceOperationInterface
+     */
+    public function setTotalRows($totalRows): DataSourceOperationInterface;
 }

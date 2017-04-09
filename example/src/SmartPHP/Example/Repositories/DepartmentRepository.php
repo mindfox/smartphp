@@ -1,12 +1,26 @@
 <?php
 namespace SmartPHP\Example\Repositories;
 
-use SmartPHP\Doctrine\GenericEntityRepository;
+use SmartPHP\Doctrine\GenericDataSourceRepository;
+use SmartPHP\Example\Models\Entities\CompanyEntity;
 use SmartPHP\Example\Models\Entities\DepartmentEntity;
+use Doctrine\ORM\EntityManagerInterface;
 
-class DepartmentRepository extends GenericEntityRepository implements DepartmentRepositoryInterface
+class DepartmentRepository extends GenericDataSourceRepository implements DepartmentRepositoryInterface
 {
-    
+
+    /**
+     *
+     * @var CompanyRepositoryInterface
+     */
+    private $companyRepository;
+
+    public function __construct(EntityManagerInterface $entityManager, CompanyRepositoryInterface $companyRepository)
+    {
+        parent::__construct($entityManager);
+        $this->companyRepository = $companyRepository;
+    }
+
     /**
      *
      * {@inheritdoc}
@@ -15,9 +29,9 @@ class DepartmentRepository extends GenericEntityRepository implements Department
      */
     public function fetchAll(): array
     {
-        return $this->fetchAllEntities();
+        return $this->fetchAllEntities(DepartmentEntity::class);
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -28,7 +42,7 @@ class DepartmentRepository extends GenericEntityRepository implements Department
     {
         return $this->fetchOneEntity($department);
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -39,17 +53,26 @@ class DepartmentRepository extends GenericEntityRepository implements Department
     {
         return $this->fetchEntity($department);
     }
-    
+
     /**
      *
-     * @param DepartmentEntity $department
-     * @return DepartmentEntity
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Example\Repositories\DepartmentRepositoryInterface::add()
      */
     public function add(DepartmentEntity $department): DepartmentEntity
     {
-        return $this->addEntity($department);
+        /**
+         *
+         * @var CompanyEntity $company
+         */
+        $company = $this->getEntityManager()->find(CompanyEntity::class, $department->getCompany());
+        $company->addDepartment($department);
+        $department->setCompany($company);
+        $this->companyRepository->update($company);
+        return $this->updateEntity($department);
     }
-    
+
     /**
      *
      * {@inheritdoc}
@@ -60,7 +83,7 @@ class DepartmentRepository extends GenericEntityRepository implements Department
     {
         return $this->updateEntity($department);
     }
-    
+
     /**
      *
      * {@inheritdoc}

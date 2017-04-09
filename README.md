@@ -5,3 +5,8 @@
 
 # smartphp
 PHP backend utilities for Isomorphic SmartClient 
+
+
+## References
+1. [Isomorphic Public Wiki](https://isomorphic.atlassian.net/wiki/display/Main/Isomorphic+Public+Wiki)
+2. [Integrating with PHP](https://isomorphic.atlassian.net/wiki/display/Main/Integrating+with+PHP#app-switcher)

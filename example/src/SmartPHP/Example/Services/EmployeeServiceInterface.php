@@ -8,13 +8,13 @@ interface EmployeeServiceInterface
     
     public function fetchAll(): array;
     
-    public function fetchOne(EmployeeDto $company): EmployeeDto;
+    public function fetchOne(EmployeeDto $employee): EmployeeDto;
     
-    public function fetch(EmployeeDto $company = null);
+    public function fetch(EmployeeDto $employee = null);
     
-    public function add(EmployeeDto $company): EmployeeDto;
+    public function add(EmployeeDto $employee): EmployeeDto;
     
-    public function update(EmployeeDto $company): EmployeeDto;
+    public function update(EmployeeDto $employee): EmployeeDto;
     
-    public function remove(EmployeeDto $company): EmployeeDto;
+    public function remove(EmployeeDto $employee): EmployeeDto;
 }

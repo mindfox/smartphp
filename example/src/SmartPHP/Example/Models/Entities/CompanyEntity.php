@@ -2,10 +2,11 @@
 namespace SmartPHP\Example\Models\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Table(name="smartphp_companies")
- * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\CompanyRepository")
+ * @ORM\Entity
  */
 class CompanyEntity
 {
@@ -30,9 +31,9 @@ class CompanyEntity
     
     /**
      * 
-     * @var unknown
+     * @var Collection
      * 
-     * @ORM\OneToMany(targetEntity="DepartmentEntity", mappedBy="company")
+     * @ORM\OneToMany(targetEntity="DepartmentEntity", mappedBy="company", cascade={"persist"})
      */
     private $departments;
 

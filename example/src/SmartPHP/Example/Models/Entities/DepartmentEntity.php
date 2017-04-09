@@ -3,10 +3,11 @@ namespace SmartPHP\Example\Models\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use DoctrineProxies\__CG__\SmartPHP\Example\Models\Entities\CompanyEntity;
 
 /**
  * @ORM\Table(name="smartphp_departments")
- * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\DepartmentRepository")
+ * @ORM\Entity
  */
 class DepartmentEntity
 {
@@ -30,7 +31,7 @@ class DepartmentEntity
     private $name;
     
     /**
-     * @var unknown
+     * @var CompanyEntity
      * 
      * @ORM\ManyToOne(targetEntity="CompanyEntity", inversedBy="departments")
      * @ORM\JoinColumn(name="CompanyID", referencedColumnName="ID")
@@ -41,12 +42,7 @@ class DepartmentEntity
      * 
      * @var Collection
      * 
-     * @ORM\ManyToMany(targetEntity="EmployeeEntity")
-     * @ORM\JoinTable(
-     *      name="smartphp_departments_employees",
-     *      joinColumns={@ORM\JoinColumn(name="DepartmentID", referencedColumnName="ID")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="EmployeeID", referencedColumnName="ID", unique=true)}
-     *      )
+     * @ORM\OneToMany(targetEntity="EmployeeEntity", mappedBy="department")
      */
     private $employees;
     

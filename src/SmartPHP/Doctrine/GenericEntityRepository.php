@@ -5,7 +5,7 @@ use Doctrine\ORM\EntityRepository;
 
 class GenericEntityRepository extends EntityRepository
 {
-
+    
     protected function fetchAllEntities(): array
     {
         return $this->findAll();

@@ -8,13 +8,13 @@ interface DepartmentServiceInterface
     
     public function fetchAll(): array;
     
-    public function fetchOne(DepartmentDto $company): DepartmentDto;
+    public function fetchOne(DepartmentDto $department): DepartmentDto;
     
-    public function fetch(DepartmentDto $company = null);
+    public function fetch(DepartmentDto $department = null);
     
-    public function add(DepartmentDto $company): DepartmentDto;
+    public function add(DepartmentDto $department): DepartmentDto;
     
-    public function update(DepartmentDto $company): DepartmentDto;
+    public function update(DepartmentDto $department): DepartmentDto;
     
-    public function remove(DepartmentDto $company): DepartmentDto;
+    public function remove(DepartmentDto $department): DepartmentDto;
 }

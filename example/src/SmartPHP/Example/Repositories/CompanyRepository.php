@@ -1,10 +1,10 @@
 <?php
 namespace SmartPHP\Example\Repositories;
 
-use SmartPHP\Doctrine\GenericEntityRepository;
+use SmartPHP\Doctrine\GenericDataSourceRepository;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
 
-class CompanyRepository extends GenericEntityRepository implements CompanyRepositoryInterface
+class CompanyRepository extends GenericDataSourceRepository implements CompanyRepositoryInterface
 {
 
     /**
@@ -15,7 +15,7 @@ class CompanyRepository extends GenericEntityRepository implements CompanyReposi
      */
     public function fetchAll(): array
     {
-        return $this->fetchAllEntities();
+        return $this->fetchAllEntities(CompanyEntity::class);
     }
 
     /**
