@@ -3,7 +3,6 @@ namespace SmartPHP\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
 class GenericDataSourceRepository
 {
 
