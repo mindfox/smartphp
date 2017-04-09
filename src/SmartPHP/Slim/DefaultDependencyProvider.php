@@ -2,16 +2,17 @@
 namespace SmartPHP\Slim;
 
 use Interop\Container\ContainerInterface;
+use SmartPHP\Services\DataSourceTransactionFactory;
 use SmartPHP\Services\DataSourceExecutor;
 use SmartPHP\Services\DataSourceFactory;
 use SmartPHP\Services\DataSourceOperationFactory;
 use SmartPHP\Services\DataSourceRequestFactory;
 use SmartPHP\Services\DataSourceResponseSerializer;
-use SmartPHP\Services\DataSourceTransactionFactory;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 
 final class DefaultDependencyProvider
 {
