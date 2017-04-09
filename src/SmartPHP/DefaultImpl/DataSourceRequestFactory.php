@@ -1,9 +1,9 @@
 <?php
-namespace SmartPHP\Services;
+namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DataSourceRequestFactoryInterface;
 use SmartPHP\Interfaces\DataSourceRequestInterface;
-use SmartPHP\Models\DataSourceRequest;
+use SmartPHP\DefaultImpl\DataSourceRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
 class DataSourceRequestFactory implements DataSourceRequestFactoryInterface

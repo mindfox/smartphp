@@ -1,10 +1,10 @@
 <?php
-namespace SmartPHP\Services;
+namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DataSourceOperationFactoryInterface;
 use SmartPHP\Interfaces\DataSourceOperationInterface;
 use SmartPHP\Interfaces\DataSourceRequestInterface;
-use SmartPHP\Models\DataSourceOperation;
+use SmartPHP\DefaultImpl\DataSourceOperation;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 

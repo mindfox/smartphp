@@ -1,16 +1,16 @@
 <?php
-namespace SmartPHP\Services;
+namespace SmartPHP\DefaultImpl;
 
+use SmartPHP\DefaultImpl\DataSourceOperationType;
+use SmartPHP\DefaultImpl\DataSourceResponse;
+use SmartPHP\DefaultImpl\DataSourceResponses;
+use SmartPHP\Interfaces\DataSourceExecutorInterface;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceOperationInterface;
-use SmartPHP\Models\DataSourceOperationType;
-use SmartPHP\Interfaces\DataSourceExecutorInterface;
 use SmartPHP\Interfaces\DataSourceResponseInterface;
 use SmartPHP\Interfaces\DataSourceResponsesInterface;
 use SmartPHP\Interfaces\DataSourceTransactionInterface;
-use SmartPHP\Models\DataSourceResponse;
-use SmartPHP\Models\DataSourceResponses;
-use SmartPHP\Interfaces\DataSourceFactoryInterface;
 
 class DataSourceExecutor implements DataSourceExecutorInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Services;
+namespace SmartPHP\DefaultImpl;
 
 use Interop\Container\ContainerInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;

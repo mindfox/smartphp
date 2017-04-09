@@ -6,7 +6,7 @@ use SmartPHP\Interfaces\DataSourceRequestInterface;
 use SmartPHP\Interfaces\DataSourceTransactionInterface;
 use SmartPHP\Interfaces\DataSourceOperationFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use SmartPHP\Models\DataSourceTransaction;
+use SmartPHP\DefaultImpl\DataSourceTransaction;
 
 class DataSourceTransactionFactory implements DataSourceTransactionFactoryInterface
 {

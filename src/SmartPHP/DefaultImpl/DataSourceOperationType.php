@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Models;
+namespace SmartPHP\DefaultImpl;
 
 abstract class DataSourceOperationType
 {

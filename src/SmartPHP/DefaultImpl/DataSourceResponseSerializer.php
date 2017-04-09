@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Services;
+namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DataSourceResponseInterface;
 use SmartPHP\Interfaces\DataSourceResponseSerializerInterface;
