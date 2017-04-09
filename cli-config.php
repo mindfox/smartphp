@@ -1,6 +1,8 @@
 <?php
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+
 $entityManager = null;
 
 require_once __DIR__ . '/bootstrap.php';
 
-return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);
+return ConsoleRunner::createHelperSet($entityManager);
