@@ -32,16 +32,16 @@ class DepartmentEntity
     
     /**
      * @var CompanyEntity
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="CompanyEntity", inversedBy="departments")
      * @ORM\JoinColumn(name="CompanyID", referencedColumnName="ID")
      */
     private $company;
     
     /**
-     * 
+     *
      * @var Collection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="EmployeeEntity", mappedBy="department")
      */
     private $employees;

@@ -42,7 +42,6 @@ class DataSourceExecutor implements DataSourceExecutorInterface
         $response = new DataSourceResponse();
         
         switch (strtolower($operation->getOperationType())) {
-            
             case DataSourceOperationType::FETCH:
                 $operation = $dataSource->fetch($operation);
                 break;

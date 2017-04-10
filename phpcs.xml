@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="Slim coding standard">
-    <description>IntraWarez/Sabertooth coding standard</description>
+<ruleset name="SmartPHP Coding Standard">
+    <description>IntraWarez/SmartPHP coding standard</description>
 
     <!-- display progress -->
     <arg value="p"/>
@@ -8,10 +8,13 @@
     <arg name="colors"/>
 
     <!-- inherit rules from: -->
-    <rule ref="PSR2"/>
+    <rule ref="PSR2">
+    </rule>
+    
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
     <!-- Paths to check -->
     <file>src</file>
     <file>tests</file>
+    <file>example/src</file>
 </ruleset>

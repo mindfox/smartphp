@@ -58,7 +58,7 @@ class CompanyEntity extends \SmartPHP\Example\Models\Entities\CompanyEntity impl
 
 
     /**
-     * 
+     *
      * @return array
      */
     public function __sleep()
@@ -71,11 +71,11 @@ class CompanyEntity extends \SmartPHP\Example\Models\Entities\CompanyEntity impl
     }
 
     /**
-     * 
+     *
      */
     public function __wakeup()
     {
-        if ( ! $this->__isInitialized__) {
+        if (! $this->__isInitialized__) {
             $this->__initializer__ = function (CompanyEntity $proxy) {
                 $proxy->__setInitializer(null);
                 $proxy->__setCloner(null);
@@ -83,17 +83,16 @@ class CompanyEntity extends \SmartPHP\Example\Models\Entities\CompanyEntity impl
                 $existingProperties = get_object_vars($proxy);
 
                 foreach ($proxy->__getLazyProperties() as $property => $defaultValue) {
-                    if ( ! array_key_exists($property, $existingProperties)) {
+                    if (! array_key_exists($property, $existingProperties)) {
                         $proxy->$property = $defaultValue;
                     }
                 }
             };
-
         }
     }
 
     /**
-     * 
+     *
      */
     public function __clone()
     {
@@ -253,5 +252,4 @@ class CompanyEntity extends \SmartPHP\Example\Models\Entities\CompanyEntity impl
 
         return parent::getDepartments();
     }
-
 }

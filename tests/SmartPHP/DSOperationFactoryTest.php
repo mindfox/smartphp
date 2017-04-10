@@ -15,6 +15,5 @@ class DSOperationFactoryTest extends TestCase
         $operation = $operationFactory->createFromArray($array);
         
         $this->assertInstanceOf(DSOperationInterface::class, $operation);
-        
     }
 }

@@ -13,8 +13,8 @@ class CompanyEntity
 
     /**
      *
-     * @var string 
-     * 
+     * @var string
+     *
      * @ORM\Column(name="ID", type="guid", length=255, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="UUID")
@@ -23,16 +23,16 @@ class CompanyEntity
 
     /**
      *
-     * @var string 
-     * 
+     * @var string
+     *
      * @ORM\Column(name="Name", type="string", length=255, nullable=false)
      */
     private $name;
     
     /**
-     * 
+     *
      * @var Collection
-     * 
+     *
      * @ORM\OneToMany(targetEntity="DepartmentEntity", mappedBy="company", cascade={"persist"})
      */
     private $departments;

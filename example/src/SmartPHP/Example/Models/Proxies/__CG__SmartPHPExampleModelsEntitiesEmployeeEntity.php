@@ -58,24 +58,24 @@ class EmployeeEntity extends \SmartPHP\Example\Models\Entities\EmployeeEntity im
 
 
     /**
-     * 
+     *
      * @return array
      */
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'id', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'firstName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'secondName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'birthDate', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'salary'];
+            return ['__isInitialized__', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'id', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'firstName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'secondName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'birthDate', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'salary', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'department'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'id', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'firstName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'secondName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'birthDate', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'salary'];
+        return ['__isInitialized__', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'id', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'firstName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'secondName', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'birthDate', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'salary', '' . "\0" . 'SmartPHP\\Example\\Models\\Entities\\EmployeeEntity' . "\0" . 'department'];
     }
 
     /**
-     * 
+     *
      */
     public function __wakeup()
     {
-        if ( ! $this->__isInitialized__) {
+        if (! $this->__isInitialized__) {
             $this->__initializer__ = function (EmployeeEntity $proxy) {
                 $proxy->__setInitializer(null);
                 $proxy->__setCloner(null);
@@ -83,17 +83,16 @@ class EmployeeEntity extends \SmartPHP\Example\Models\Entities\EmployeeEntity im
                 $existingProperties = get_object_vars($proxy);
 
                 foreach ($proxy->__getLazyProperties() as $property => $defaultValue) {
-                    if ( ! array_key_exists($property, $existingProperties)) {
+                    if (! array_key_exists($property, $existingProperties)) {
                         $proxy->$property = $defaultValue;
                     }
                 }
             };
-
         }
     }
 
     /**
-     * 
+     *
      */
     public function __clone()
     {
@@ -309,4 +308,25 @@ class EmployeeEntity extends \SmartPHP\Example\Models\Entities\EmployeeEntity im
         return parent::getSalary();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department = null)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDepartment', [$department]);
+
+        return parent::setDepartment($department);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDepartment()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepartment', []);
+
+        return parent::getDepartment();
+    }
 }

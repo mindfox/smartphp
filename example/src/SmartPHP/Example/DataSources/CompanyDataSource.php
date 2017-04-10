@@ -12,7 +12,7 @@ class CompanyDataSource implements DataSourceInterface
     use ModelBinderTrait;
     
     /**
-     * 
+     *
      * @var CompanyServiceInterface
      */
     private $companyService;

@@ -54,9 +54,9 @@ class EmployeeEntity
     private $salary;
     
     /**
-     * 
+     *
      * @var DepartmentEntity
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="DepartmentEntity", inversedBy="employees")
      * @ORM\JoinColumn(name="DepartmentID", referencedColumnName="ID")
      */

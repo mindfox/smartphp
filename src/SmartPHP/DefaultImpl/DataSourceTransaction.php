@@ -7,19 +7,19 @@ class DataSourceTransaction implements DSTransactionInterface
 {
 
     /**
-     * 
+     *
      * @var int
      */
     private $transactionNum = -1;
     
     /**
-     * 
+     *
      * @var string
      */
     private $dataFormat = "";
 
     /**
-     * 
+     *
      * @var array
      */
     private $operations = [];

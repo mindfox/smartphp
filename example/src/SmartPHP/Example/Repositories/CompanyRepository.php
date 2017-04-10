@@ -42,7 +42,7 @@ class CompanyRepository extends GenericDataSourceRepository implements CompanyRe
 
     /**
      *
-     * @param CompanyEntity $company            
+     * @param CompanyEntity $company
      * @return CompanyEntity
      */
     public function add(CompanyEntity $company): CompanyEntity

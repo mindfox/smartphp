@@ -81,7 +81,4 @@ class EmployeeDto
         $this->departmentId = $departmentId;
         return $this;
     }
- 
-    
-    
 }

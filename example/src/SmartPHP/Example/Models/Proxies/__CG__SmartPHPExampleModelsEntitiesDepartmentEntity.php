@@ -58,7 +58,7 @@ class DepartmentEntity extends \SmartPHP\Example\Models\Entities\DepartmentEntit
 
 
     /**
-     * 
+     *
      * @return array
      */
     public function __sleep()
@@ -71,11 +71,11 @@ class DepartmentEntity extends \SmartPHP\Example\Models\Entities\DepartmentEntit
     }
 
     /**
-     * 
+     *
      */
     public function __wakeup()
     {
-        if ( ! $this->__isInitialized__) {
+        if (! $this->__isInitialized__) {
             $this->__initializer__ = function (DepartmentEntity $proxy) {
                 $proxy->__setInitializer(null);
                 $proxy->__setCloner(null);
@@ -83,17 +83,16 @@ class DepartmentEntity extends \SmartPHP\Example\Models\Entities\DepartmentEntit
                 $existingProperties = get_object_vars($proxy);
 
                 foreach ($proxy->__getLazyProperties() as $property => $defaultValue) {
-                    if ( ! array_key_exists($property, $existingProperties)) {
+                    if (! array_key_exists($property, $existingProperties)) {
                         $proxy->$property = $defaultValue;
                     }
                 }
             };
-
         }
     }
 
     /**
-     * 
+     *
      */
     public function __clone()
     {
@@ -257,7 +256,7 @@ class DepartmentEntity extends \SmartPHP\Example\Models\Entities\DepartmentEntit
     /**
      * {@inheritDoc}
      */
-    public function setCompany(\SmartPHP\Example\Models\Entities\CompanyEntity $company = NULL)
+    public function setCompany(\SmartPHP\Example\Models\Entities\CompanyEntity $company = null)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCompany', [$company]);
@@ -275,5 +274,4 @@ class DepartmentEntity extends \SmartPHP\Example\Models\Entities\DepartmentEntit
 
         return parent::getCompany();
     }
-
 }
