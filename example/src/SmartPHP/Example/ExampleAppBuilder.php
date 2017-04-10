@@ -58,7 +58,7 @@ class ExampleAppBuilder extends AppBuilder
                     
                     "isDevMode" => true,
                     
-                    "proxyDir" => __DIR__ . "/Models/Proxies",
+                    "proxyDir" => __DIR__ . "/../../../proxies",
                     
                     "cache" => null,
                     
