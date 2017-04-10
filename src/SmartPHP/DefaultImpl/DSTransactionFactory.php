@@ -33,20 +33,20 @@ class DSTransactionFactory implements DSTransactionFactoryInterface
      *
      * {@inheritdoc}
      *
-     * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createFromDSRequest()
+     * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createDSTransactionFromDSRequest()
      */
-    public function createFromDSRequest(DSRequestInterface $dsRequest): DSTransactionFactoryInterface
+    public function createDSTransactionFromDSRequest(DSRequestInterface $dsRequest): DSTransactionInterface
     {
-        return $this->createFromArray($dsRequest->getData());
+        return $this->createDSTransactionFromArray($dsRequest->getData());
     }
 
     /**
      *
      * {@inheritdoc}
      *
-     * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createFromArray()
+     * @see \SmartPHP\Interfaces\DataSourceTransactionFactoryInterface::createDSTransactionFromArray()
      */
-    public function createFromArray(array $array): DSTransactionInterface
+    public function createDSTransactionFromArray(array $array): DSTransactionInterface
     {
         /**
          *

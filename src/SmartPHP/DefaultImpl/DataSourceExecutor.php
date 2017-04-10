@@ -24,7 +24,7 @@ class DataSourceExecutor implements DataSourceExecutorInterface
 
     private function getDataSource(DSOperationInterface $operation): DataSourceInterface
     {
-        return $this->dataSourceFactory->createFromDataSourceMessage($operation);
+        return $this->dataSourceFactory->createDataSourceFromOperation($operation);
     }
 
     /**

@@ -7,7 +7,12 @@ use SmartPHP\Interfaces\DSRequestInterface;
 
 class DSRequestFactory implements DSRequestFactoryInterface
 {
-    
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \SmartPHP\Interfaces\DSRequestFactoryInterface::createDSRequestFromArray()
+     */
     public function createDSRequestFromArray(array $array): DSRequestInterface
     {
         $dsRequest = new DSRequest();
@@ -19,9 +24,9 @@ class DSRequestFactory implements DSRequestFactoryInterface
      *
      * {@inheritdoc}
      *
-     * @see \SmartPHP\Interfaces\DataSourceRequestFactoryInterface::createFromServerRequest()
+     * @see \SmartPHP\Interfaces\DataSourceRequestFactoryInterface::createDSRequestFromServerRequest()
      */
-    public function createFromServerRequest(ServerRequestInterface $request): DSRequestInterface
+    public function createDSRequestFromServerRequest(ServerRequestInterface $request): DSRequestInterface
     {
         $parsedBody = (array) $request->getParsedBody();
         $queryParams = $request->getQueryParams();

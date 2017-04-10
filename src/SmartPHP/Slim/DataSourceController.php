@@ -72,7 +72,7 @@ class DataSourceController
 
     private function createRequest(ServerRequestInterface $request): DSRequestInterface
     {
-        return $this->dsRequestFactory->createFromServerRequest($request);
+        return $this->dsRequestFactory->createDSRequestFromServerRequest($request);
     }
 
     private function createOperation(DSRequestInterface $dsRequest): DSOperationInterface
@@ -82,7 +82,7 @@ class DataSourceController
 
     private function createTransaction(DSRequestInterface $dsRequest): DSTransactionInterface
     {
-        return $this->dsTransactionFactory->createFromDSRequest($dsRequest);
+        return $this->dsTransactionFactory->createDSTransactionFromDSRequest($dsRequest);
     }
 
     private function executeOperation(DSOperationInterface $operation): DSResponseInterface

@@ -4,7 +4,7 @@ namespace SmartPHP\Interfaces;
 interface DSTransactionFactoryInterface
 {
 
-    public function createFromArray(array $array): DSTransactionFactoryInterface;
+    public function createDSTransactionFromArray(array $array): DSTransactionInterface;
 
-    public function createFromDSRequest(DSRequestInterface $dsRequest): DSTransactionFactoryInterface;
+    public function createDSTransactionFromDSRequest(DSRequestInterface $dsRequest): DSTransactionInterface;
 }

@@ -5,5 +5,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 interface DSRequestFactoryInterface
 {
-    public function createFromServerRequest(ServerRequestInterface $request): DSRequestFactoryInterface;
+    public function createDSRequestFromArray(array $array): DSRequestInterface;
+    
+    public function createDSRequestFromServerRequest(ServerRequestInterface $request): DSRequestInterface;
 }

@@ -2,6 +2,7 @@
 namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DSTransactionInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 
 class DSTransaction implements DSTransactionInterface
 {
@@ -40,7 +41,7 @@ class DSTransaction implements DSTransactionInterface
         return $this->operations;
     }
 
-    public function addOperation(DataSourceOperation $operation): DSTransactionInterface
+    public function addOperation(DSOperationInterface $operation): DSTransactionInterface
     {
         $this->operations[] = $operation;
         return $this;
