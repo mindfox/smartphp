@@ -57,12 +57,12 @@ class DataSourceController
     public function __construct(ContainerInterface $container)
     {
         $container = DefaultDependencyProvider::register($container);
-        $this->dsResponseSerializer = $container->get(DependencyIds::RESPONSE_SERIALIZER);
-        $this->dsOperationFactory = $container->get("SmartPHP/OperationFactory");
-        $this->dsTransactionFactory = $container->get("SmartPHP/TransactionFactory");
-        $this->dsRequestFactory = $container->get("SmartPHP/RequestFactory");
+        $this->dsResponseSerializer = $container->get(DependencyIds::DS_RESPONSE_SERIALIZER);
+        $this->dsOperationFactory = $container->get(DependencyIds::DS_OPERATION_FACTORY);
+        $this->dsTransactionFactory = $container->get(DependencyIds::DS_TRANSACTION_FACTORY);
+        $this->dsRequestFactory = $container->get(DependencyIds::DS_REQUEST_FACTORY);
         $this->dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
-        $this->dataSourceExecutor = $container->get(DependencyIds::DATASORUCE_INVOKATOR);
+        $this->dataSourceExecutor = $container->get(DependencyIds::DATASORUCE_EXECUTOR);
     }
 
     private function serializeResponse(DSResponseInterface $dsResponse, string $format): string

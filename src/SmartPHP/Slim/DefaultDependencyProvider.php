@@ -16,99 +16,83 @@ use Symfony\Component\Serializer\Serializer;
 final class DefaultDependencyProvider
 {
 
-    private static function registerSerializer(ContainerInterface $container): ContainerInterface
+    private static function defineDefaultProvider(ContainerInterface $container, string $id, callable $provider): ContainerInterface
     {
-        if (! isset($container[DependencyIds::SERIALIZER])) {
-            $container[DependencyIds::SERIALIZER] = function (ContainerInterface $container) {
-                $encoders = [
-                    new JsonEncoder(),
-                    new XmlEncoder()
-                ];
-                
-                $normalizers = [
-                    new GetSetMethodNormalizer()
-                ];
-                
-                $serializer = new Serializer($normalizers, $encoders);
-                
-                return $serializer;
-            };
+        if (! isset($container[$id])) {
+            $container[$id] = $provider;
         }
         return $container;
+    }
+
+    private static function registerSerializer(ContainerInterface $container): ContainerInterface
+    {
+        return self::defineDefaultProvider($container, DependencyIds::SERIALIZER, function (ContainerInterface $container) {
+            $encoders = [
+                new JsonEncoder(),
+                new XmlEncoder()
+            ];
+            
+            $normalizers = [
+                new GetSetMethodNormalizer()
+            ];
+            
+            $serializer = new Serializer($normalizers, $encoders);
+            
+            return $serializer;
+        });
     }
 
     private static function registerDenormalizer(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container["SmartPHP/Denormalizer"])) {
-            $container["SmartPHP/Denormalizer"] = function (ContainerInterface $container) {
-                return new GetSetMethodNormalizer();
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DENORMALIZER, function (ContainerInterface $container) {
+            return new GetSetMethodNormalizer();
+        });
     }
 
     private static function registerResponseSerializer(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container[DependencyIds::RESPONSE_SERIALIZER])) {
-            $container[DependencyIds::RESPONSE_SERIALIZER] = function (ContainerInterface $container) {
-                return new DSResponseSerializer($container->get(DependencyIds::SERIALIZER));
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DS_RESPONSE_SERIALIZER, function (ContainerInterface $container) {
+            return new DSResponseSerializer($container->get(DependencyIds::SERIALIZER));
+        });
     }
 
     private static function registerRequestFactory(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container["SmartPHP/RequestFactory"])) {
-            $container["SmartPHP/RequestFactory"] = function (ContainerInterface $container) {
-                return new DSRequestFactory();
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DS_REQUEST_FACTORY, function (ContainerInterface $container) {
+            return new DSRequestFactory();
+        });
     }
 
     private static function registerOperationFactory(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container["SmartPHP/OperationFactory"])) {
-            $container["SmartPHP/OperationFactory"] = function (ContainerInterface $container) {
-                $denormalizer = $container->get("SmartPHP/Denormalizer");
-                return new DSOperationFactory($denormalizer);
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DS_OPERATION_FACTORY, function (ContainerInterface $container) {
+            $denormalizer = $container->get(DependencyIds::DENORMALIZER);
+            return new DSOperationFactory($denormalizer);
+        });
     }
 
     private static function registerTransactionFactory(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container["SmartPHP/TransactionFactory"])) {
-            $container["SmartPHP/TransactionFactory"] = function (ContainerInterface $container) {
-                $dsOperationFactory = $container->get("SmartPHP/OperationFactory");
-                $denormalizer = $container->get("SmartPHP/Denormalizer");
-                return new DSTransactionFactory($dsOperationFactory, $denormalizer);
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DS_TRANSACTION_FACTORY, function (ContainerInterface $container) {
+            $dsOperationFactory = $container->get(DependencyIds::DS_OPERATION_FACTORY);
+            $denormalizer = $container->get(DependencyIds::DENORMALIZER);
+            return new DSTransactionFactory($dsOperationFactory, $denormalizer);
+        });
     }
 
     private static function registerDataSourceFactory(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container[DependencyIds::DATASOURCE_FACTORY])) {
-            $container[DependencyIds::DATASOURCE_FACTORY] = function (ContainerInterface $container) {
-                return new DataSourceFactory($container);
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DATASOURCE_FACTORY, function (ContainerInterface $container) {
+            return new DataSourceFactory($container);
+        });
     }
 
     private static function registerDataSourceExecutor(ContainerInterface $container): ContainerInterface
     {
-        if (! isset($container[DependencyIds::DATASORUCE_INVOKATOR])) {
-            $container[DependencyIds::DATASORUCE_INVOKATOR] = function (ContainerInterface $container) {
-                $dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
-                return new DataSourceExecutor($dataSourceFactory);
-            };
-        }
-        return $container;
+        return self::defineDefaultProvider($container, DependencyIds::DATASORUCE_EXECUTOR, function (ContainerInterface $container) {
+            $dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
+            return new DataSourceExecutor($dataSourceFactory);
+        });
     }
 
     public static function register(ContainerInterface $container): ContainerInterface

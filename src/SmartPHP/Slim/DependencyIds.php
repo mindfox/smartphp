@@ -4,13 +4,19 @@ namespace SmartPHP\Slim;
 abstract class DependencyIds
 {
 
+    const DENORMALIZER = "SmartPHP/Denormalizer";
+
     const SERIALIZER = "SmartPHP/Serializer";
 
-    const RESPONSE_SERIALIZER = "SmartPHP/ResponseSerializer";
+    const DS_RESPONSE_SERIALIZER = "SmartPHP/ResponseSerializer";
 
-    const MESSAGE_FACTORY = "SmartPHP/MessageFactory";
+    const DS_REQUEST_FACTORY = "SmartPHP/RequestFactory";
+
+    const DS_OPERATION_FACTORY = "SmartPHP/OperationFactory";
+
+    const DS_TRANSACTION_FACTORY = "SmartPHP/TransactionFactory";
 
     const DATASOURCE_FACTORY = "SmartPHP/DataSourceFactory";
 
-    const DATASORUCE_INVOKATOR = "SmartPHP/DataSourceInvokator";
+    const DATASORUCE_EXECUTOR = "SmartPHP/DataSourceExecutor";
 }
