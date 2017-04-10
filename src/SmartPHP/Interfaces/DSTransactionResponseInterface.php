@@ -6,5 +6,5 @@ interface DSTransactionResponseInterface extends DSResponseInterface
 
     public function getResponses(): array;
 
-    public function addResponse(DSResponseInterface $dsResponse): DSTransactionResponseInterface;
+    public function addResponse(DSOperationResponseInterface $dsOperationResponse): DSTransactionResponseInterface;
 }
