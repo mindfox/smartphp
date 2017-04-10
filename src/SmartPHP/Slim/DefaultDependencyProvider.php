@@ -4,10 +4,10 @@ namespace SmartPHP\Slim;
 use Interop\Container\ContainerInterface;
 use SmartPHP\DefaultImpl\DataSourceExecutor;
 use SmartPHP\DefaultImpl\DataSourceFactory;
-use SmartPHP\DefaultImpl\DataSourceOperationFactory;
-use SmartPHP\DefaultImpl\DataSourceRequestFactory;
-use SmartPHP\DefaultImpl\DataSourceResponseSerializer;
-use SmartPHP\DefaultImpl\DataSourceTransactionFactory;
+use SmartPHP\DefaultImpl\DSOperationFactory;
+use SmartPHP\DefaultImpl\DSRequestFactory;
+use SmartPHP\DefaultImpl\DSResponseSerializer;
+use SmartPHP\DefaultImpl\DSTransactionFactory;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -51,7 +51,7 @@ final class DefaultDependencyProvider
     {
         if (! isset($container[DependencyIds::RESPONSE_SERIALIZER])) {
             $container[DependencyIds::RESPONSE_SERIALIZER] = function (ContainerInterface $container) {
-                return new DataSourceResponseSerializer($container->get(DependencyIds::SERIALIZER));
+                return new DSResponseSerializer($container->get(DependencyIds::SERIALIZER));
             };
         }
         return $container;
@@ -61,7 +61,7 @@ final class DefaultDependencyProvider
     {
         if (! isset($container["SmartPHP/RequestFactory"])) {
             $container["SmartPHP/RequestFactory"] = function (ContainerInterface $container) {
-                return new DataSourceRequestFactory();
+                return new DSRequestFactory();
             };
         }
         return $container;
@@ -72,7 +72,7 @@ final class DefaultDependencyProvider
         if (! isset($container["SmartPHP/OperationFactory"])) {
             $container["SmartPHP/OperationFactory"] = function (ContainerInterface $container) {
                 $denormalizer = $container->get("SmartPHP/Denormalizer");
-                return new DataSourceOperationFactory($denormalizer);
+                return new DSOperationFactory($denormalizer);
             };
         }
         return $container;
@@ -84,7 +84,7 @@ final class DefaultDependencyProvider
             $container["SmartPHP/TransactionFactory"] = function (ContainerInterface $container) {
                 $dsOperationFactory = $container->get("SmartPHP/OperationFactory");
                 $denormalizer = $container->get("SmartPHP/Denormalizer");
-                return new DataSourceTransactionFactory($dsOperationFactory, $denormalizer);
+                return new DSTransactionFactory($dsOperationFactory, $denormalizer);
             };
         }
         return $container;

@@ -1,9 +1,6 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\DefaultImpl\DataSourceOperationType;
-use SmartPHP\DefaultImpl\DataSourceResponse;
-use SmartPHP\DefaultImpl\DataSourceResponses;
 use SmartPHP\Interfaces\DataSourceExecutorInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Interfaces\DataSourceInterface;
@@ -39,22 +36,22 @@ class DataSourceExecutor implements DataSourceExecutorInterface
     public function executeOperation(DSOperationInterface $operation): DSResponseInterface
     {
         $dataSource = $this->getDataSource($operation);
-        $response = new DataSourceResponse();
+        $response = new DSOperationResponse();
         
         switch (strtolower($operation->getOperationType())) {
-            case DataSourceOperationType::FETCH:
+            case DSOperationType::FETCH:
                 $operation = $dataSource->fetch($operation);
                 break;
             
-            case DataSourceOperationType::ADD:
+            case DSOperationType::ADD:
                 $operation = $dataSource->add($operation);
                 break;
             
-            case DataSourceOperationType::UPDATE:
+            case DSOperationType::UPDATE:
                 $operation = $dataSource->update($operation);
                 break;
             
-            case DataSourceOperationType::REMOVE:
+            case DSOperationType::REMOVE:
                 $operation = $dataSource->remove($operation);
                 break;
             
@@ -75,7 +72,7 @@ class DataSourceExecutor implements DataSourceExecutorInterface
      */
     public function executeTransaction(DSTransactionInterface $transaction): DSResponseInterface
     {
-        $responses = new DataSourceResponses();
+        $responses = new DSTransactionResponse();
         
         foreach ($transaction->getOperations() as $operation) {
             $responses->addResponse($this->executeOperation($operation));

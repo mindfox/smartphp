@@ -3,7 +3,7 @@ namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DSOperationInterface;
 
-class DataSourceOperation implements DSOperationInterface
+class DSOperation implements DSOperationInterface
 {
 
     /**

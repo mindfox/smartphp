@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-abstract class DataSourceOperationType
+abstract class DSOperationType
 {
     const FETCH = "fetch";
     const ADD = "add";

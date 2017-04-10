@@ -3,7 +3,7 @@ namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DSRequestInterface;
 
-class DataSourceRequest implements DSRequestInterface
+class DSRequest implements DSRequestInterface
 {
 
     private static $KeyPrefix = "isc_";

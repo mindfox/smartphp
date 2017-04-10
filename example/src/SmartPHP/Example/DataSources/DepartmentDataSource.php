@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\DataSources;
 
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 use SmartPHP\Traits\ModelBinderTrait;
 use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Models\Dtos\DepartmentDto;
@@ -28,7 +28,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function fetch(DSOperationInterface $operation): DSOperationInterface
     {
         $companies = $this->departmentService->fetchAll();
         $operation->setData($companies);
@@ -44,7 +44,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function add(DSOperationInterface $operation): DSOperationInterface
     {
         $department = $this->bindOperation($operation, DepartmentDto::class);
         $department = $this->departmentService->add($department);
@@ -58,7 +58,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function update(DSOperationInterface $operation): DSOperationInterface
     {
         $department = $this->bindOperation($operation, DepartmentDto::class);
         $department = $this->departmentService->update($department);
@@ -72,7 +72,7 @@ class DepartmentDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function remove(DSOperationInterface $operation): DSOperationInterface
     {
         $department = $this->bindOperation($operation, DepartmentDto::class);
         $department = $this->departmentService->remove($department);

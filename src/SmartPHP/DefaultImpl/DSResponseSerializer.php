@@ -7,7 +7,7 @@ use SmartPHP\Interfaces\DSResponseInterface;
 use SmartPHP\Interfaces\DSTransactionResponseInterface;
 use SmartPHP\Interfaces\DSOperationResponseInterface;
 
-class DataSourceResponseSerializer implements DSResponseSerializerInterface
+class DSResponseSerializer implements DSResponseSerializerInterface
 {
 
     /**

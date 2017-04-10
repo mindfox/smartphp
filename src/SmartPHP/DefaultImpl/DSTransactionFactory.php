@@ -1,14 +1,14 @@
 <?php
 namespace SmartPHP\DefaultImpl;
 
-use SmartPHP\DefaultImpl\DataSourceTransaction;
+use SmartPHP\DefaultImpl\DSTransaction;
 use SmartPHP\Interfaces\DSOperationFactoryInterface;
 use SmartPHP\Interfaces\DSRequestInterface;
 use SmartPHP\Interfaces\DSTransactionFactoryInterface;
 use SmartPHP\Interfaces\DSTransactionInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class DataSourceTransactionFactory implements DSTransactionFactoryInterface
+class DSTransactionFactory implements DSTransactionFactoryInterface
 {
 
     /**
@@ -52,7 +52,7 @@ class DataSourceTransactionFactory implements DSTransactionFactoryInterface
          *
          * @var DataSourceTransaction $transaction
          */
-        $transaction = $this->denormalizer->denormalize($array, DataSourceTransaction::class);
+        $transaction = $this->denormalizer->denormalize($array, DSTransaction::class);
         
         $operations = $array["operations"] ?? [];
         

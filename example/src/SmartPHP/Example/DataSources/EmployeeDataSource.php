@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\DataSources;
 
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 use SmartPHP\Traits\ModelBinderTrait;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
 use SmartPHP\Example\Models\Dtos\EmployeeDto;
@@ -28,7 +28,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function fetch(DSOperationInterface $operation): DSOperationInterface
     {
         $companies = $this->employeeService->fetchAll();
         $operation->setData($companies);
@@ -44,7 +44,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function add(DSOperationInterface $operation): DSOperationInterface
     {
         $employee = $this->bindOperation($operation, EmployeeDto::class);
         $employee = $this->employeeService->add($employee);
@@ -58,7 +58,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function update(DSOperationInterface $operation): DSOperationInterface
     {
         $employee = $this->bindOperation($operation, EmployeeDto::class);
         $employee = $this->employeeService->update($employee);
@@ -72,7 +72,7 @@ class EmployeeDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $operation): DataSourceOperationInterface
+    public function remove(DSOperationInterface $operation): DSOperationInterface
     {
         $employee = $this->bindOperation($operation, EmployeeDto::class);
         $employee = $this->employeeService->remove($employee);

@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\DataSources;
 
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceOperationInterface;
+use SmartPHP\Interfaces\DSOperationInterface;
 use SmartPHP\Traits\ModelBinderTrait;
 use SmartPHP\Example\Services\CompanyServiceInterface;
 use SmartPHP\Example\Models\Dtos\CompanyDto;
@@ -28,7 +28,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DataSourceOperationInterface $message): DataSourceOperationInterface
+    public function fetch(DSOperationInterface $message): DSOperationInterface
     {
         $companies = $this->companyService->fetchAll();
         $message->setData($companies);
@@ -44,7 +44,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DataSourceOperationInterface $message): DataSourceOperationInterface
+    public function add(DSOperationInterface $message): DSOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->add($company);
@@ -58,7 +58,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DataSourceOperationInterface $message): DataSourceOperationInterface
+    public function update(DSOperationInterface $message): DSOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->update($company);
@@ -72,7 +72,7 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DataSourceOperationInterface $message): DataSourceOperationInterface
+    public function remove(DSOperationInterface $message): DSOperationInterface
     {
         $company = $this->bind($message->getData(), CompanyDto::class);
         $company = $this->companyService->remove($company);

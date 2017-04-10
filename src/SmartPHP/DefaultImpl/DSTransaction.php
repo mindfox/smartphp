@@ -3,7 +3,7 @@ namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DSTransactionInterface;
 
-class DataSourceTransaction implements DSTransactionInterface
+class DSTransaction implements DSTransactionInterface
 {
 
     /**
