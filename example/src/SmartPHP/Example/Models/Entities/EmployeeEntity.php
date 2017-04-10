@@ -2,7 +2,6 @@
 namespace SmartPHP\Example\Models\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use DoctrineProxies\__CG__\SmartPHP\Example\Models\Entities\DepartmentEntity;
 
 /**
  * @ORM\Table(name="smartphp_employees")

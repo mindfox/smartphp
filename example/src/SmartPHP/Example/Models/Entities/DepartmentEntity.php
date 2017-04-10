@@ -1,9 +1,8 @@
 <?php
 namespace SmartPHP\Example\Models\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use DoctrineProxies\__CG__\SmartPHP\Example\Models\Entities\CompanyEntity;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="smartphp_departments")
