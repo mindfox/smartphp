@@ -26,8 +26,23 @@
 			httpMethod : "POST"
 		}
 	} ];
+	
+	function createRestDataSource(options) {
+		options = options || {};
+		
+		options.dataFormat = "json";
+		options.jsonPrefix = "";
+		options.jsonSuffix = "";
+		options.operationBindings = operationBindings;
+		options.fetchDataURL = url;
+		options.addDataURL = url;
+		options.updateDataURL = url;
+		options.removeDataURL = url;
+		
+		return isc.RestDataSource.create(options);
+	}
 
-	isc.RestDataSource.create({
+	createRestDataSource({
 	    ID:"CompanyDataSource",
 	    fields:[ {
 	    	name:"id",
@@ -39,17 +54,9 @@
 	    	name:"name", 
 	    	title:"Company Name"
 	    } ],
-	    dataFormat:"json",
-	    jsonPrefix:"",
-	    jsonSuffix:"",
-	    operationBindings : operationBindings,
-	    fetchDataURL:url,
-	    addDataURL:url,
-	    updateDataURL:url,
-	    removeDataURL:url
 	});
-
-	isc.RestDataSource.create({
+	
+	createRestDataSource({
 	    ID:"DepartmentDataSource",
 	    fields:[ {
 	    	name:"id",
@@ -72,17 +79,9 @@
 				name : "name"
 			}, ],
 	    } ],
-	    dataFormat:"json",
-	    jsonPrefix:"",
-	    jsonSuffix:"",
-	    operationBindings : operationBindings,
-	    fetchDataURL:url,
-	    addDataURL:url,
-	    updateDataURL:url,
-	    removeDataURL:url
 	});
 
-	isc.RestDataSource.create({
+	createRestDataSource({
 	    ID:"EmployeeDataSource",
 	    fields:[ {
 	    	name:"id",
@@ -116,17 +115,7 @@
 				name : "name"
 			}, ],
 	    } ],
-	    dataFormat:"json",
-	    jsonPrefix:"",
-	    jsonSuffix:"",
-	    operationBindings : operationBindings,
-	    fetchDataURL:url,
-	    addDataURL:url,
-	    updateDataURL:url,
-	    removeDataURL:url
-	});
-
-	
+	});	
 	
 	isc.ListGrid.create({
 		autoDraw:false,
