@@ -3,6 +3,8 @@ namespace SmartPHP\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use SmartPHP\Interfaces\OptionalInterface;
+use SmartPHP\DefaultImpl\Optional;
 
 class GenericDataSourceRepository
 {
@@ -38,10 +40,10 @@ class GenericDataSourceRepository
         return $this->getObjectRepository($class)->findAll();
     }
 
-    protected function fetchOneEntity($entity)
+    protected function fetchOneEntity($entity): OptionalInterface
     {
         $class = $this->getClassOf($entity);
-        return $this->getObjectRepository($class)->find($entity);
+        return Optional::Of($this->getObjectRepository($class)->find($entity));
     }
     
     protected function fetchEntity($entity = null)
