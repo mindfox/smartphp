@@ -4,6 +4,8 @@ namespace SmartPHP\Slim;
 abstract class DependencyIds
 {
 
+    const CONFIG = "SmartPHP";
+    
     const DENORMALIZER = "SmartPHP/Denormalizer";
 
     const SERIALIZER = "SmartPHP/Serializer";

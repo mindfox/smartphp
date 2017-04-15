@@ -16,6 +16,17 @@ use Symfony\Component\Serializer\Serializer;
 final class DefaultDependencyProvider
 {
 
+    private static function defaultConfig(ContainerInterface $container)
+    {
+        return [
+            
+            "jsonPrefix" => DSResponseSerializer::RESTDATASOURCE_JSON_PREFIX,
+            
+            "jsonSuffix" => DSResponseSerializer::RESTDATASOURCE_JSON_SUFFIX,
+            
+        ];
+    }
+    
     private static function defaultSerializer(ContainerInterface $container)
     {
         $encoders = [
@@ -39,7 +50,11 @@ final class DefaultDependencyProvider
 
     private static function defaultResponseSerializer(ContainerInterface $container)
     {
-        return new DSResponseSerializer($container->get(DependencyIds::SERIALIZER));
+        $serializer = $container->get(DependencyIds::SERIALIZER);
+        $config = $container->get(DependencyIds::CONFIG);
+        $jsonPrefix = $config["jsonPrefix"];
+        $jsonSuffix = $config["jsonSuffix"];
+        return new DSResponseSerializer($serializer, $jsonPrefix, $jsonSuffix);
     }
 
     private static function defaultRequestFactory(ContainerInterface $container)
@@ -89,6 +104,8 @@ final class DefaultDependencyProvider
     public static function register(ContainerInterface $container)
     {
         self::registerDefaultProviders($container, [
+            
+            DependencyIds::CONFIG => "defaultConfig",
             
             DependencyIds::DENORMALIZER => "defaultDenormalizer",
             

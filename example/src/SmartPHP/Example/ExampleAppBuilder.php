@@ -142,17 +142,7 @@ class ExampleAppBuilder extends AppBuilder
             $builder->addDefinitions($container->get("DI-Definitions"));
             return $builder->build();
         };
-        
-        // ===================================================================================
-        // DS Response Serializer
-        
-        $container[DependencyIds::DS_RESPONSE_SERIALIZER] = function (ContainerInterface $container) {
-            $serializer = $container->get(DependencyIds::SERIALIZER);
-            $jsonPrefix = $container->get("SmartPHP")["jsonPrefix"];
-            $jsonSuffix = $container->get("SmartPHP")["jsonSuffix"];
-            return new DSResponseSerializer($serializer, $jsonPrefix, $jsonSuffix);
-        };
-        
+                
         // ===================================================================================
         // DataSources
         
