@@ -1,19 +1,21 @@
 <?php
 namespace SmartPHP\Example;
 
-use SmartPHP\Slim\AppBuilder;
-use Interop\Container\ContainerInterface;
 use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
-use SmartPHP\Example\DataSources\CompanyDataSource;
-use SmartPHP\Example\DataSources\DepartmentDataSource;
-use SmartPHP\Example\DataSources\EmployeeDataSource;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
-use SmartPHP\Example\Models\Entities\DepartmentEntity;
-use SmartPHP\Example\Models\Entities\EmployeeEntity;
+use Interop\Container\ContainerInterface;
+use Slim\App;
+use SmartPHP\DefaultImpl\DataSource;
+use SmartPHP\Example\Models\Dtos\CompanyDto;
+use SmartPHP\Example\Models\Dtos\DepartmentDto;
+use SmartPHP\Example\Models\Dtos\EmployeeDto;
+use SmartPHP\Example\Repositories\CompanyRepository;
 use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Example\Repositories\DepartmentRepository;
 use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
+use SmartPHP\Example\Repositories\EmployeeRepository;
 use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Services\CompanyService;
 use SmartPHP\Example\Services\CompanyServiceInterface;
@@ -21,19 +23,10 @@ use SmartPHP\Example\Services\DepartmentService;
 use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeService;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
-use function DI\object;
+use SmartPHP\Slim\AppBuilder;
 use SmartPHP\Slim\DataSourceController;
-use Slim\App;
-use Doctrine\ORM\EntityManagerInterface;
-use SmartPHP\Example\Repositories\DepartmentRepository;
-use SmartPHP\Example\Repositories\CompanyRepository;
-use SmartPHP\Example\Repositories\EmployeeRepository;
 use SmartPHP\Slim\DependencyIds;
-use SmartPHP\DefaultImpl\DSResponseSerializer;
-use SmartPHP\DefaultImpl\BaseDataSource;
-use SmartPHP\Example\Models\Dtos\CompanyDto;
-use SmartPHP\Example\Models\Dtos\DepartmentDto;
-use SmartPHP\Example\Models\Dtos\EmployeeDto;
+use function DI\object;
 
 class ExampleAppBuilder extends AppBuilder
 {
@@ -148,21 +141,21 @@ class ExampleAppBuilder extends AppBuilder
             $dataSourceService = $container->get("DI")->get(CompanyServiceInterface::class);
             $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
             $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(CompanyDto::class);
-            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
+            return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["DepartmentDataSource"] = function (ContainerInterface $container) {
             $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
             $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
             $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(DepartmentDto::class);
-            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
+            return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["EmployeeDataSource"] = function (ContainerInterface $container) {
             $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
             $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
             $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(EmployeeDto::class);
-            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
+            return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         return parent::registerDependencies($container);

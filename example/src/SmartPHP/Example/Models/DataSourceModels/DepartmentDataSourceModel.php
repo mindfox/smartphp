@@ -1,14 +1,16 @@
 <?php
-namespace SmartPHP\Example\Models\Dtos;
+namespace SmartPHP\Example\Models\DataSourceModels;
 
 use SmartPHP\Interfaces\DataSourceModelInterface;
 
-class CompanyDto implements DataSourceModelInterface
+class DepartmentDataSourceModel implements DataSourceModelInterface
 {
 
     private $id;
 
     private $name;
+
+    private $companyId;
 
     public function getId()
     {
@@ -29,6 +31,17 @@ class CompanyDto implements DataSourceModelInterface
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    public function setCompanyId($companyId)
+    {
+        $this->companyId = $companyId;
         return $this;
     }
 }

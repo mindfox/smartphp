@@ -1,20 +1,20 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Example\Models\Dtos\CompanyDto;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 
 interface CompanyServiceInterface
 {
 
     public function fetchAll(): array;
 
-    public function fetchOne(CompanyDto $company): CompanyDto;
+    public function fetchOne(CompanyDataSourceModel $company): CompanyDataSourceModel;
 
     public function fetch(int $startRow, int $endRow): array;
 
-    public function add(CompanyDto $company): CompanyDto;
+    public function add(CompanyDataSourceModel $company): CompanyDataSourceModel;
 
-    public function update(CompanyDto $company): CompanyDto;
+    public function update(CompanyDataSourceModel $company): CompanyDataSourceModel;
 
-    public function remove(CompanyDto $company): CompanyDto;
+    public function remove(CompanyDataSourceModel $company): CompanyDataSourceModel;
 }

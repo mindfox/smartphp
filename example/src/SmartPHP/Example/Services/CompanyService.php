@@ -2,8 +2,8 @@
 namespace SmartPHP\Example\Services;
 
 use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Example\Models\Dtos\CompanyDto;
-use SmartPHP\Example\Converters\CompanyConverterTrait;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
+use SmartPHP\Example\Models\Converters\CompanyConverterTrait;
 
 class CompanyService implements CompanyServiceInterface
 {
@@ -30,7 +30,7 @@ class CompanyService implements CompanyServiceInterface
     public function fetchAll(): array
     {
         $entities = $this->companyRepository->fetchAll();
-        return $this->toCompanyDtos($entities);
+        return $this->toCompanyDataSourceModels($entities);
     }
 
     /**
@@ -39,11 +39,11 @@ class CompanyService implements CompanyServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\CompanyServiceInterface::fetchOne()
      */
-    public function fetchOne(CompanyDto $company): CompanyDto
+    public function fetchOne(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
         $company = $this->toCompanyEntity($company);
         $company = $this->companyRepository->fetchOne($company);
-        $company = $this->toCompanyDto($company);
+        $company = $this->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -62,7 +62,7 @@ class CompanyService implements CompanyServiceInterface
 //             $company = $this->toCompanyEntity($company);
 //             $company = $this->companyRepository->fetch($company);
 //         }
-//         $company = $this->toCompanyDto($company);
+//         $company = $this->toCompanyDataSourceModel($company);
 //         return $company;
     }
 
@@ -72,11 +72,11 @@ class CompanyService implements CompanyServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\CompanyServiceInterface::add()
      */
-    public function add(CompanyDto $company): CompanyDto
+    public function add(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
         $company = $this->toCompanyEntity($company);
         $company = $this->companyRepository->add($company);
-        $company = $this->toCompanyDto($company);
+        $company = $this->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -86,11 +86,11 @@ class CompanyService implements CompanyServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\CompanyServiceInterface::update()
      */
-    public function update(CompanyDto $company): CompanyDto
+    public function update(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
         $company = $this->toCompanyEntity($company);
         $company = $this->companyRepository->update($company);
-        $company = $this->toCompanyDto($company);
+        $company = $this->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -100,11 +100,11 @@ class CompanyService implements CompanyServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\CompanyServiceInterface::remove()
      */
-    public function remove(CompanyDto $company): CompanyDto
+    public function remove(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
         $company = $this->toCompanyEntity($company);
         $company = $this->companyRepository->remove($company);
-        $company = $this->toCompanyDto($company);
+        $company = $this->toCompanyDataSourceModel($company);
         return $company;
     }
 }

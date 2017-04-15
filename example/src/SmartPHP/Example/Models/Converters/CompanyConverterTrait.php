@@ -1,12 +1,12 @@
 <?php
-namespace SmartPHP\Example\Converters;
+namespace SmartPHP\Example\Models\Converters;
 
-use SmartPHP\Example\Models\Dtos\CompanyDto;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
 
 trait CompanyConverterTrait
 {
-    public function toCompanyEntity(CompanyDto $dto): CompanyEntity
+    public function toCompanyEntity(CompanyDataSourceModel $dto): CompanyEntity
     {
         $entity = new CompanyEntity();
         $entity->setId($dto->getId());
@@ -19,16 +19,16 @@ trait CompanyConverterTrait
         return array_map([$this, "toCompanyEntity"], $dtos);
     }
     
-    public function toCompanyDto(CompanyEntity $entity): CompanyDto
+    public function toCompanyDataSourceModel(CompanyEntity $entity): CompanyDataSourceModel
     {
-        $dto = new CompanyDto();
+        $dto = new CompanyDataSourceModel();
         $dto->setId($entity->getId());
         $dto->setName($entity->getName());
         return $dto;
     }
     
-    public function toCompanyDtos(array $entities): array
+    public function toCompanyDataSourceModels(array $entities): array
     {
-        return array_map([$this, "toCompanyDto"], $entities);
+        return array_map([$this, "toCompanyDataSourceModel"], $entities);
     }
 }

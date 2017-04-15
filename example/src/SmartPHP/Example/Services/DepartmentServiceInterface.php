@@ -1,20 +1,20 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Example\Models\Dtos\DepartmentDto;
+use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
 
 interface DepartmentServiceInterface
 {
     
     public function fetchAll(): array;
     
-    public function fetchOne(DepartmentDto $department): DepartmentDto;
+    public function fetchOne(DepartmentDataSourceModel $department): DepartmentDataSourceModel;
     
     public function fetch(int $startRow, int $endRow): array;
     
-    public function add(DepartmentDto $department): DepartmentDto;
+    public function add(DepartmentDataSourceModel $department): DepartmentDataSourceModel;
     
-    public function update(DepartmentDto $department): DepartmentDto;
+    public function update(DepartmentDataSourceModel $department): DepartmentDataSourceModel;
     
-    public function remove(DepartmentDto $department): DepartmentDto;
+    public function remove(DepartmentDataSourceModel $department): DepartmentDataSourceModel;
 }

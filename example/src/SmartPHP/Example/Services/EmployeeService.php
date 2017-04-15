@@ -2,8 +2,8 @@
 namespace SmartPHP\Example\Services;
 
 use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
-use SmartPHP\Example\Models\Dtos\EmployeeDto;
-use SmartPHP\Example\Converters\EmployeeConverterTrait;
+use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
+use SmartPHP\Example\Models\Converters\EmployeeConverterTrait;
 
 class EmployeeService implements EmployeeServiceInterface
 {
@@ -30,7 +30,7 @@ class EmployeeService implements EmployeeServiceInterface
     public function fetchAll(): array
     {
         $entities = $this->employeeRepository->fetchAll();
-        return $this->toEmployeeDtos($entities);
+        return $this->toEmployeeDataSourceModels($entities);
     }
 
     /**
@@ -39,11 +39,11 @@ class EmployeeService implements EmployeeServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\EmployeeServiceInterface::fetchOne()
      */
-    public function fetchOne(EmployeeDto $employee): EmployeeDto
+    public function fetchOne(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
         $employee = $this->toEmployeeEntity($employee);
         $employee = $this->employeeRepository->fetchOne($employee);
-        $employee = $this->toEmployeeDto($employee);
+        $employee = $this->toEmployeeDataSourceModel($employee);
         return $employee;
     }
 
@@ -56,14 +56,14 @@ class EmployeeService implements EmployeeServiceInterface
     public function fetch(int $startRow, int $endRow): array
     {
         return $this->fetchAll();
-//         if (is_null($employee)) {
-//             $employee = $this->employeeRepository->fetch();
-//         } else {
-//             $employee = $this->toEmployeeEntity($employee);
-//             $employee = $this->employeeRepository->fetch($employee);
-//         }
-//         $employee = $this->toEmployeeDto($employee);
-//         return $employee;
+        // if (is_null($employee)) {
+        // $employee = $this->employeeRepository->fetch();
+        // } else {
+        // $employee = $this->toEmployeeEntity($employee);
+        // $employee = $this->employeeRepository->fetch($employee);
+        // }
+        // $employee = $this->toEmployeeDataSourceModel($employee);
+        // return $employee;
     }
 
     /**
@@ -72,11 +72,11 @@ class EmployeeService implements EmployeeServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\EmployeeServiceInterface::add()
      */
-    public function add(EmployeeDto $employee): EmployeeDto
+    public function add(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
         $employee = $this->toEmployeeEntity($employee);
         $employee = $this->employeeRepository->add($employee);
-        $employee = $this->toEmployeeDto($employee);
+        $employee = $this->toEmployeeDataSourceModel($employee);
         return $employee;
     }
 
@@ -86,11 +86,11 @@ class EmployeeService implements EmployeeServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\EmployeeServiceInterface::update()
      */
-    public function update(EmployeeDto $employee): EmployeeDto
+    public function update(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
         $employee = $this->toEmployeeEntity($employee);
         $employee = $this->employeeRepository->update($employee);
-        $employee = $this->toEmployeeDto($employee);
+        $employee = $this->toEmployeeDataSourceModel($employee);
         return $employee;
     }
 
@@ -100,11 +100,11 @@ class EmployeeService implements EmployeeServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\EmployeeServiceInterface::remove()
      */
-    public function remove(EmployeeDto $employee): EmployeeDto
+    public function remove(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
         $employee = $this->toEmployeeEntity($employee);
         $employee = $this->employeeRepository->remove($employee);
-        $employee = $this->toEmployeeDto($employee);
+        $employee = $this->toEmployeeDataSourceModel($employee);
         return $employee;
     }
 }

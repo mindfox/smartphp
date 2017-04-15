@@ -5,7 +5,7 @@ use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceModel;
 use SmartPHP\Interfaces\DataSourceModelConverterInterface;
 
-class BaseDataSource implements DataSourceInterface
+class DataSource implements DataSourceInterface
 {
 
     const METHOD_FETCH = "fetch";
