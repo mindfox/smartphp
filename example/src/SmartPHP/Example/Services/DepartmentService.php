@@ -56,14 +56,6 @@ class DepartmentService implements DepartmentServiceInterface
     public function fetch(int $startRow, int $endRow): array
     {
         return $this->fetchAll();
-        // if (is_null($department)) {
-        // $department = $this->departmentRepository->fetch();
-        // } else {
-        // $department = $this->toDepartmentEntity($department);
-        // $department = $this->departmentRepository->fetch($department);
-        // }
-        // $department = $this->toDepartmentDataSourceModel($department);
-        // return $department;
     }
 
     /**

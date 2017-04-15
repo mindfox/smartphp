@@ -56,14 +56,6 @@ class EmployeeService implements EmployeeServiceInterface
     public function fetch(int $startRow, int $endRow): array
     {
         return $this->fetchAll();
-        // if (is_null($employee)) {
-        // $employee = $this->employeeRepository->fetch();
-        // } else {
-        // $employee = $this->toEmployeeEntity($employee);
-        // $employee = $this->employeeRepository->fetch($employee);
-        // }
-        // $employee = $this->toEmployeeDataSourceModel($employee);
-        // return $employee;
     }
 
     /**

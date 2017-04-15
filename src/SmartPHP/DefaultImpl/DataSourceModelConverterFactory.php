@@ -9,7 +9,7 @@ class DataSourceModelConverterFactory implements DataSourceModelConverterFactory
 {
 
     /**
-     * 
+     *
      * @var AbstractNormalizer
      */
     private $normalizer;

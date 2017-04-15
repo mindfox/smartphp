@@ -6,12 +6,12 @@ use SmartPHP\Interfaces\OptionalInterface;
 class Optional implements OptionalInterface
 {
 
-    public static function Of($value): OptionalInterface
+    public static function of($value): OptionalInterface
     {
         return new self($value);
     }
 
-    public static function Absent(): OptionalInterface
+    public static function absent(): OptionalInterface
     {
         return new self(null);
     }

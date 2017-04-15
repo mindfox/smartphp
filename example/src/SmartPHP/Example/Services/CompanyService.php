@@ -56,14 +56,6 @@ class CompanyService implements CompanyServiceInterface
     public function fetch(int $startRow, int $endRow): array
     {
         return $this->fetchAll();
-//         if (is_null($company)) {
-//             $company = $this->companyRepository->fetch();
-//         } else {
-//             $company = $this->toCompanyEntity($company);
-//             $company = $this->companyRepository->fetch($company);
-//         }
-//         $company = $this->toCompanyDataSourceModel($company);
-//         return $company;
     }
 
     /**

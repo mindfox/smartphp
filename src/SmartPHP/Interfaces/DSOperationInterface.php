@@ -12,7 +12,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $componentId            
+     * @param string $componentId
      * @return DSOperationInterface
      */
     public function setComponentId($componentId): DSOperationInterface;
@@ -25,7 +25,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $dataSource            
+     * @param string $dataSource
      * @return DSOperationInterface
      */
     public function setDataSource($dataSource): DSOperationInterface;
@@ -38,7 +38,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param array $data            
+     * @param array $data
      * @return DSOperationInterface
      */
     public function setData(array $data): DSOperationInterface;
@@ -51,7 +51,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param array $oldValues            
+     * @param array $oldValues
      * @return DSOperationInterface
      */
     public function setOldValues(array $oldValues): DSOperationInterface;
@@ -64,7 +64,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $operationType            
+     * @param string $operationType
      * @return DSOperationInterface
      */
     public function setOperationType($operationType): DSOperationInterface;
@@ -77,7 +77,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $textMatchStyle            
+     * @param string $textMatchStyle
      * @return DSOperationInterface
      */
     public function setTextMatchStyle($textMatchStyle): DSOperationInterface;
@@ -90,7 +90,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $startRow            
+     * @param string $startRow
      * @return DSOperationInterface
      */
     public function setStartRow($startRow): DSOperationInterface;
@@ -103,7 +103,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param int $endRow            
+     * @param int $endRow
      * @return DSOperationInterface
      */
     public function setEndRow($endRow): DSOperationInterface;
@@ -116,7 +116,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param int $totalRows            
+     * @param int $totalRows
      * @return DSOperationInterface
      */
     public function setTotalRows($totalRows): DSOperationInterface;
