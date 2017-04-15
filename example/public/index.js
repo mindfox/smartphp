@@ -33,7 +33,8 @@
 	    	name:"id",
 	    	title:"Company ID",
 	    	primaryKey:true,
-	    	canEdit:false
+	    	canEdit:false,
+	    	hidden:true
 	    }, {
 	    	name:"name", 
 	    	title:"Company Name"
@@ -54,10 +55,11 @@
 	    	name:"id",
 	    	title:"ID",
 	    	primaryKey:true,
-	    	canEdit:false
+	    	canEdit:false,
+	    	hidden:true
 	    }, {
 	    	name:"name", 
-	    	title:"Name"
+	    	title:"Department Name"
 	    }, {
 	    	name:"companyId",
 	    	title:"Company",
@@ -86,7 +88,8 @@
 	    	name:"id",
 	    	title:"ID",
 	    	primaryKey:true,
-	    	canEdit:false
+	    	canEdit:false,
+	    	hidden:true
 	    }, {
 	    	name:"firstName", 
 	    	title:"First Name"
@@ -123,28 +126,13 @@
 	    removeDataURL:url
 	});
 
-	isc.IButton.create({
-	    title:"New Company",
-	    click:"CompanyList.startEditingNew()"
-	});
 	
-	isc.IButton.create({
-		left: "100px",
-	    title:"New Department",
-	    click:"DepartmentList.startEditingNew()"
-	});
-	
-	isc.IButton.create({
-		left: "200px",
-	    title:"New Employee",
-	    click:"EmployeeList.startEditingNew()"
-	});
 	
 	isc.ListGrid.create({
+		autoDraw:false,
 	    ID: "CompanyList",
-	    top:"30px",
 	    width:"100%",
-	    height:"100px",
+	    height:"100%",
 	    alternateRecordStyles:true,
 	    emptyCellValue: "--",
 	    dataSource: "CompanyDataSource",
@@ -155,10 +143,10 @@
 	});
 	
 	isc.ListGrid.create({
+		autoDraw:false,
 	    ID: "DepartmentList",
-	    top:"130px",
 	    width:"100%",
-	    height:"100px",
+	    height:"100%",
 	    alternateRecordStyles:true,
 	    emptyCellValue: "--",
 	    dataSource: "DepartmentDataSource",
@@ -169,10 +157,10 @@
 	});
 	
 	isc.ListGrid.create({
+		autoDraw:false,
 	    ID: "EmployeeList",
-	    top:"230px",
 	    width:"100%",
-	    height:"100px",
+	    height:"100%",
 	    alternateRecordStyles:true,
 	    emptyCellValue: "--",
 	    dataSource: "EmployeeDataSource",
@@ -183,5 +171,65 @@
 	});
 	
 	
+	isc.VLayout.create({
+	    width: "100%",
+	    height: "100%",
+	    members: [
+	    	isc.ToolStrip.create({
+	    	    width: "100%",
+	    	    members: [
+	    	    	isc.ToolStripButton.create({
+	    	    		autoDraw:false,
+	    	    	    title:"New Company",
+	    	    	    click:"CompanyList.startEditingNew()"
+	    	    	}),	    	    	
+	    	    	isc.ToolStripButton.create({
+	    	    		autoDraw:false,
+	    	    		left: "100px",
+	    	    	    title:"New Department",
+	    	    	    click:"DepartmentList.startEditingNew()"
+	    	    	}),	    	    	
+	    	    	isc.ToolStripButton.create({
+	    	    		autoDraw:false,
+	    	    		left: "200px",
+	    	    	    title:"New Employee",
+	    	    	    click:"EmployeeList.startEditingNew()"
+	    	    	})
+	    	    ]
+	    	}),
+	    	isc.HLayout.create({
+	    	    width: "100%",
+	    	    height: "100%",
+	    	    members: [
+	    	    	isc.VLayout.create({
+	    	    		autoDraw:false,
+	    	    	    width: "20%",
+	    	    	    height: "100%",
+	    	    	    showResizeBar:true,
+	    	    	    members: [
+	    	    	    	"CompanyList",
+	    	    	    ]
+	    	    	}),
+	    	    	isc.VLayout.create({
+	    	    		autoDraw:false,
+	    	    	    width: "100%",
+	    	    	    height: "100%",
+	    	    	    members: [
+	    	    	    	isc.VLayout.create({
+	    	    	    		autoDraw:false,
+	    	    	    	    width: "100%",
+	    	    	    	    height: "100%",
+	    	    	    	    showResizeBar:true,
+	    	    	    	    members: [
+	    	    	    	    	"DepartmentList",
+	    	    	    	    ]
+	    	    	    	}),
+	    	    	    	"EmployeeList"
+	    	    	    ]
+	    	    	}),
+	    	    ]
+	    	})
+	    ]
+	});
 	
 }());
