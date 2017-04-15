@@ -10,17 +10,62 @@ use SmartPHP\Interfaces\DSOperationResponseInterface;
 class DSResponseSerializer implements DSResponseSerializerInterface
 {
 
+    const FORMAT_JSON = "json";
+
+    const RESTDATASOURCE_JSON_PREFIX = "<SCRIPT>//'\"]]>>isc_JSONResponseStart>>";
+
+    const RESTDATASOURCE_JSON_SUFFIX = "//isc_JSONResponseEnd";
+
     /**
      *
      * @var SerializerInterface
      */
     private $serializer;
 
-    public function __construct(SerializerInterface $serializer)
+    /**
+     *
+     * @var string
+     */
+    private $jsonPrefix;
+
+    /**
+     *
+     * @var string
+     */
+    private $jsonSuffix;
+
+    public function __construct(SerializerInterface $serializer, $jsonPrefix = self::RESTDATASOURCE_JSON_PREFIX, $jsonSuffix = self::RESTDATASOURCE_JSON_SUFFIX)
     {
         $this->serializer = $serializer;
+        $this->jsonPrefix = $jsonPrefix;
+        $this->jsonSuffix = $jsonSuffix;
     }
-        
+
+    private function prependJsonPrefix(string $string): string
+    {
+        return $this->jsonPrefix . $string;
+    }
+
+    private function appendJsonSuffix(string $string): string
+    {
+        return $string . $this->jsonSuffix;
+    }
+
+    private function normalizeJsonTransactionResponse(string $string): string
+    {
+        return $this->prependJsonPrefix($this->appendJsonSuffix($string));
+    }
+
+    private function normalizeTransactionResponse(string $string, string $format): string
+    {
+        switch (strtolower($format)) {
+            case self::FORMAT_JSON:
+                $string = $this->normalizeJsonTransactionResponse($string);
+                break;
+        }
+        return $string;
+    }
+
     /**
      *
      * {@inheritdoc}
@@ -37,7 +82,7 @@ class DSResponseSerializer implements DSResponseSerializerInterface
             return $this->serializeTransactionResponse($dsResponse, $format);
         }
         
-        throw new \Exception("asdf");
+        throw new \Exception("DSResponse type '" . get_class($dsResponse) . "' is not supported!");
     }
 
     /**
@@ -61,6 +106,6 @@ class DSResponseSerializer implements DSResponseSerializerInterface
     public function serializeTransactionResponse(DSTransactionResponseInterface $dsTransactionResponse, string $format): string
     {
         $serialized = $this->serializer->serialize($dsTransactionResponse->getResponses(), $format);
-        return $serialized ?? "";
+        return $this->normalizeTransactionResponse($serialized ?? "", $format);
     }
 }

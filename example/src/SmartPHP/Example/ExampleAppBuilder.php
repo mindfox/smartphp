@@ -28,6 +28,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use SmartPHP\Example\Repositories\DepartmentRepository;
 use SmartPHP\Example\Repositories\CompanyRepository;
 use SmartPHP\Example\Repositories\EmployeeRepository;
+use SmartPHP\Slim\DependencyIds;
+use SmartPHP\DefaultImpl\DSResponseSerializer;
 
 class ExampleAppBuilder extends AppBuilder
 {
@@ -72,6 +74,14 @@ class ExampleAppBuilder extends AppBuilder
                 
                 ]
             
+            ],
+            
+            "SmartPHP" => [
+
+                "jsonPrefix" => "",
+                
+                "jsonSuffix" => ""
+                
             ]
         
         ];
@@ -131,6 +141,16 @@ class ExampleAppBuilder extends AppBuilder
             $builder = new ContainerBuilder();
             $builder->addDefinitions($container->get("DI-Definitions"));
             return $builder->build();
+        };
+        
+        // ===================================================================================
+        // DS Response Serializer
+        
+        $container[DependencyIds::DS_RESPONSE_SERIALIZER] = function (ContainerInterface $container) {
+            $serializer = $container->get(DependencyIds::SERIALIZER);
+            $jsonPrefix = $container->get("SmartPHP")["jsonPrefix"];
+            $jsonSuffix = $container->get("SmartPHP")["jsonSuffix"];
+            return new DSResponseSerializer($serializer, $jsonPrefix, $jsonSuffix);
         };
         
         // ===================================================================================
