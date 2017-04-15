@@ -77,7 +77,7 @@ class DataSourceController
 
     private function createOperation(DSRequestInterface $dsRequest): DSOperationInterface
     {
-        return $this->dsOperationFactory->createFromDSRequest($dsRequest);
+        return $this->dsOperationFactory->createDSOperationFromDSRequest($dsRequest);
     }
 
     private function createTransaction(DSRequestInterface $dsRequest): DSTransactionInterface

@@ -26,9 +26,9 @@ class DSOperationFactory implements DSOperationFactoryInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceOperationFactoryInterface::createFromDSRequest()
      */
-    public function createFromDSRequest(DSRequestInterface $request): DSOperationInterface
+    public function createDSOperationFromDSRequest(DSRequestInterface $request): DSOperationInterface
     {
-        return $this->createFromArray($request->getData());
+        return $this->createDSOperationFromArray($request->getData());
     }
 
     /**
@@ -37,7 +37,7 @@ class DSOperationFactory implements DSOperationFactoryInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceOperationFactoryInterface::createFromArray()
      */
-    public function createFromArray(array $array): DSOperationInterface
+    public function createDSOperationFromArray(array $array): DSOperationInterface
     {
         // var_dump($array); die();
         // $default = $this->denormalizer->normalize(new DataSourceOperation());

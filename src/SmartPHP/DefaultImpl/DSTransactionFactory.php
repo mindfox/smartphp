@@ -58,7 +58,7 @@ class DSTransactionFactory implements DSTransactionFactoryInterface
         
         foreach ($operations as $array) {
             $array["dataFormat"] = $transaction->getDataFormat();
-            $transaction->addOperation($this->dsOperationFactory->createFromArray($array));
+            $transaction->addOperation($this->dsOperationFactory->createDSOperationFromArray($array));
         }
         
         return $transaction;
