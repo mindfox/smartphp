@@ -27,41 +27,71 @@ class DataSourceExecutor implements DataSourceExecutorInterface
         return $this->dataSourceFactory->createDataSourceFromOperation($operation);
     }
 
+    private function buildDSOperationResponse(DSOperationInterface $dsOperation): DSResponseInterface
+    {
+        $dsResponse = new DSOperationResponse();
+        $dsResponse->setResponse($dsOperation);
+        return $dsResponse;
+    }
+
+    private function setDSOperationDataAndRows(DSOperationInterface $dsOperation, array $data): DSOperationInterface
+    {
+        $dsOperation->setData($data);
+        $dsOperation->setTotalRows(count($data));
+        return $dsOperation;
+    }
+
+    private function executeFetch(DSOperationInterface $dsOperation): DSResponseInterface
+    {
+        $dataSource = $this->getDataSource($dsOperation);
+        $data = $dataSource->fetch($dsOperation->getStartRow(), $dsOperation->getEndRow());
+        return $this->buildDSOperationResponse($this->setDSOperationDataAndRows($dsOperation, $data));
+    }
+
+    private function executeAdd(DSOperationInterface $dsOperation): DSResponseInterface
+    {
+        $dataSource = $this->getDataSource($dsOperation);
+        $dsOperation->setData($dataSource->add($dsOperation->getData()));
+        return $this->buildDSOperationResponse($dsOperation);
+    }
+
+    private function executeUpdate(DSOperationInterface $dsOperation): DSResponseInterface
+    {
+        $dataSource = $this->getDataSource($dsOperation);
+        $dsOperation->setData($dataSource->update($dsOperation->getData(), $dsOperation->getOldValues()));
+        return $this->buildDSOperationResponse($dsOperation);
+    }
+
+    private function executeRemove(DSOperationInterface $dsOperation): DSResponseInterface
+    {
+        $dataSource = $this->getDataSource($dsOperation);
+        $dsOperation->setData($dataSource->remove($dsOperation->getData()));
+        return $this->buildDSOperationResponse($dsOperation);
+    }
+
     /**
      *
      * {@inheritdoc}
      *
      * @see \SmartPHP\Interfaces\DataSourceExecutorInterface::executeOperation()
      */
-    public function executeOperation(DSOperationInterface $operation): DSResponseInterface
+    public function executeOperation(DSOperationInterface $dsOperation): DSResponseInterface
     {
-        $dataSource = $this->getDataSource($operation);
-        $response = new DSOperationResponse();
-        
-        switch (strtolower($operation->getOperationType())) {
+        switch (strtolower($dsOperation->getOperationType())) {
             case DSOperationType::FETCH:
-                $operation = $dataSource->fetch($operation);
-                break;
+                return $this->executeFetch($dsOperation);
             
             case DSOperationType::ADD:
-                $operation = $dataSource->add($operation);
-                break;
+                return $this->executeAdd($dsOperation);
             
             case DSOperationType::UPDATE:
-                $operation = $dataSource->update($operation);
-                break;
+                return $this->executeUpdate($dsOperation);
             
             case DSOperationType::REMOVE:
-                $operation = $dataSource->remove($operation);
-                break;
-            
-            default:
-                throw new \Exception("Unknown OperationType!");
+                return $this->executeRemove($dsOperation);
         }
         
-        $response->setResponse($operation);
-        
-        return $response;
+        throw new \Exception("Unknown OperationType '".$dsOperation->getOperationType()."'!");
     }
 
     /**

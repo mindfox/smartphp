@@ -12,7 +12,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $componentId
+     * @param string $componentId            
      * @return DSOperationInterface
      */
     public function setComponentId($componentId): DSOperationInterface;
@@ -25,34 +25,36 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $dataSource
+     * @param string $dataSource            
      * @return DSOperationInterface
      */
     public function setDataSource($dataSource): DSOperationInterface;
 
     /**
-     * @return array|object
+     *
+     * @return array
      */
-    public function getData();
+    public function getData(): array;
 
     /**
      *
-     * @param array|object $data
+     * @param array $data            
      * @return DSOperationInterface
      */
-    public function setData($data): DSOperationInterface;
-
-    /**
-     * @return array|object
-     */
-    public function getOldValues();
+    public function setData(array $data): DSOperationInterface;
 
     /**
      *
-     * @param array|object $oldValues
+     * @return array
+     */
+    public function getOldValues(): array;
+
+    /**
+     *
+     * @param array $oldValues            
      * @return DSOperationInterface
      */
-    public function setOldValues($oldValues): DSOperationInterface;
+    public function setOldValues(array $oldValues): DSOperationInterface;
 
     /**
      *
@@ -62,7 +64,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $operationType
+     * @param string $operationType            
      * @return DSOperationInterface
      */
     public function setOperationType($operationType): DSOperationInterface;
@@ -75,7 +77,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $textMatchStyle
+     * @param string $textMatchStyle            
      * @return DSOperationInterface
      */
     public function setTextMatchStyle($textMatchStyle): DSOperationInterface;
@@ -88,7 +90,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param string $startRow
+     * @param string $startRow            
      * @return DSOperationInterface
      */
     public function setStartRow($startRow): DSOperationInterface;
@@ -101,7 +103,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param int $endRow
+     * @param int $endRow            
      * @return DSOperationInterface
      */
     public function setEndRow($endRow): DSOperationInterface;
@@ -114,7 +116,7 @@ interface DSOperationInterface
 
     /**
      *
-     * @param int $totalRows
+     * @param int $totalRows            
      * @return DSOperationInterface
      */
     public function setTotalRows($totalRows): DSOperationInterface;

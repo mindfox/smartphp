@@ -1,11 +1,10 @@
 <?php
 namespace SmartPHP\Example\DataSources;
 
-use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DSOperationInterface;
-use SmartPHP\Traits\ModelBinderTrait;
-use SmartPHP\Example\Services\CompanyServiceInterface;
 use SmartPHP\Example\Models\Dtos\CompanyDto;
+use SmartPHP\Example\Services\CompanyServiceInterface;
+use SmartPHP\Interfaces\DataSourceInterface;
+use SmartPHP\Traits\ModelBinderTrait;
 
 class CompanyDataSource implements DataSourceInterface
 {
@@ -28,14 +27,9 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::fetch()
      */
-    public function fetch(DSOperationInterface $message): DSOperationInterface
+    public function fetch(int $startRow, int $endRow): array
     {
-        $companies = $this->companyService->fetchAll();
-        $message->setData($companies);
-        $message->setStartRow(0);
-        $message->setEndRow(count($companies)-1);
-        $message->setTotalRows(count($companies));
-        return $message;
+        return $this->companyService->fetchAll();
     }
 
     /**
@@ -44,12 +38,11 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::add()
      */
-    public function add(DSOperationInterface $message): DSOperationInterface
+    public function add(array $data): array
     {
-        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->bind($data, CompanyDto::class);
         $company = $this->companyService->add($company);
-        $message->setData($company);
-        return $message;
+        return $this->unbind($company);
     }
 
     /**
@@ -58,12 +51,11 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::update()
      */
-    public function update(DSOperationInterface $message): DSOperationInterface
+    public function update(array $data, array $oldValues): array
     {
-        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->bindMerged($data, $oldValues, CompanyDto::class);
         $company = $this->companyService->update($company);
-        $message->setData($company);
-        return $message;
+        return $this->unbind($company);
     }
 
     /**
@@ -72,11 +64,10 @@ class CompanyDataSource implements DataSourceInterface
      *
      * @see \SmartPHP\Interfaces\DataSourceServiceInterface::remove()
      */
-    public function remove(DSOperationInterface $message): DSOperationInterface
+    public function remove(array $data): array
     {
-        $company = $this->bind($message->getData(), CompanyDto::class);
+        $company = $this->bind($data, CompanyDto::class);
         $company = $this->companyService->remove($company);
-        $message->setData($company);
-        return $message;
+        return $this->unbind($company);
     }
 }
