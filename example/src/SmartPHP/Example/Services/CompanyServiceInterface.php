@@ -10,7 +10,7 @@ interface CompanyServiceInterface
 
     public function fetchOne(CompanyDto $company): CompanyDto;
 
-    public function fetch(CompanyDto $company = null);
+    public function fetch(int $startRow, int $endRow): array;
 
     public function add(CompanyDto $company): CompanyDto;
 

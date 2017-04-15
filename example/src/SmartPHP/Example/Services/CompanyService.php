@@ -53,16 +53,17 @@ class CompanyService implements CompanyServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\CompanyServiceInterface::fetch()
      */
-    public function fetch(CompanyDto $company = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        if (is_null($company)) {
-            $company = $this->companyRepository->fetch();
-        } else {
-            $company = $this->toCompanyEntity($company);
-            $company = $this->companyRepository->fetch($company);
-        }
-        $company = $this->toCompanyDto($company);
-        return $company;
+        return $this->fetchAll();
+//         if (is_null($company)) {
+//             $company = $this->companyRepository->fetch();
+//         } else {
+//             $company = $this->toCompanyEntity($company);
+//             $company = $this->companyRepository->fetch($company);
+//         }
+//         $company = $this->toCompanyDto($company);
+//         return $company;
     }
 
     /**

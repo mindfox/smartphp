@@ -10,7 +10,7 @@ interface DepartmentServiceInterface
     
     public function fetchOne(DepartmentDto $department): DepartmentDto;
     
-    public function fetch(DepartmentDto $department = null);
+    public function fetch(int $startRow, int $endRow): array;
     
     public function add(DepartmentDto $department): DepartmentDto;
     

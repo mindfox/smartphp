@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use SmartPHP\DefaultImpl\DataSourceModelConverterFactory;
 
 final class DefaultDependencyProvider
 {
@@ -85,6 +86,12 @@ final class DefaultDependencyProvider
         $dataSourceFactory = $container->get(DependencyIds::DATASOURCE_FACTORY);
         return new DataSourceExecutor($dataSourceFactory);
     }
+    
+    private static function defaultDataSourceModelConverterFactory(ContainerInterface $container)
+    {
+        $normalizer = $container->get(DependencyIds::DENORMALIZER);
+        return new DataSourceModelConverterFactory($normalizer);
+    }
 
     private static function registerDefaultProvider(ContainerInterface $container, string $id, string $methodName)
     {
@@ -121,7 +128,9 @@ final class DefaultDependencyProvider
             
             DependencyIds::DATASOURCE_FACTORY => "defaultDataSourceFactory",
             
-            DependencyIds::DATASORUCE_EXECUTOR => "defaultDataSourceExecutor"
+            DependencyIds::DATASORUCE_EXECUTOR => "defaultDataSourceExecutor",
+            
+            DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY => "defaultDataSourceModelConverterFactory"
         ]);
         return $container;
     }

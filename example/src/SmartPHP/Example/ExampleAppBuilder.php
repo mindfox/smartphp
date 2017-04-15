@@ -30,6 +30,10 @@ use SmartPHP\Example\Repositories\CompanyRepository;
 use SmartPHP\Example\Repositories\EmployeeRepository;
 use SmartPHP\Slim\DependencyIds;
 use SmartPHP\DefaultImpl\DSResponseSerializer;
+use SmartPHP\DefaultImpl\BaseDataSource;
+use SmartPHP\Example\Models\Dtos\CompanyDto;
+use SmartPHP\Example\Models\Dtos\DepartmentDto;
+use SmartPHP\Example\Models\Dtos\EmployeeDto;
 
 class ExampleAppBuilder extends AppBuilder
 {
@@ -127,12 +131,6 @@ class ExampleAppBuilder extends AppBuilder
                 DepartmentServiceInterface::class => object(DepartmentService::class),
                 
                 EmployeeServiceInterface::class => object(EmployeeService::class),
-                
-                CompanyDataSource::class => object(CompanyDataSource::class),
-                
-                DepartmentDataSource::class => object(DepartmentDataSource::class),
-                
-                EmployeeDataSource::class => object(EmployeeDataSource::class)
             
             ];
         };
@@ -147,15 +145,24 @@ class ExampleAppBuilder extends AppBuilder
         // DataSources
         
         $container["CompanyDataSource"] = function (ContainerInterface $container) {
-            return $container->get("DI")->get(CompanyDataSource::class);
+            $dataSourceService = $container->get("DI")->get(CompanyServiceInterface::class);
+            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(CompanyDto::class);
+            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["DepartmentDataSource"] = function (ContainerInterface $container) {
-            return $container->get("DI")->get(DepartmentDataSource::class);
+            $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
+            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(DepartmentDto::class);
+            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["EmployeeDataSource"] = function (ContainerInterface $container) {
-            return $container->get("DI")->get(EmployeeDataSource::class);
+            $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
+            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(EmployeeDto::class);
+            return new BaseDataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         return parent::registerDependencies($container);

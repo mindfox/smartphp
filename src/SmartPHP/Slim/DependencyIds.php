@@ -5,7 +5,7 @@ abstract class DependencyIds
 {
 
     const CONFIG = "SmartPHP";
-    
+
     const DENORMALIZER = "SmartPHP/Denormalizer";
 
     const SERIALIZER = "SmartPHP/Serializer";
@@ -21,4 +21,6 @@ abstract class DependencyIds
     const DATASOURCE_FACTORY = "SmartPHP/DataSourceFactory";
 
     const DATASORUCE_EXECUTOR = "SmartPHP/DataSourceExecutor";
+
+    const DATASORUCE_MODELCONVERTER_FACTORY = "SmartPHP/DataSourceModelConverterFactory";
 }

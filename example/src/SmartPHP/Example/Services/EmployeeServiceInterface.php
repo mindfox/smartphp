@@ -10,7 +10,7 @@ interface EmployeeServiceInterface
     
     public function fetchOne(EmployeeDto $employee): EmployeeDto;
     
-    public function fetch(EmployeeDto $employee = null);
+    public function fetch(int $startRow, int $endRow): array;
     
     public function add(EmployeeDto $employee): EmployeeDto;
     

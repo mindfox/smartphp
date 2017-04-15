@@ -1,7 +1,9 @@
 <?php
 namespace SmartPHP\Example\Models\Dtos;
 
-class DepartmentDto
+use SmartPHP\Interfaces\DataSourceModelInterface;
+
+class DepartmentDto implements DataSourceModelInterface
 {
 
     private $id;

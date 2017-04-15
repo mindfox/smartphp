@@ -53,16 +53,17 @@ class EmployeeService implements EmployeeServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\EmployeeServiceInterface::fetch()
      */
-    public function fetch(EmployeeDto $employee = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        if (is_null($employee)) {
-            $employee = $this->employeeRepository->fetch();
-        } else {
-            $employee = $this->toEmployeeEntity($employee);
-            $employee = $this->employeeRepository->fetch($employee);
-        }
-        $employee = $this->toEmployeeDto($employee);
-        return $employee;
+        return $this->fetchAll();
+//         if (is_null($employee)) {
+//             $employee = $this->employeeRepository->fetch();
+//         } else {
+//             $employee = $this->toEmployeeEntity($employee);
+//             $employee = $this->employeeRepository->fetch($employee);
+//         }
+//         $employee = $this->toEmployeeDto($employee);
+//         return $employee;
     }
 
     /**

@@ -53,16 +53,17 @@ class DepartmentService implements DepartmentServiceInterface
      *
      * @see \SmartPHP\Example\Sevices\DepartmentServiceInterface::fetch()
      */
-    public function fetch(DepartmentDto $department = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        if (is_null($department)) {
-            $department = $this->departmentRepository->fetch();
-        } else {
-            $department = $this->toDepartmentEntity($department);
-            $department = $this->departmentRepository->fetch($department);
-        }
-        $department = $this->toDepartmentDto($department);
-        return $department;
+        return $this->fetchAll();
+//         if (is_null($department)) {
+//             $department = $this->departmentRepository->fetch();
+//         } else {
+//             $department = $this->toDepartmentEntity($department);
+//             $department = $this->departmentRepository->fetch($department);
+//         }
+//         $department = $this->toDepartmentDto($department);
+//         return $department;
     }
     
     /**
