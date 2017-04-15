@@ -2,8 +2,8 @@
 namespace SmartPHP\DefaultImpl;
 
 use SmartPHP\Interfaces\DataSourceInterface;
-use SmartPHP\Interfaces\DataSourceModel;
 use SmartPHP\Interfaces\DataSourceModelConverterInterface;
+use SmartPHP\Interfaces\DataSourceModelInterface;
 
 class DataSource implements DataSourceInterface
 {
@@ -80,7 +80,7 @@ class DataSource implements DataSourceInterface
         $this->errorMsgNoRemoveMethodFound = "DataSourceService '" . $this->dataSourceServiceClass . "' has not hava a method 'remove'!";
     }
 
-    private function convertDataSourceModelToArray(DataSourceModel $dataSourceModel): array
+    private function convertDataSourceModelToArray(DataSourceModelInterface $dataSourceModel): array
     {
         return $this->dataSourceModelConverter->toArray($dataSourceModel);
     }
@@ -93,7 +93,7 @@ class DataSource implements DataSourceInterface
         ], $dataSourceModels);
     }
 
-    private function convertArrayToDataSourceModel(array $array): DataSourceModel
+    private function convertArrayToDataSourceModel(array $array): DataSourceModelInterface
     {
         return $this->dataSourceModelConverter->toModel($array);
     }

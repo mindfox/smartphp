@@ -1,16 +1,15 @@
 <?php
 namespace SmartPHP\Example;
 
-use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DefaultImpl\DataSource;
-use SmartPHP\Example\Models\Dtos\CompanyDto;
-use SmartPHP\Example\Models\Dtos\DepartmentDto;
-use SmartPHP\Example\Models\Dtos\EmployeeDto;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
+use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
+use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
 use SmartPHP\Example\Repositories\CompanyRepository;
 use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Repositories\DepartmentRepository;
@@ -23,17 +22,17 @@ use SmartPHP\Example\Services\DepartmentService;
 use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeService;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
+use SmartPHP\Interfaces\DataSourceModelConverterFactoryInterface;
 use SmartPHP\Slim\AppBuilder;
 use SmartPHP\Slim\DataSourceController;
-use SmartPHP\Slim\DependencyIds;
-use function DI\object;
+use SmartPHP\DI\DIBuilder;
 
 class ExampleAppBuilder extends AppBuilder
 {
 
     const CONFIG_DIR = __DIR__ . "/../../../config";
 
-    protected function createSettings(): array
+    protected function getSettings(): array
     {
         return [
             
@@ -74,17 +73,17 @@ class ExampleAppBuilder extends AppBuilder
             ],
             
             "SmartPHP" => [
-
+                
                 "jsonPrefix" => "",
                 
                 "jsonSuffix" => ""
-                
+            
             ]
         
         ];
     }
 
-    protected function registerDependencies(ContainerInterface $container): AppBuilder
+    protected function configureContainer(ContainerInterface $container)
     {
         $container["EntityManagerConfiguration"] = function (ContainerInterface $container) {
             $settings = $container->get("doctrine")["annotationMetadataConfiguration"];
@@ -104,68 +103,52 @@ class ExampleAppBuilder extends AppBuilder
         };
         
         // ===================================================================================
-        // DI Configuration
-        
-        $container["DI-Definitions"] = function (ContainerInterface $container) {
-            return [
-                
-                EntityManagerInterface::class => function () use ($container) {
-                    return $container->get("EntityManager");
-                },
-                
-                CompanyRepositoryInterface::class => object(CompanyRepository::class),
-                
-                DepartmentRepositoryInterface::class => object(DepartmentRepository::class),
-                
-                EmployeeRepositoryInterface::class => object(EmployeeRepository::class),
-                
-                CompanyServiceInterface::class => object(CompanyService::class),
-                
-                DepartmentServiceInterface::class => object(DepartmentService::class),
-                
-                EmployeeServiceInterface::class => object(EmployeeService::class),
-            
-            ];
-        };
-        
-        $container["DI"] = function (ContainerInterface $container) {
-            $builder = new ContainerBuilder();
-            $builder->addDefinitions($container->get("DI-Definitions"));
-            return $builder->build();
-        };
-                
-        // ===================================================================================
         // DataSources
         
         $container["CompanyDataSource"] = function (ContainerInterface $container) {
             $dataSourceService = $container->get("DI")->get(CompanyServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(CompanyDto::class);
+            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(CompanyDataSourceModel::class);
             return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["DepartmentDataSource"] = function (ContainerInterface $container) {
             $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(DepartmentDto::class);
+            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(DepartmentDataSourceModel::class);
             return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
         
         $container["EmployeeDataSource"] = function (ContainerInterface $container) {
             $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get(DependencyIds::DATASORUCE_MODELCONVERTER_FACTORY);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(EmployeeDto::class);
+            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
+            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(EmployeeDataSourceModel::class);
             return new DataSource($dataSourceService, $dataSourceModelConverter);
         };
-        
-        return parent::registerDependencies($container);
     }
 
-    protected function registerRoutes(App $app): AppBuilder
+    protected function configureDIBuilder(DIBuilder $diBuilder, ContainerInterface $container)
+    {
+        $diBuilder->register(EntityManagerInterface::class, function () use ($container) {
+            return $container->get("EntityManager");
+        });
+        
+        $diBuilder->registerClassAs(CompanyRepository::class, CompanyRepositoryInterface::class);
+        
+        $diBuilder->registerClassAs(DepartmentRepository::class, DepartmentRepositoryInterface::class);
+        
+        $diBuilder->registerClassAs(EmployeeRepository::class, EmployeeRepositoryInterface::class);
+        
+        $diBuilder->registerClassAs(CompanyService::class, CompanyServiceInterface::class);
+        
+        $diBuilder->registerClassAs(DepartmentService::class, DepartmentServiceInterface::class);
+        
+        $diBuilder->registerClassAs(EmployeeService::class, EmployeeServiceInterface::class);
+    }
+
+    protected function configureRoutes(App $app)
     {
         $app->get("/", DataSourceController::class);
         $app->post("/", DataSourceController::class);
-        
-        return parent::registerRoutes($app);
     }
 }
