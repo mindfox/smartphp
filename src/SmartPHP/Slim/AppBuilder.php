@@ -4,9 +4,10 @@ namespace SmartPHP\Slim;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use Slim\Container;
-use SmartPHP\DI\DIBuilder;
 use SmartPHP\DefaultDIProvider;
-use SmartPHP\DefaultDependencyProvider;
+use SmartPHP\DI\DIBuilder;
+use SmartPHP\Interfaces\DataSourceControllerInterface;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
 
 abstract class AppBuilder
 {
@@ -15,44 +16,56 @@ abstract class AppBuilder
     {
         return new static();
     }
-    
-    protected function getSettings(): array
-    {
-        return [];
-    }
 
-    protected function configureDIBuilder(DIBuilder $diBuilder, ContainerInterface $container)
-    {
-    }
+    abstract protected function getSettings(): array;
 
-    protected function configureContainer(ContainerInterface $container)
-    {
-    }
+    abstract protected function configureDIBuilder(DIBuilder $diBuilder, ContainerInterface $container);
 
-    protected function configureRoutes(App $app)
-    {
-    }
+    abstract protected function configureContainer(ContainerInterface $container);
 
-    protected function configureMiddlewares(App $app)
-    {
-    }
+    abstract protected function configureRoutes(App $app);
 
-    private function getDIBuilder(ContainerInterface $container): DIBuilder
+    abstract protected function configureMiddlewares(App $app);
+
+    /**
+     *
+     * @var DIBuilder
+     */
+    private $diBuilder;
+
+    /**
+     *
+     * @var ContainerInterface
+     */
+    private $diContainer;
+
+    /**
+     *
+     * @var DataSourceFactoryInterface
+     */
+    private $dataSourceFactory;
+
+    private function __construct()
     {
-        return $container->get("DIBuilder");
+        $this->diBuilder = new DIBuilder();
     }
 
     private function initContainer(ContainerInterface $container)
     {
-        DefaultDependencyProvider::register($container);
-        DefaultDIProvider::register($this->getDIBuilder($container), $container);
+        $diBuilder = $this->diBuilder;
+        DefaultDIProvider::register($diBuilder, $container);
+        $container["SmartPHP.DI"] = function(ContainerInterface $container) use($diBuilder) {
+             return $diBuilder->build();
+        };
+        $container["SmartPHP.DataSourceController"] = function(ContainerInterface $container) {
+            return $container->get("SmartPHP.DI")->get(DataSourceControllerInterface::class);
+        };
     }
 
     private function configureAppContainer(ContainerInterface $container)
     {
-        $this->initContainer($container);
         $this->configureContainer($container);
-        $this->configureDIBuilder($this->getDIBuilder($container), $container);
+        $this->configureDIBuilder($this->diBuilder, $container);
     }
 
     private function configureApp(App $app)
@@ -65,6 +78,7 @@ abstract class AppBuilder
     public function build(): App
     {
         $app = new App($this->getSettings());
+        $this->initContainer($app->getContainer());
         $this->configureApp($app);
         return $app;
     }

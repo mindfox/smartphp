@@ -1,7 +1,6 @@
 <?php
-namespace SmartPHP\Slim;
+namespace SmartPHP\DefaultImpl;
 
-use Interop\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmartPHP\Interfaces\DataSourceExecutorInterface;
@@ -14,9 +13,9 @@ use SmartPHP\Interfaces\DSResponseInterface;
 use SmartPHP\Interfaces\DSResponseSerializerInterface;
 use SmartPHP\Interfaces\DSTransactionFactoryInterface;
 use SmartPHP\Interfaces\DSTransactionInterface;
-use SmartPHP\DefaultImpl\DSRequestFactory;
+use SmartPHP\Interfaces\DataSourceControllerInterface;
 
-class DataSourceController
+class DataSourceController implements DataSourceControllerInterface
 {
 
     /**
@@ -55,14 +54,14 @@ class DataSourceController
      */
     private $dataSourceExecutor;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(DSRequestFactoryInterface $dsRequestFactory, DSResponseSerializerInterface $dsResponseSerializer, DSOperationFactoryInterface $dsOperationFactory, DSTransactionFactoryInterface $dsTransactionFactory, DataSourceFactoryInterface $dataSourceFactory, DataSourceExecutorInterface $dataSourceExecutor)
     {
-        $this->dsResponseSerializer = $container->get("DI")->get(DSResponseSerializerInterface::class);
-        $this->dsOperationFactory = $container->get("DI")->get(DSOperationFactoryInterface::class);
-        $this->dsTransactionFactory = $container->get("DI")->get(DSTransactionFactoryInterface::class);
-        $this->dsRequestFactory = $container->get("DI")->get(DSRequestFactoryInterface::class);
-        $this->dataSourceFactory = $container->get("DI")->get(DataSourceFactoryInterface::class);
-        $this->dataSourceExecutor = $container->get("DI")->get(DataSourceExecutorInterface::class);
+        $this->dsResponseSerializer = $dsResponseSerializer;
+        $this->dsOperationFactory = $dsOperationFactory;
+        $this->dsTransactionFactory = $dsTransactionFactory;
+        $this->dsRequestFactory = $dsRequestFactory;
+        $this->dataSourceFactory = $dataSourceFactory;
+        $this->dataSourceExecutor = $dataSourceExecutor;
     }
 
     private function serializeResponse(DSResponseInterface $dsResponse, string $format): string
@@ -117,11 +116,28 @@ class DataSourceController
         return $this->executeOperationRequest($dsRequest);
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Interfaces\DataSourceControllerInterface::handleRequest()
+     */
+    public function handleRequest(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $request = $this->createRequest($request);
         $content = $this->executeDataSourceRequest($request);
         $response->getBody()->write($content);
         return $response;
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Interfaces\DataSourceControllerInterface::getDataSourceFactory()
+     */
+    public function getDataSourceFactory(): DataSourceFactoryInterface
+    {
+        return $this->dataSourceFactory;
     }
 }

@@ -7,6 +7,7 @@ use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DefaultImpl\DataSource;
+use SmartPHP\DI\DIBuilder;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
 use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
@@ -24,8 +25,7 @@ use SmartPHP\Example\Services\EmployeeService;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
 use SmartPHP\Interfaces\DataSourceModelConverterFactoryInterface;
 use SmartPHP\Slim\AppBuilder;
-use SmartPHP\Slim\DataSourceController;
-use SmartPHP\DI\DIBuilder;
+use SmartPHP\Example\Handlers\DataSourceHandler;
 
 class ExampleAppBuilder extends AppBuilder
 {
@@ -101,30 +101,6 @@ class ExampleAppBuilder extends AppBuilder
             $entityManager = EntityManager::create($conn, $config);
             return $entityManager;
         };
-        
-        // ===================================================================================
-        // DataSources
-        
-        $container["CompanyDataSource"] = function (ContainerInterface $container) {
-            $dataSourceService = $container->get("DI")->get(CompanyServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(CompanyDataSourceModel::class);
-            return new DataSource($dataSourceService, $dataSourceModelConverter);
-        };
-        
-        $container["DepartmentDataSource"] = function (ContainerInterface $container) {
-            $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(DepartmentDataSourceModel::class);
-            return new DataSource($dataSourceService, $dataSourceModelConverter);
-        };
-        
-        $container["EmployeeDataSource"] = function (ContainerInterface $container) {
-            $dataSourceService = $container->get("DI")->get(DepartmentServiceInterface::class);
-            $dataSourceModelConverterFactory = $container->get("DI")->get(DataSourceModelConverterFactoryInterface::class);
-            $dataSourceModelConverter = $dataSourceModelConverterFactory->createDataSourceModelConverter(EmployeeDataSourceModel::class);
-            return new DataSource($dataSourceService, $dataSourceModelConverter);
-        };
     }
 
     protected function configureDIBuilder(DIBuilder $diBuilder, ContainerInterface $container)
@@ -148,7 +124,10 @@ class ExampleAppBuilder extends AppBuilder
 
     protected function configureRoutes(App $app)
     {
-        $app->get("/", DataSourceController::class);
-        $app->post("/", DataSourceController::class);
+        $app->get("/", DataSourceHandler::class);
+        $app->post("/", DataSourceHandler::class);
     }
+
+    protected function configureMiddlewares(App $app)
+    {}
 }

@@ -25,6 +25,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 use SmartPHP\DI\DIBuilder;
+use SmartPHP\Interfaces\DataSourceControllerInterface;
+use SmartPHP\DefaultImpl\DataSourceController;
 
 final class DefaultDIProvider
 {
@@ -69,5 +71,7 @@ final class DefaultDIProvider
         $diBuilder->registerClassAs(DataSourceExecutor::class, DataSourceExecutorInterface::class);
         
         $diBuilder->registerClassAs(DataSourceModelConverterFactory::class, DataSourceModelConverterFactoryInterface::class);
+        
+        $diBuilder->registerClassAs(DataSourceController::class, DataSourceControllerInterface::class);
     }
 }
