@@ -1,5 +1,5 @@
 <?php
-use SmartPHP\Example\ExampleAppBuilder;
+use SmartPHP\Example\Slim\ExampleAppBuilder;
 
 require __DIR__ . '/vendor/autoload.php';
 

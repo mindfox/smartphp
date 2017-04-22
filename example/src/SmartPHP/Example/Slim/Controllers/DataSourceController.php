@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Controllers;
+namespace SmartPHP\Example\Slim\Controllers;
 
 use SmartPHP\Slim\SlimDataSourceController;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;

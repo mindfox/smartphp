@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example;
+namespace SmartPHP\Example\Slim;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -7,7 +7,6 @@ use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DI\DIDefinitionBuilderInterface;
-use SmartPHP\Example\Controllers\DataSourceController;
 use SmartPHP\Example\Repositories\CompanyRepository;
 use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Repositories\DepartmentRepository;
@@ -20,12 +19,23 @@ use SmartPHP\Example\Services\DepartmentService;
 use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeService;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
+use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
 
 class ExampleAppBuilder extends SlimAppBuilder
 {
 
-    const CONFIG_DIR = __DIR__ . "/../../../config";
+    const APP_DIR = __DIR__ . "/../../../..";
+
+    const CONFIG_DIR = self::APP_DIR. "/config";
+
+    const PROXY_DIR = self::APP_DIR. "/proxies";
+
+    const PUBLIC_DIR = self::APP_DIR. "/public";
+
+    const SRC_DIR = self::APP_DIR. "/src";
+
+    const DATABASES = self::CONFIG_DIR . "/databases.php";
 
     public function getConfig(): array
     {
@@ -35,14 +45,14 @@ class ExampleAppBuilder extends SlimAppBuilder
             
             "settings.addContentLengthHeader" => false, // Allow the web server to send the content-length header
             
-            "databases" => require self::CONFIG_DIR . "/databases.php",
+            "databases" => require self::DATABASES,
             
             "doctrine.annotationMetadataConfiguration.paths" => [
-                __DIR__ . "/Models/Entities"
+                realpath(self::SRC_DIR . "/SmartPHP/Example/Models/Entities")
             ],
             
             "doctrine.annotationMetadataConfiguration.isDevMode" => true,
-            "doctrine.annotationMetadataConfiguration.proxyDir" => realpath(__DIR__ . "/../../../proxies"),
+            "doctrine.annotationMetadataConfiguration.proxyDir" => realpath(self::PROXY_DIR),
             "doctrine.annotationMetadataConfiguration.cache" => null,
             "doctrine.annotationMetadataConfiguration.useSimpleAnnotationReader" => false,
             "doctrine.entityNamespaces" => [
