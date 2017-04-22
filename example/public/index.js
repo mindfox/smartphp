@@ -128,7 +128,9 @@
 	    useAllDataSourceFields:true,
 	    dataPageSize: 50,
 	    autoFetchData:true,
-	    canEdit:true
+	    canEdit:true,
+	    canRemoveRecords:true,
+	    warnOnRemoval:true
 	});
 	
 	isc.ListGrid.create({
@@ -142,7 +144,9 @@
 	    useAllDataSourceFields:true,
 	    dataPageSize: 50,
 	    autoFetchData:true,
-	    canEdit:true
+	    canEdit:true,
+	    canRemoveRecords:true,
+	    warnOnRemoval:true
 	});
 	
 	isc.ListGrid.create({
@@ -156,7 +160,9 @@
 	    useAllDataSourceFields:true,
 	    dataPageSize: 50,
 	    autoFetchData:true,
-	    canEdit:true
+	    canEdit:true,
+	    canRemoveRecords:true,
+	    warnOnRemoval:true
 	});
 	
 	

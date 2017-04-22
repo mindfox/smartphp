@@ -4,6 +4,7 @@ namespace SmartPHP\DefaultImpl;
 use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceModelConverterInterface;
 use SmartPHP\Interfaces\DataSourceModelInterface;
+use function DI\value;
 
 class DataSource implements DataSourceInterface
 {
@@ -172,14 +173,14 @@ class DataSource implements DataSourceInterface
     {
         $newDataSourceModel = $this->convertArrayToDataSourceModel($data);
         $oldDataSourceModel = $this->convertArrayToDataSourceModel($oldValues);
-        $dataSourceModel = $this->getAddMethod()->invoke($this->dataSourceServiceInstance, $newDataSourceModel, $oldDataSourceModel);
+        $dataSourceModel = $this->getUpdateMethod()->invoke($this->dataSourceServiceInstance, $newDataSourceModel, $oldDataSourceModel);
         return $this->convertDataSourceModelToArray($dataSourceModel);
     }
 
     private function invokeRemoveMethod(array $data): array
     {
         $dataSourceModel = $this->convertArrayToDataSourceModel($data);
-        $dataSourceModel = $this->getAddMethod()->invoke($this->dataSourceServiceInstance, $dataSourceModel);
+        $dataSourceModel = $this->getRemoveMethod()->invoke($this->dataSourceServiceInstance, $dataSourceModel);
         return $this->convertDataSourceModelToArray($dataSourceModel);
     }
 
