@@ -2,8 +2,8 @@
 namespace SmartPHP\Example\Repositories\Doctrine;
 
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
-use SmartPHP\Example\Models\Entities\EmployeeEntity;
-use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
+use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
+use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 
 class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository implements EmployeeRepositoryInterface
 {
@@ -16,7 +16,7 @@ class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository impl
      */
     public function fetchAll(): array
     {
-        return $this->fetchAllEntities(EmployeeEntity::class);
+        return $this->fetchAllEntities();
     }
     
     /**

@@ -1,11 +1,12 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
+use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
 use SmartPHP\Example\Models\Converters\DepartmentConverterTrait;
+use SmartPHP\Example\Interfaces\DataSourceServices\DepartmentDataSourceServiceInterface;
 
-class DepartmentService implements DepartmentServiceInterface
+class DepartmentDataSourceService implements DepartmentDataSourceServiceInterface
 {
     
     use DepartmentConverterTrait;

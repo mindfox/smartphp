@@ -1,21 +1,21 @@
 <?php
 namespace SmartPHP\Example\Slim\Controllers;
 
-use SmartPHP\Slim\SlimDataSourceController;
-use SmartPHP\Interfaces\DataSourceFactoryInterface;
-use SmartPHP\Example\Services\CompanyServiceInterface;
-use SmartPHP\Example\Services\DepartmentServiceInterface;
-use SmartPHP\Example\Services\EmployeeServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\DepartmentDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\EmployeeDataSourceServiceInterface;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
 use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
+use SmartPHP\Slim\SlimDataSourceController;
 
 class DataSourceController extends SlimDataSourceController
 {
     protected function configureDataSources(DataSourceFactoryInterface $dataSourceFactory)
     {
-        $dataSourceFactory->register("CompanyDataSource", CompanyServiceInterface::class, CompanyDataSourceModel::class);
-        $dataSourceFactory->register("DepartmentDataSource", DepartmentServiceInterface::class, DepartmentDataSourceModel::class);
-        $dataSourceFactory->register("EmployeeDataSource", EmployeeServiceInterface::class, EmployeeDataSourceModel::class);
+        $dataSourceFactory->register("CompanyDataSource", CompanyDataSourceServiceInterface::class, CompanyDataSourceModel::class);
+        $dataSourceFactory->register("DepartmentDataSource", DepartmentDataSourceServiceInterface::class, DepartmentDataSourceModel::class);
+        $dataSourceFactory->register("EmployeeDataSource", EmployeeDataSourceServiceInterface::class, EmployeeDataSourceModel::class);
     }
 }

@@ -1,11 +1,12 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
+use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Models\Converters\CompanyConverterTrait;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 
-class CompanyService implements CompanyServiceInterface
+class CompanyDataSourceService implements CompanyDataSourceServiceInterface
 {
     
     use CompanyConverterTrait;

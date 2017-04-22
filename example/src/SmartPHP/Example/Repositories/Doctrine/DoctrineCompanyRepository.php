@@ -2,8 +2,8 @@
 namespace SmartPHP\Example\Repositories\Doctrine;
 
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
-use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
+use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
 
 class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository implements CompanyRepositoryInterface
 {
@@ -26,7 +26,8 @@ class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository imple
      * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::fetchOne()
      */
     public function fetchOne(CompanyEntity $company): CompanyEntity
-    {}
+    {
+    }
 
     /**
      *

@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Models\Entities;
+namespace SmartPHP\Example\Models\DoctrineEntities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -205,7 +205,7 @@ class EmployeeEntity
      *
      * @return EmployeeEntity
      */
-    public function setDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department = null)
+    public function setDepartment(\SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity $department = null)
     {
         $this->department = $department;
 

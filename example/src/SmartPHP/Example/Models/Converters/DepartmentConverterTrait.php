@@ -2,8 +2,8 @@
 namespace SmartPHP\Example\Models\Converters;
 
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
-use SmartPHP\Example\Models\Entities\DepartmentEntity;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 
 trait DepartmentConverterTrait
 {

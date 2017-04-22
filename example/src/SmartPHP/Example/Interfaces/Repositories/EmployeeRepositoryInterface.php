@@ -1,7 +1,7 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Interfaces\Repositories;
 
-use SmartPHP\Example\Models\Entities\EmployeeEntity;
+use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 
 interface EmployeeRepositoryInterface
 {

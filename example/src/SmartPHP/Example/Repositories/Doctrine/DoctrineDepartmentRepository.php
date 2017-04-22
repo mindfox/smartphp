@@ -2,9 +2,9 @@
 namespace SmartPHP\Example\Repositories\Doctrine;
 
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
-use SmartPHP\Example\Models\Entities\DepartmentEntity;
-use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
+use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
+use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 
 class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository implements DepartmentRepositoryInterface
 {

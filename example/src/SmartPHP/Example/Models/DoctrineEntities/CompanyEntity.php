@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Models\Entities;
+namespace SmartPHP\Example\Models\DoctrineEntities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -92,7 +92,7 @@ class CompanyEntity
      *
      * @return CompanyEntity
      */
-    public function addDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department)
+    public function addDepartment(\SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity $department)
     {
         $this->departments[] = $department;
 
@@ -104,7 +104,7 @@ class CompanyEntity
      *
      * @param \SmartPHP\Example\Models\Entities\DepartmentEntity $department
      */
-    public function removeDepartment(\SmartPHP\Example\Models\Entities\DepartmentEntity $department)
+    public function removeDepartment(\SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity $department)
     {
         $this->departments->removeElement($department);
     }

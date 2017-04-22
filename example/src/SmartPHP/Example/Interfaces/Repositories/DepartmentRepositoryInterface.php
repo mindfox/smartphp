@@ -1,7 +1,7 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Interfaces\Repositories;
 
-use SmartPHP\Example\Models\Entities\DepartmentEntity;
+use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
 
 interface DepartmentRepositoryInterface
 {

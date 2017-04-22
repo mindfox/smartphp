@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\Models\Converters;
 
 use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
-use SmartPHP\Example\Models\Entities\EmployeeEntity;
+use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 
 trait EmployeeConverterTrait
 {

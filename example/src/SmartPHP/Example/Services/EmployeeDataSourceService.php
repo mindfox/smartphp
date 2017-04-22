@@ -1,11 +1,12 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
+use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
 use SmartPHP\Example\Models\Converters\EmployeeConverterTrait;
+use SmartPHP\Example\Interfaces\DataSourceServices\EmployeeDataSourceServiceInterface;
 
-class EmployeeService implements EmployeeServiceInterface
+class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
 {
     
     use EmployeeConverterTrait;

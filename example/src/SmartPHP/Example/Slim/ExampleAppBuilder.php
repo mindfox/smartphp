@@ -6,18 +6,18 @@ use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DI\DIDefinitionBuilderInterface;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
-use SmartPHP\Example\Models\Entities\DepartmentEntity;
-use SmartPHP\Example\Models\Entities\EmployeeEntity;
-use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
-use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
-use SmartPHP\Example\Services\CompanyService;
-use SmartPHP\Example\Services\CompanyServiceInterface;
-use SmartPHP\Example\Services\DepartmentService;
-use SmartPHP\Example\Services\DepartmentServiceInterface;
-use SmartPHP\Example\Services\EmployeeService;
-use SmartPHP\Example\Services\EmployeeServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\DepartmentDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\DataSourceServices\EmployeeDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
+use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
+use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
+use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
+use SmartPHP\Example\Services\CompanyDataSourceService;
+use SmartPHP\Example\Services\DepartmentDataSourceService;
+use SmartPHP\Example\Services\EmployeeDataSourceService;
 use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
 
@@ -47,7 +47,7 @@ class ExampleAppBuilder extends SlimAppBuilder
             "databases" => require self::DATABASES,
             
             "doctrine.annotationMetadataConfiguration.paths" => [
-                realpath(self::SRC_DIR . "/SmartPHP/Example/Models/Entities")
+                realpath(self::SRC_DIR . "/SmartPHP/Example/Models/DoctrineEntities")
             ],
             
             "doctrine.annotationMetadataConfiguration.isDevMode" => true,
@@ -103,11 +103,11 @@ class ExampleAppBuilder extends SlimAppBuilder
                 ->getRepository(EmployeeEntity::class);
         });
         
-        $diDefinitionBuilder->registerClassAs(CompanyService::class, CompanyServiceInterface::class);
+        $diDefinitionBuilder->registerClassAs(CompanyDataSourceService::class, CompanyDataSourceServiceInterface::class);
         
-        $diDefinitionBuilder->registerClassAs(DepartmentService::class, DepartmentServiceInterface::class);
+        $diDefinitionBuilder->registerClassAs(DepartmentDataSourceService::class, DepartmentDataSourceServiceInterface::class);
         
-        $diDefinitionBuilder->registerClassAs(EmployeeService::class, EmployeeServiceInterface::class);
+        $diDefinitionBuilder->registerClassAs(EmployeeDataSourceService::class, EmployeeDataSourceServiceInterface::class);
     }
 
     public function configureRoutes(App $app)

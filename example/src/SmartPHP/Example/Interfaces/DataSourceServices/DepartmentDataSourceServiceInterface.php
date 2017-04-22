@@ -1,9 +1,9 @@
 <?php
-namespace SmartPHP\Example\Services;
+namespace SmartPHP\Example\Interfaces\DataSourceServices;
 
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
 
-interface DepartmentServiceInterface
+interface DepartmentDataSourceServiceInterface
 {
     
     public function fetchAll(): array;

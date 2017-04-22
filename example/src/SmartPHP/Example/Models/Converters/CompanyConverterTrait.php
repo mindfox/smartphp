@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\Models\Converters;
 
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
-use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 
 trait CompanyConverterTrait
 {

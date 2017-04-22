@@ -1,7 +1,7 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Interfaces\Repositories;
 
-use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 
 interface CompanyRepositoryInterface
 {
