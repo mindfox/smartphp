@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="smartphp_employees")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\Doctrine\DoctrineEmployeeRepository")
  */
 class EmployeeEntity
 {

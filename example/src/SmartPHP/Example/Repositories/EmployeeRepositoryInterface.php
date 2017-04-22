@@ -10,7 +10,7 @@ interface EmployeeRepositoryInterface
 
     public function fetchOne(EmployeeEntity $company): EmployeeEntity;
 
-    public function fetch(EmployeeEntity $company = null);
+    public function fetch(int $startRow, int $endRow): array;
 
     public function add(EmployeeEntity $company): EmployeeEntity;
 

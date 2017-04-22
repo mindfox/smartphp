@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SmartPHP\Interfaces\OptionalInterface;
 use SmartPHP\DefaultImpl\Optional;
 
-class GenericDataSourceRepository
+class DoctrineDataSourceRepository
 {
 
     /**
@@ -24,15 +24,25 @@ class GenericDataSourceRepository
     {
         return $this->entityManager;
     }
+    
+    protected function getClassOf($entity)
+    {
+        return get_class($entity);
+    }
 
     protected function getObjectRepository($class): ObjectRepository
     {
         return $this->getEntityManager()->getRepository($class);
     }
     
-    protected function getClassOf($entity)
+    protected function getDataSource($class)
     {
-        return get_class($entity);
+        return new GenericEntityRepository($this->getEntityManager(), $this->getObjectRepository($class));
+    }
+    
+    protected function getEntitySource($entity)
+    {
+        return $this->getDataSource($this->getClassOf($entity));
     }
 
     protected function fetchAllEntities(string $class)
@@ -57,22 +67,16 @@ class GenericDataSourceRepository
 
     protected function addEntity($entity)
     {
-        $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush();
-        return $entity;
+        return $this->getEntitySource($entity)->add($entity);
     }
 
     protected function updateEntity($entity)
     {
-        $entity = $this->getEntityManager()->merge($entity);
-        $this->getEntityManager()->flush();
-        return $entity;
+        return $this->getEntitySource($entity)->update($entity);
     }
 
     protected function removeEntity($entity)
     {
-        $this->getEntityManager()->remove($entity);
-        $this->getEntityManager()->flush();
-        return $entity;
+        return $this->getEntitySource($entity)->remove($entity);
     }
 }

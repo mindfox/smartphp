@@ -10,7 +10,7 @@ interface CompanyRepositoryInterface
 
     public function fetchOne(CompanyEntity $company): CompanyEntity;
 
-    public function fetch(CompanyEntity $company = null);
+    public function fetch(int $startRow, int $endRow): array;
 
     public function add(CompanyEntity $company): CompanyEntity;
 

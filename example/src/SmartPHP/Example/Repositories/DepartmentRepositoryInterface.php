@@ -10,7 +10,7 @@ interface DepartmentRepositoryInterface
 
     public function fetchOne(DepartmentEntity $company): DepartmentEntity;
 
-    public function fetch(DepartmentEntity $company = null);
+    public function fetch(int $startRow, int $endRow): array;
 
     public function add(DepartmentEntity $company): DepartmentEntity;
 

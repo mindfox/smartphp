@@ -1,10 +1,11 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Repositories\Doctrine;
 
-use SmartPHP\Doctrine\GenericDataSourceRepository;
+use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
 
-class CompanyRepository extends GenericDataSourceRepository implements CompanyRepositoryInterface
+class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository implements CompanyRepositoryInterface
 {
 
     /**
@@ -15,7 +16,7 @@ class CompanyRepository extends GenericDataSourceRepository implements CompanyRe
      */
     public function fetchAll(): array
     {
-        return $this->fetchAllEntities(CompanyEntity::class);
+        return $this->fetchAllEntities();
     }
 
     /**
@@ -25,9 +26,7 @@ class CompanyRepository extends GenericDataSourceRepository implements CompanyRe
      * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::fetchOne()
      */
     public function fetchOne(CompanyEntity $company): CompanyEntity
-    {
-        return $this->fetchOneEntity($company);
-    }
+    {}
 
     /**
      *
@@ -35,15 +34,16 @@ class CompanyRepository extends GenericDataSourceRepository implements CompanyRe
      *
      * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::fetch()
      */
-    public function fetch(CompanyEntity $company = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        return $this->fetchEntity($company);
+        return $this->fetchEntities($startRow, $endRow);
     }
 
     /**
      *
-     * @param CompanyEntity $company
-     * @return CompanyEntity
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::add()
      */
     public function add(CompanyEntity $company): CompanyEntity
     {

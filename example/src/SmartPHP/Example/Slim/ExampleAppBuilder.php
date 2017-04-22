@@ -2,16 +2,15 @@
 namespace SmartPHP\Example\Slim;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DI\DIDefinitionBuilderInterface;
-use SmartPHP\Example\Repositories\CompanyRepository;
+use SmartPHP\Example\Models\Entities\CompanyEntity;
+use SmartPHP\Example\Models\Entities\DepartmentEntity;
+use SmartPHP\Example\Models\Entities\EmployeeEntity;
 use SmartPHP\Example\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Example\Repositories\DepartmentRepository;
 use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
-use SmartPHP\Example\Repositories\EmployeeRepository;
 use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Services\CompanyService;
 use SmartPHP\Example\Services\CompanyServiceInterface;
@@ -27,13 +26,13 @@ class ExampleAppBuilder extends SlimAppBuilder
 
     const APP_DIR = __DIR__ . "/../../../..";
 
-    const CONFIG_DIR = self::APP_DIR. "/config";
+    const CONFIG_DIR = self::APP_DIR . "/config";
 
-    const PROXY_DIR = self::APP_DIR. "/proxies";
+    const PROXY_DIR = self::APP_DIR . "/proxies";
 
-    const PUBLIC_DIR = self::APP_DIR. "/public";
+    const PUBLIC_DIR = self::APP_DIR . "/public";
 
-    const SRC_DIR = self::APP_DIR. "/src";
+    const SRC_DIR = self::APP_DIR . "/src";
 
     const DATABASES = self::CONFIG_DIR . "/databases.php";
 
@@ -89,15 +88,20 @@ class ExampleAppBuilder extends SlimAppBuilder
             return $entityManager;
         });
         
-        $diDefinitionBuilder->register(EntityManagerInterface::class, function (ContainerInterface $container) {
-            return $container->get("EntityManager");
+        $diDefinitionBuilder->register(CompanyRepositoryInterface::class, function (ContainerInterface $container) {
+            return $container->get("EntityManager")
+                ->getRepository(CompanyEntity::class);
         });
         
-        $diDefinitionBuilder->registerClassAs(CompanyRepository::class, CompanyRepositoryInterface::class);
+        $diDefinitionBuilder->register(DepartmentRepositoryInterface::class, function (ContainerInterface $container) {
+            return $container->get("EntityManager")
+                ->getRepository(DepartmentEntity::class);
+        });
         
-        $diDefinitionBuilder->registerClassAs(DepartmentRepository::class, DepartmentRepositoryInterface::class);
-        
-        $diDefinitionBuilder->registerClassAs(EmployeeRepository::class, EmployeeRepositoryInterface::class);
+        $diDefinitionBuilder->register(EmployeeRepositoryInterface::class, function (ContainerInterface $container) {
+            return $container->get("EntityManager")
+                ->getRepository(EmployeeEntity::class);
+        });
         
         $diDefinitionBuilder->registerClassAs(CompanyService::class, CompanyServiceInterface::class);
         

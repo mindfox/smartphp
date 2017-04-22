@@ -4,7 +4,6 @@ namespace SmartPHP\DefaultImpl;
 use SmartPHP\Interfaces\DataSourceInterface;
 use SmartPHP\Interfaces\DataSourceModelConverterInterface;
 use SmartPHP\Interfaces\DataSourceModelInterface;
-use function DI\value;
 
 class DataSource implements DataSourceInterface
 {

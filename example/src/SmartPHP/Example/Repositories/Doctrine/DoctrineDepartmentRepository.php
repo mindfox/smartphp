@@ -1,25 +1,13 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Repositories\Doctrine;
 
-use SmartPHP\Doctrine\GenericDataSourceRepository;
+use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\Entities\CompanyEntity;
 use SmartPHP\Example\Models\Entities\DepartmentEntity;
-use Doctrine\ORM\EntityManagerInterface;
+use SmartPHP\Example\Repositories\DepartmentRepositoryInterface;
 
-class DepartmentRepository extends GenericDataSourceRepository implements DepartmentRepositoryInterface
+class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository implements DepartmentRepositoryInterface
 {
-
-    /**
-     *
-     * @var CompanyRepositoryInterface
-     */
-    private $companyRepository;
-
-    public function __construct(EntityManagerInterface $entityManager, CompanyRepositoryInterface $companyRepository)
-    {
-        parent::__construct($entityManager);
-        $this->companyRepository = $companyRepository;
-    }
 
     /**
      *
@@ -29,7 +17,7 @@ class DepartmentRepository extends GenericDataSourceRepository implements Depart
      */
     public function fetchAll(): array
     {
-        return $this->fetchAllEntities(DepartmentEntity::class);
+        return $this->fetchAllEntities();
     }
 
     /**
@@ -49,9 +37,9 @@ class DepartmentRepository extends GenericDataSourceRepository implements Depart
      *
      * @see \SmartPHP\Example\Repositories\DepartmentRepositoryInterface::fetch()
      */
-    public function fetch(DepartmentEntity $department = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        return $this->fetchEntity($department);
+        return $this->fetch($startRow, $endRow);
     }
 
     /**

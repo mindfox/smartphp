@@ -1,10 +1,11 @@
 <?php
-namespace SmartPHP\Example\Repositories;
+namespace SmartPHP\Example\Repositories\Doctrine;
 
-use SmartPHP\Doctrine\GenericDataSourceRepository;
+use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\Entities\EmployeeEntity;
+use SmartPHP\Example\Repositories\EmployeeRepositoryInterface;
 
-class EmployeeRepository extends GenericDataSourceRepository implements EmployeeRepositoryInterface
+class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository implements EmployeeRepositoryInterface
 {
     
     /**
@@ -35,9 +36,9 @@ class EmployeeRepository extends GenericDataSourceRepository implements Employee
      *
      * @see \SmartPHP\Example\Repositories\EmployeeRepositoryInterface::fetch()
      */
-    public function fetch(EmployeeEntity $employee = null)
+    public function fetch(int $startRow, int $endRow): array
     {
-        return $this->fetchEntity($employee);
+        return $this->fetch($startRow, $endRow);
     }
     
     /**
