@@ -1,18 +1,17 @@
 <?php
-namespace SmartPHP\Example\Handlers;
+namespace SmartPHP\Example\Controllers;
 
-use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
-use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
-use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
+use SmartPHP\Slim\SlimDataSourceController;
+use SmartPHP\Interfaces\DataSourceFactoryInterface;
 use SmartPHP\Example\Services\CompanyServiceInterface;
 use SmartPHP\Example\Services\DepartmentServiceInterface;
 use SmartPHP\Example\Services\EmployeeServiceInterface;
-use SmartPHP\Interfaces\DataSourceFactoryInterface;
-use SmartPHP\Slim\SlimDataSourceHandler;
+use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
+use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
+use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
 
-class DataSourceHandler extends SlimDataSourceHandler
+class DataSourceController extends SlimDataSourceController
 {
-
     protected function configureDataSources(DataSourceFactoryInterface $dataSourceFactory)
     {
         $dataSourceFactory->register("CompanyDataSource", CompanyServiceInterface::class, CompanyDataSourceModel::class);
@@ -20,4 +19,3 @@ class DataSourceHandler extends SlimDataSourceHandler
         $dataSourceFactory->register("EmployeeDataSource", EmployeeServiceInterface::class, EmployeeDataSourceModel::class);
     }
 }
-

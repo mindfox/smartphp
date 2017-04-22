@@ -12,7 +12,7 @@ class DSOperationFactoryTest extends TestCase
     {
         $array = [];
         $operationFactory = new DSOperationFactory(new GetSetMethodNormalizer());
-        $operation = $operationFactory->createFromArray($array);
+        $operation = $operationFactory->createDSOperationFromArray($array);
         
         $this->assertInstanceOf(DSOperationInterface::class, $operation);
     }

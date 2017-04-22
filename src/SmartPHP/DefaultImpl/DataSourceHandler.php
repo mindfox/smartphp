@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SmartPHP\Interfaces\DataSourceExecutorInterface;
 use SmartPHP\Interfaces\DataSourceFactoryInterface;
+use SmartPHP\Interfaces\DataSourceHandlerInterface;
 use SmartPHP\Interfaces\DSOperationFactoryInterface;
 use SmartPHP\Interfaces\DSOperationInterface;
 use SmartPHP\Interfaces\DSRequestFactoryInterface;
@@ -13,9 +14,8 @@ use SmartPHP\Interfaces\DSResponseInterface;
 use SmartPHP\Interfaces\DSResponseSerializerInterface;
 use SmartPHP\Interfaces\DSTransactionFactoryInterface;
 use SmartPHP\Interfaces\DSTransactionInterface;
-use SmartPHP\Interfaces\DataSourceControllerInterface;
 
-class DataSourceController implements DataSourceControllerInterface
+class DataSourceHandler implements DataSourceHandlerInterface
 {
 
     /**
