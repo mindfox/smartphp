@@ -1,8 +1,8 @@
 <?php
-namespace Smartphp\example\models\BusinessModels;
+namespace SmartPHP\Example\Models\BusinessModels;
 
 use SmartPHP\Collections\CollectionInterface;
-use SmartPHP\Collections\ArrayCollection;
+use SmartPHP\Collections\Collections;
 
 class CompanyBusinessModel
 {
@@ -27,7 +27,7 @@ class CompanyBusinessModel
 
     public function __construct()
     {
-        $this->departments = new ArrayCollection();
+        $this->departments = Collections::newArrayCollection();
     }
     
     public function getId()

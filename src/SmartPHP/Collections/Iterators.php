@@ -55,7 +55,7 @@ abstract class Iterators
         return ! static::all($iterator, $predicate);
     }
 
-    public static function collect(Iterator $iterator, CollectorInterface $collector): CollectionInterface
+    public static function collect(Iterator $iterator, IteratorCollectorInterface $collector): CollectionInterface
     {
         return $collector->get($iterator);
     }

@@ -7,7 +7,7 @@ abstract class AbstractCollection implements CollectionInterface
     public function addAll(CollectionInterface $elements): CollectionInterface
     {
         foreach ($elements as $element) {
-            $this->addElement($element);
+            $this->add($element);
         }
         return $this;
     }
@@ -30,7 +30,7 @@ abstract class AbstractCollection implements CollectionInterface
     public function removeAll(CollectionInterface $elements): CollectionInterface
     {
         foreach ($elements as $element) {
-            $this->removeElement($element);
+            $this->remove($element);
         }
         return $this;
     }

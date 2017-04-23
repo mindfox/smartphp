@@ -5,6 +5,9 @@ use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInter
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Models\Converters\CompanyConverterTrait;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
+use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
+use SmartPHP\Example\Services\ConverterService;
+use SmartPHP\Collections\Collections;
 
 class CompanyDataSourceService implements CompanyDataSourceServiceInterface
 {
@@ -16,10 +19,14 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      * @var CompanyRepositoryInterface
      */
     private $companyRepository;
+    private $companyService;
+    private $converter;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(CompanyRepositoryInterface $companyRepository, CompanyBusinessService $companyService, ConverterService $converterService)
     {
         $this->companyRepository = $companyRepository;
+        $this->companyService = $companyService;
+        $this->converter = $converterService;
     }
 
     /**
@@ -56,7 +63,9 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetch(int $startRow, int $endRow): array
     {
-        return $this->fetchAll();
+        $companies = $this->companyService->fetchAll();
+        $companies = $this->converter->toCompanyDataSourceModels(Collections::newArrayCollection($companies));
+        return $companies->toArray();
     }
 
     /**

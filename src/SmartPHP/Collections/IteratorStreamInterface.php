@@ -1,13 +1,12 @@
 <?php
 namespace SmartPHP\Collections;
 
-use Slim\Interfaces\CollectionInterface;
 
 interface IteratorStreamInterface
 {
     public function all(callable $predicate): bool;
-    public function any(callable $predicate): bool;
-    public function collect(CollectorInterface $collector): CollectionInterface;
+    public function some(callable $predicate): bool;
+    public function collect(IteratorCollectorInterface $collector): CollectionInterface;
     public function count(): int;
     public function each(callable $callable): IteratorStreamInterface;
     public function filter(callable $predicate): IteratorStreamInterface;

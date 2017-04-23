@@ -4,7 +4,7 @@ namespace SmartPHP\Collections;
 use Iterator;
 use SmartPHP\Collections\CollectionInterface;
 
-class CallbackCollector implements CollectorInterface
+class CallbackIteratorCollector implements IteratorCollectorInterface
 {
 
     private $callback;

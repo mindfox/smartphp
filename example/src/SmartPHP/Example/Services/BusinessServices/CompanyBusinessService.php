@@ -3,16 +3,25 @@ namespace SmartPHP\Example\Services\BusinessServices;
 
 use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
-use Smartphp\example\models\BusinessModels\CompanyBusinessModel;
+use SmartPHP\Collections\Collections;
+use SmartPHP\Example\Services\ConverterService;
+use SmartPHP\Example\Models\BusinessModels\CompanyBusinessModel;
 
 class CompanyBusinessService implements CompanyBusinessServiceInterface
 {
 
     private $companyRepository;
     
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    /**
+     * 
+     * @var ConverterService
+     */
+    private $converter;
+    
+    public function __construct(CompanyRepositoryInterface $companyRepository, ConverterService $converter)
     {
         $this->companyRepository = $companyRepository;
+        $this->converter = $converter;
     }
     
     /**
@@ -21,9 +30,11 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::fetchAll()
      */
-    public function fetchAll()
+    public function fetchAll(): array
     {
-        // TODO: Auto-generated method stub
+        $companies = $this->companyRepository->fetchAll();
+        $companies = $this->converter->fromCompanyEntities(Collections::newArrayCollection($companies));
+        return $companies->toArray();
     }
 
     /**
@@ -32,7 +43,7 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::fetchOne()
      */
-    public function fetchOne(CompanyBusinessModel $company)
+    public function fetchOne(CompanyBusinessModel $company): CompanyBusinessModel
     {
         // TODO: Auto-generated method stub
     }
@@ -43,9 +54,11 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::fetch()
      */
-    public function fetch($startRow, $endRow)
+    public function fetch(int $startRow, int $endRow): array
     {
-        // TODO: Auto-generated method stub
+        $companies = $this->companyRepository->fetch($startRow, $endRow);
+        $companies = $this->converter->fromCompanyEntities(Collections::newArrayCollection($companies));
+        return $companies->toArray();
     }
 
     /**
@@ -54,7 +67,7 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::add()
      */
-    public function add(CompanyBusinessModel $company)
+    public function add(CompanyBusinessModel $company): CompanyBusinessModel
     {
         // TODO: Auto-generated method stub
     }
@@ -65,7 +78,7 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::update()
      */
-    public function update(CompanyBusinessModel $company)
+    public function update(CompanyBusinessModel $company): CompanyBusinessModel
     {
         // TODO: Auto-generated method stub
     }
@@ -76,7 +89,7 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::remove()
      */
-    public function remove(CompanyBusinessModel $company)
+    public function remove(CompanyBusinessModel $company): CompanyBusinessModel
     {
         // TODO: Auto-generated method stub
     }

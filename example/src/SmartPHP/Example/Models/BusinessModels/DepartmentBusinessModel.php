@@ -1,5 +1,5 @@
 <?php
-namespace Smartphp\example\models\BusinessModels;
+namespace SmartPHP\Example\Models\BusinessModels;
 
 class DepartmentBusinessModel
 {

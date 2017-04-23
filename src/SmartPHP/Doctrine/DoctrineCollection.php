@@ -103,4 +103,15 @@ class DoctrineCollection extends AbstractCollection
     {
         return $this->collection->toArray();
     }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see IteratorAggregate::getIterator()
+     */
+    public function getIterator(): \Iterator
+    {
+        return $this->collection->getIterator();
+    }
 }

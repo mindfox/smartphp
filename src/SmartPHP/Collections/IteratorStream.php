@@ -39,9 +39,9 @@ class IteratorStream implements IteratorStreamInterface
      *
      * @see \SmartPHP\Collections\IteratorStreamInterface::any()
      */
-    public function any($predicate): bool
+    public function some(callable $predicate): bool
     {
-        return Iterators::any($this->iterator, $predicate);
+        return Iterators::some($this->iterator, $predicate);
     }
 
     /**
@@ -77,7 +77,7 @@ class IteratorStream implements IteratorStreamInterface
      *
      * @see \SmartPHP\Collections\IteratorStreamInterface::collect()
      */
-    public function collect(CollectorInterface $collector): CollectionInterface
+    public function collect(IteratorCollectorInterface $collector): CollectionInterface
     {
         return Iterators::collect($this->iterator, $collector);
     }
@@ -110,8 +110,19 @@ class IteratorStream implements IteratorStreamInterface
      *
      * @see \SmartPHP\Collections\IteratorStreamInterface::each()
      */
-    public function each($callable): IteratorStreamInterface
+    public function each(callable $callable): IteratorStreamInterface
     {
         return static::create(Iterators::each($this->iterator, $callable));
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Collections\IteratorStreamInterface::first()
+     */
+    public function first(): OptionalInterface
+    {
+        return Iterators::first($this->iterator);
     }
 }

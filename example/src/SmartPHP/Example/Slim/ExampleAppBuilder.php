@@ -20,6 +20,9 @@ use SmartPHP\Example\Services\DataSourceServices\DepartmentDataSourceService;
 use SmartPHP\Example\Services\DataSourceServices\EmployeeDataSourceService;
 use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
+use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
+use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
+use SmartPHP\Example\Services\ConverterService;
 
 class ExampleAppBuilder extends SlimAppBuilder
 {
@@ -108,6 +111,10 @@ class ExampleAppBuilder extends SlimAppBuilder
         $diDefinitionBuilder->registerClassAs(DepartmentDataSourceService::class, DepartmentDataSourceServiceInterface::class);
         
         $diDefinitionBuilder->registerClassAs(EmployeeDataSourceService::class, EmployeeDataSourceServiceInterface::class);
+        
+        $diDefinitionBuilder->registerClassAs(CompanyBusinessService::class, CompanyBusinessServiceInterface::class);
+        
+        $diDefinitionBuilder->registerClassAs(ConverterService::class, ConverterService::class);
     }
 
     public function configureRoutes(App $app)
