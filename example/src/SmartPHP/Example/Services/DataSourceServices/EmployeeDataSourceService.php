@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Services;
+namespace SmartPHP\Example\Services\DataSourceServices;
 
 use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;

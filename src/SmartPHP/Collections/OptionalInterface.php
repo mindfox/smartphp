@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Interfaces;
+namespace SmartPHP\Collections;
 
 interface OptionalInterface
 {

@@ -1,7 +1,5 @@
 <?php
-namespace SmartPHP\DefaultImpl;
-
-use SmartPHP\Interfaces\OptionalInterface;
+namespace SmartPHP\Collections;
 
 class Optional implements OptionalInterface
 {
@@ -29,7 +27,7 @@ class Optional implements OptionalInterface
      *
      * @see \SmartPHP\Interfaces\OptionalInterface::isPesent()
      */
-    public function isPesent()
+    public function isPesent(): bool
     {
         return ! $this->isAbsent();
     }
@@ -40,7 +38,7 @@ class Optional implements OptionalInterface
      *
      * @see \SmartPHP\Interfaces\OptionalInterface::isAbsent()
      */
-    public function isAbsent()
+    public function isAbsent(): bool
     {
         return is_null($this->value);
     }

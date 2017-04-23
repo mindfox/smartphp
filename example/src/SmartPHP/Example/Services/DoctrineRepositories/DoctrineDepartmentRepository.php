@@ -1,5 +1,5 @@
 <?php
-namespace SmartPHP\Example\Repositories\Doctrine;
+namespace SmartPHP\Example\Services\DoctrineRepositories;
 
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;

@@ -15,9 +15,9 @@ use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
 use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
-use SmartPHP\Example\Services\CompanyDataSourceService;
-use SmartPHP\Example\Services\DepartmentDataSourceService;
-use SmartPHP\Example\Services\EmployeeDataSourceService;
+use SmartPHP\Example\Services\DataSourceServices\CompanyDataSourceService;
+use SmartPHP\Example\Services\DataSourceServices\DepartmentDataSourceService;
+use SmartPHP\Example\Services\DataSourceServices\EmployeeDataSourceService;
 use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
 

@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Table(name="smartphp_companies")
- * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\Doctrine\DoctrineCompanyRepository")
+ * @ORM\Entity(repositoryClass="SmartPHP\Example\Services\DoctrineRepositories\DoctrineCompanyRepository")
  */
 class CompanyEntity
 {

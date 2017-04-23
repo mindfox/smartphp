@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="smartphp_departments")
- * @ORM\Entity(repositoryClass="SmartPHP\Example\Repositories\Doctrine\DoctrineDepartmentRepository")
+ * @ORM\Entity(repositoryClass="SmartPHP\Example\Services\DoctrineRepositories\DoctrineDepartmentRepository")
  */
 class DepartmentEntity
 {
