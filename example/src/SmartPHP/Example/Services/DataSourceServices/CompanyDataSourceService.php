@@ -3,9 +3,8 @@ namespace SmartPHP\Example\Services\DataSourceServices;
 
 use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
-use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
-use SmartPHP\Example\Services\ConverterService;
 
 class CompanyDataSourceService implements CompanyDataSourceServiceInterface
 {
@@ -17,11 +16,11 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
     
     /**
      * 
-     * @var ConverterService
+     * @var ModelConverterServiceInterface
      */
     private $converter;
 
-    public function __construct(CompanyBusinessService $companyService, ConverterService $converterService)
+    public function __construct(CompanyBusinessServiceInterface $companyService, ModelConverterServiceInterface $converterService)
     {
         $this->companyService = $companyService;
         $this->converter = $converterService;
@@ -35,7 +34,7 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetchAll(): array
     {
-        return $this->converter->toCompanyDataSourceModelStream($this->companyService->fetchAll())->toArray();
+        return $this->converter->toCompanyDataSourceModels($this->companyService->fetchAll())->toArray();
     }
 
     /**
@@ -46,9 +45,9 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetchOne(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
-        $company = $this->toCompanyEntity($company);
-        $company = $this->companyRepository->fetchOne($company);
-        $company = $this->toCompanyDataSourceModel($company);
+        $company = $this->converter->fromCompanyDataSourceModel($company);
+        $company = $this->companyService->fetchOne($company);
+        $company = $this->converter->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -60,7 +59,7 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetch(int $startRow, int $endRow): array
     {
-        return $this->converter->toCompanyDataSourceModelStream($this->companyService->fetch($startRow, $endRow))->toArray();
+        return $this->converter->toCompanyDataSourceModels($this->companyService->fetch($startRow, $endRow))->toArray();
     }
 
     /**
@@ -71,9 +70,9 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function add(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
-        $company = $this->toCompanyEntity($company);
-        $company = $this->companyRepository->add($company);
-        $company = $this->toCompanyDataSourceModel($company);
+        $company = $this->converter->fromCompanyDataSourceModel($company);
+        $company = $this->companyService->add($company);
+        $company = $this->converter->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -85,9 +84,9 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function update(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
-        $company = $this->toCompanyEntity($company);
-        $company = $this->companyRepository->update($company);
-        $company = $this->toCompanyDataSourceModel($company);
+        $company = $this->converter->fromCompanyDataSourceModel($company);
+        $company = $this->companyService->update($company);
+        $company = $this->converter->toCompanyDataSourceModel($company);
         return $company;
     }
 
@@ -99,9 +98,9 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function remove(CompanyDataSourceModel $company): CompanyDataSourceModel
     {
-        $company = $this->toCompanyEntity($company);
-        $company = $this->companyRepository->remove($company);
-        $company = $this->toCompanyDataSourceModel($company);
+        $company = $this->converter->fromCompanyDataSourceModel($company);
+        $company = $this->companyService->remove($company);
+        $company = $this->converter->toCompanyDataSourceModel($company);
         return $company;
     }
 }

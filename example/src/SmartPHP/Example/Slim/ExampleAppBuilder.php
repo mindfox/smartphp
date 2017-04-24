@@ -6,23 +6,21 @@ use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DI\DIDefinitionBuilderInterface;
-use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
-use SmartPHP\Example\Interfaces\DataSourceServices\DepartmentDataSourceServiceInterface;
-use SmartPHP\Example\Interfaces\DataSourceServices\EmployeeDataSourceServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
 use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
+use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
+use SmartPHP\Example\Services\BusinessServices\DepartmentBusinessService;
+use SmartPHP\Example\Services\BusinessServices\EmployeeBusinessService;
 use SmartPHP\Example\Services\DataSourceServices\CompanyDataSourceService;
 use SmartPHP\Example\Services\DataSourceServices\DepartmentDataSourceService;
 use SmartPHP\Example\Services\DataSourceServices\EmployeeDataSourceService;
+use SmartPHP\Example\Services\ModelConverterService;
 use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
-use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
-use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
-use SmartPHP\Example\Services\ConverterService;
 
 class ExampleAppBuilder extends SlimAppBuilder
 {
@@ -106,15 +104,13 @@ class ExampleAppBuilder extends SlimAppBuilder
                 ->getRepository(EmployeeEntity::class);
         });
         
-        $diDefinitionBuilder->registerClassAs(CompanyDataSourceService::class, CompanyDataSourceServiceInterface::class);
-        
-        $diDefinitionBuilder->registerClassAs(DepartmentDataSourceService::class, DepartmentDataSourceServiceInterface::class);
-        
-        $diDefinitionBuilder->registerClassAs(EmployeeDataSourceService::class, EmployeeDataSourceServiceInterface::class);
-        
-        $diDefinitionBuilder->registerClassAs(CompanyBusinessService::class, CompanyBusinessServiceInterface::class);
-        
-        $diDefinitionBuilder->registerClassAs(ConverterService::class, ConverterService::class);
+        $diDefinitionBuilder->registerClassAsInterface(CompanyDataSourceService::class);
+        $diDefinitionBuilder->registerClassAsInterface(DepartmentDataSourceService::class);
+        $diDefinitionBuilder->registerClassAsInterface(EmployeeDataSourceService::class);
+        $diDefinitionBuilder->registerClassAsInterface(CompanyBusinessService::class);
+        $diDefinitionBuilder->registerClassAsInterface(DepartmentBusinessService::class);
+        $diDefinitionBuilder->registerClassAsInterface(EmployeeBusinessService::class);
+        $diDefinitionBuilder->registerClassAsInterface(ModelConverterService::class);
     }
 
     public function configureRoutes(App $app)

@@ -1,27 +1,31 @@
 <?php
 namespace SmartPHP\Example\Services\DataSourceServices;
 
-use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
-use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
-use SmartPHP\Example\Models\Converters\EmployeeConverterTrait;
+use SmartPHP\Example\Interfaces\BusinessServices\EmployeeBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\DataSourceServices\EmployeeDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
+use SmartPHP\Example\Models\DataSourceModels\EmployeeDataSourceModel;
 
 class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
 {
-    
-    use EmployeeConverterTrait;
-
     /**
      *
-     * @var EmployeeRepositoryInterface
+     * @var EmployeeBusinessServiceInterface
      */
-    private $employeeRepository;
-
-    public function __construct(EmployeeRepositoryInterface $employeeRepository)
+    private $employeeService;
+    
+    /**
+     *
+     * @var ModelConverterServiceInterface
+     */
+    private $converter;
+    
+    public function __construct(EmployeeBusinessServiceInterface $employeeService, ModelConverterServiceInterface $converterService)
     {
-        $this->employeeRepository = $employeeRepository;
+        $this->employeeService = $employeeService;
+        $this->converter = $converterService;
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -30,10 +34,9 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function fetchAll(): array
     {
-        $entities = $this->employeeRepository->fetchAll();
-        return $this->toEmployeeDataSourceModels($entities);
+        return $this->converter->toEmployeeDataSourceModels($this->employeeService->fetchAll())->toArray();
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -42,12 +45,12 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function fetchOne(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
-        $employee = $this->toEmployeeEntity($employee);
-        $employee = $this->employeeRepository->fetchOne($employee);
-        $employee = $this->toEmployeeDataSourceModel($employee);
+        $employee = $this->converter->fromEmployeeDataSourceModel($employee);
+        $employee = $this->employeeService->fetchOne($employee);
+        $employee = $this->converter->toEmployeeDataSourceModel($employee);
         return $employee;
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -56,9 +59,9 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function fetch(int $startRow, int $endRow): array
     {
-        return $this->fetchAll();
+        return $this->converter->toEmployeeDataSourceModels($this->employeeService->fetch($startRow, $endRow))->toArray();
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -67,12 +70,12 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function add(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
-        $employee = $this->toEmployeeEntity($employee);
-        $employee = $this->employeeRepository->add($employee);
-        $employee = $this->toEmployeeDataSourceModel($employee);
+        $employee = $this->converter->fromEmployeeDataSourceModel($employee);
+        $employee = $this->employeeService->add($employee);
+        $employee = $this->converter->toEmployeeDataSourceModel($employee);
         return $employee;
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -81,12 +84,12 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function update(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
-        $employee = $this->toEmployeeEntity($employee);
-        $employee = $this->employeeRepository->update($employee);
-        $employee = $this->toEmployeeDataSourceModel($employee);
+        $employee = $this->converter->fromEmployeeDataSourceModel($employee);
+        $employee = $this->employeeService->update($employee);
+        $employee = $this->converter->toEmployeeDataSourceModel($employee);
         return $employee;
     }
-
+    
     /**
      *
      * {@inheritdoc}
@@ -95,9 +98,9 @@ class EmployeeDataSourceService implements EmployeeDataSourceServiceInterface
      */
     public function remove(EmployeeDataSourceModel $employee): EmployeeDataSourceModel
     {
-        $employee = $this->toEmployeeEntity($employee);
-        $employee = $this->employeeRepository->remove($employee);
-        $employee = $this->toEmployeeDataSourceModel($employee);
+        $employee = $this->converter->fromEmployeeDataSourceModel($employee);
+        $employee = $this->employeeService->remove($employee);
+        $employee = $this->converter->toEmployeeDataSourceModel($employee);
         return $employee;
     }
 }

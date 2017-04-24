@@ -3,9 +3,9 @@ namespace SmartPHP\Example\Services\BusinessServices;
 
 use SmartPHP\Collections\IteratorStreamInterface;
 use SmartPHP\Example\Interfaces\BusinessServices\EmployeeBusinessServiceInterface;
+use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
 use SmartPHP\Example\Models\BusinessModels\EmployeeBusinessModel;
-use SmartPHP\Example\Services\ConverterService;
 
 class EmployeeBusinessService implements EmployeeBusinessServiceInterface
 {
@@ -14,11 +14,11 @@ class EmployeeBusinessService implements EmployeeBusinessServiceInterface
 
     /**
      *
-     * @var ConverterService
+     * @var ModelConverterServiceInterface
      */
     private $converter;
 
-    public function __construct(EmployeeRepositoryInterface $employeeRepository, ConverterService $converter)
+    public function __construct(EmployeeRepositoryInterface $employeeRepository, ModelConverterServiceInterface $converter)
     {
         $this->companyRepository = $employeeRepository;
         $this->converter = $converter;
@@ -32,7 +32,7 @@ class EmployeeBusinessService implements EmployeeBusinessServiceInterface
      */
     public function fetchAll(): IteratorStreamInterface
     {
-        return $this->converter->fromEmployeeEntityStream($this->companyRepository->fetchAll());
+        return $this->converter->fromEmployeeEntities($this->companyRepository->fetchAll());
     }
 
     /**
@@ -54,7 +54,7 @@ class EmployeeBusinessService implements EmployeeBusinessServiceInterface
      */
     public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return $this->converter->fromEmployeeEntityStream($this->companyRepository->fetch($startRow, $endRow));
+        return $this->converter->fromEmployeeEntities($this->companyRepository->fetch($startRow, $endRow));
     }
 
     /**

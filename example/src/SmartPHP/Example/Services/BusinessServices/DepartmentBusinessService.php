@@ -3,9 +3,9 @@ namespace SmartPHP\Example\Services\BusinessServices;
 
 use SmartPHP\Collections\IteratorStreamInterface;
 use SmartPHP\Example\Interfaces\BusinessServices\DepartmentBusinessServiceInterface;
+use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Models\BusinessModels\DepartmentBusinessModel;
-use SmartPHP\Example\Services\ConverterService;
 
 class DepartmentBusinessService implements DepartmentBusinessServiceInterface
 {
@@ -14,11 +14,11 @@ class DepartmentBusinessService implements DepartmentBusinessServiceInterface
 
     /**
      *
-     * @var ConverterService
+     * @var ModelConverterServiceInterface
      */
     private $converter;
 
-    public function __construct(DepartmentRepositoryInterface $departmentRepository, ConverterService $converter)
+    public function __construct(DepartmentRepositoryInterface $departmentRepository, ModelConverterServiceInterface $converter)
     {
         $this->departmentRepository = $departmentRepository;
         $this->converter = $converter;
@@ -32,7 +32,7 @@ class DepartmentBusinessService implements DepartmentBusinessServiceInterface
      */
     public function fetchAll(): IteratorStreamInterface
     {
-        return $this->converter->fromDepartmentEntityStream($this->departmentRepository->fetchAll());
+        return $this->converter->fromDepartmentEntities($this->departmentRepository->fetchAll());
     }
 
     /**
@@ -54,7 +54,7 @@ class DepartmentBusinessService implements DepartmentBusinessServiceInterface
      */
     public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return $this->converter->fromDepartmentEntityStream($this->departmentRepository->fetch($startRow, $endRow));
+        return $this->converter->fromDepartmentEntities($this->departmentRepository->fetch($startRow, $endRow));
     }
 
     /**

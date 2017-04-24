@@ -40,7 +40,7 @@ class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository impl
      */
     public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return IteratorStream::create($this->fetch($startRow, $endRow));
+        return IteratorStream::create($this->fetchEntities($startRow, $endRow));
     }
     
     /**

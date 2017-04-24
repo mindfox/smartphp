@@ -3,9 +3,8 @@ namespace SmartPHP\Example\Services\DataSourceServices;
 
 use SmartPHP\Example\Interfaces\BusinessServices\DepartmentBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\DataSourceServices\DepartmentDataSourceServiceInterface;
+use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Models\DataSourceModels\DepartmentDataSourceModel;
-use SmartPHP\Example\Services\BusinessServices\DepartmentBusinessService;
-use SmartPHP\Example\Services\ConverterService;
 
 class DepartmentDataSourceService implements DepartmentDataSourceServiceInterface
 {
@@ -17,13 +16,13 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
     
     /**
      *
-     * @var ConverterService
+     * @var ModelConverterServiceInterface
      */
     private $converter;
     
-    public function __construct(DepartmentBusinessService $departmentService, ConverterService $converterService)
+    public function __construct(DepartmentBusinessServiceInterface $departmentService, ModelConverterServiceInterface $converterService)
     {
-        $this->companyService = $departmentService;
+        $this->departmentService = $departmentService;
         $this->converter = $converterService;
     }
     
@@ -35,7 +34,7 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function fetchAll(): array
     {
-        return $this->converter->toDepartmentDataSourceModelStream($this->companyService->fetchAll())->toArray();
+        return $this->converter->toDepartmentDataSourceModels($this->departmentService->fetchAll())->toArray();
     }
     
     /**
@@ -46,9 +45,9 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function fetchOne(DepartmentDataSourceModel $department): DepartmentDataSourceModel
     {
-        $department = $this->toDepartmentEntity($department);
-        $department = $this->companyRepository->fetchOne($department);
-        $department = $this->toDepartmentDataSourceModel($department);
+        $department = $this->converter->fromDepartmentDataSourceModel($department);
+        $department = $this->departmentService->fetchOne($department);
+        $department = $this->converter->toDepartmentDataSourceModel($department);
         return $department;
     }
     
@@ -60,7 +59,7 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function fetch(int $startRow, int $endRow): array
     {
-        return $this->converter->toDepartmentDataSourceModelStream($this->companyService->fetch($startRow, $endRow))->toArray();
+        return $this->converter->toDepartmentDataSourceModels($this->departmentService->fetch($startRow, $endRow))->toArray();
     }
     
     /**
@@ -71,9 +70,9 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function add(DepartmentDataSourceModel $department): DepartmentDataSourceModel
     {
-        $department = $this->toDepartmentEntity($department);
-        $department = $this->companyRepository->add($department);
-        $department = $this->toDepartmentDataSourceModel($department);
+        $department = $this->converter->fromDepartmentDataSourceModel($department);
+        $department = $this->departmentService->add($department);
+        $department = $this->converter->toDepartmentDataSourceModel($department);
         return $department;
     }
     
@@ -85,9 +84,9 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function update(DepartmentDataSourceModel $department): DepartmentDataSourceModel
     {
-        $department = $this->toDepartmentEntity($department);
-        $department = $this->companyRepository->update($department);
-        $department = $this->toDepartmentDataSourceModel($department);
+        $department = $this->converter->fromDepartmentDataSourceModel($department);
+        $department = $this->departmentService->update($department);
+        $department = $this->converter->toDepartmentDataSourceModel($department);
         return $department;
     }
     
@@ -99,9 +98,9 @@ class DepartmentDataSourceService implements DepartmentDataSourceServiceInterfac
      */
     public function remove(DepartmentDataSourceModel $department): DepartmentDataSourceModel
     {
-        $department = $this->toDepartmentEntity($department);
-        $department = $this->companyRepository->remove($department);
-        $department = $this->toDepartmentDataSourceModel($department);
+        $department = $this->converter->fromDepartmentDataSourceModel($department);
+        $department = $this->departmentService->remove($department);
+        $department = $this->converter->toDepartmentDataSourceModel($department);
         return $department;
     }
 }
