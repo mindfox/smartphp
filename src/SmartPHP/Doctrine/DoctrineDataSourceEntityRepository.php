@@ -2,18 +2,45 @@
 namespace SmartPHP\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 abstract class DoctrineDataSourceEntityRepository extends EntityRepository
 {
 
-    protected function fetchAllEntities(): array
+    protected function newQueryBuilder(): QueryBuilder
     {
-        return $this->findAll();
+        return $this->getEntityManager()->createQueryBuilder();
     }
 
-    protected function fetchEntities(int $startRow, int $endRow): array
+    protected function newFetchEntitiesQuery(int $startRow, int $endRow): Query
     {
-        return $this->findBy([], null, $startRow, $endRow);
+        $query = $this->newQueryBuilder()
+            ->select("e")
+            ->from($this->_entityName, "e")
+            ->getQuery();
+        $query->setFirstResult($startRow);
+        $query->setMaxResults($endRow);
+        return $query;
+    }
+    
+    protected function newFetchEntitiesPaginator(int $startRow, int $endRow): Paginator
+    {
+        return new Paginator($this->newFetchEntitiesQuery($startRow, $endRow));
+    }
+
+    protected function fetchAllEntities(): \Iterator
+    {
+        return new \ArrayIterator($this->findAll());
+    }
+    
+    protected function fetchEntities(int $startRow, int $endRow): \Iterator
+    {
+        if ($endRow < 1) {
+            return $this->fetchAllEntities();
+        }
+        return $this->newFetchEntitiesPaginator($startRow, $endRow)->getIterator();
     }
 
     protected function addEntity($entity)

@@ -1,30 +1,28 @@
 <?php
 namespace SmartPHP\Example\Services\DataSourceServices;
 
+use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\DataSourceServices\CompanyDataSourceServiceInterface;
-use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Example\Models\Converters\CompanyConverterTrait;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 use SmartPHP\Example\Services\BusinessServices\CompanyBusinessService;
 use SmartPHP\Example\Services\ConverterService;
-use SmartPHP\Collections\Collections;
 
 class CompanyDataSourceService implements CompanyDataSourceServiceInterface
 {
-    
-    use CompanyConverterTrait;
-
     /**
-     *
-     * @var CompanyRepositoryInterface
+     * 
+     * @var CompanyBusinessServiceInterface
      */
-    private $companyRepository;
     private $companyService;
+    
+    /**
+     * 
+     * @var ConverterService
+     */
     private $converter;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository, CompanyBusinessService $companyService, ConverterService $converterService)
+    public function __construct(CompanyBusinessService $companyService, ConverterService $converterService)
     {
-        $this->companyRepository = $companyRepository;
         $this->companyService = $companyService;
         $this->converter = $converterService;
     }
@@ -37,8 +35,7 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetchAll(): array
     {
-        $entities = $this->companyRepository->fetchAll();
-        return $this->toCompanyDataSourceModels($entities);
+        return $this->converter->toCompanyDataSourceModelStream($this->companyService->fetchAll())->toArray();
     }
 
     /**
@@ -63,9 +60,7 @@ class CompanyDataSourceService implements CompanyDataSourceServiceInterface
      */
     public function fetch(int $startRow, int $endRow): array
     {
-        $companies = $this->companyService->fetchAll();
-        $companies = $this->converter->toCompanyDataSourceModels(Collections::newArrayCollection($companies));
-        return $companies->toArray();
+        return $this->converter->toCompanyDataSourceModelStream($this->companyService->fetch($startRow, $endRow))->toArray();
     }
 
     /**

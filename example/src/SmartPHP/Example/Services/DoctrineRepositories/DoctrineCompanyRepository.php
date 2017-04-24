@@ -4,6 +4,8 @@ namespace SmartPHP\Example\Services\DoctrineRepositories;
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
+use SmartPHP\Collections\IteratorStreamInterface;
+use SmartPHP\Collections\IteratorStream;
 
 class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository implements CompanyRepositoryInterface
 {
@@ -14,9 +16,9 @@ class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository imple
      *
      * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::fetchAll()
      */
-    public function fetchAll(): array
+    public function fetchAll(): IteratorStreamInterface
     {
-        return $this->fetchAllEntities();
+        return IteratorStream::create($this->fetchAllEntities());
     }
 
     /**
@@ -35,9 +37,9 @@ class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository imple
      *
      * @see \SmartPHP\Example\Repositories\CompanyRepositoryInterface::fetch()
      */
-    public function fetch(int $startRow, int $endRow): array
+    public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return $this->fetchEntities($startRow, $endRow);
+        return IteratorStream::create($this->fetchEntities($startRow, $endRow));
     }
 
     /**

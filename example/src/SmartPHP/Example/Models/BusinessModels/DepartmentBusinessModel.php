@@ -55,7 +55,7 @@ class DepartmentBusinessModel
         return $this->company;
     }
 
-    public function setCompany(CompanyBusinessModel $company)
+    public function setCompany(CompanyBusinessModel $company = null)
     {
         $this->company = $company;
         return $this;

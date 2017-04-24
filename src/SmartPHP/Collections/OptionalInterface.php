@@ -9,4 +9,6 @@ interface OptionalInterface
     public function isAbsent(): bool;
 
     public function getValue();
+    
+    public function map(callable $functor): OptionalInterface;
 }

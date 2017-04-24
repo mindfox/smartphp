@@ -86,17 +86,6 @@ class IteratorStream implements IteratorStreamInterface
      *
      * {@inheritdoc}
      *
-     * @see \SmartPHP\Collections\Iterators\Streams\IteratorStreamInterface::toArray()
-     */
-    public function toArray(): array
-    {
-        return Iterators::toArray($this->iterator);
-    }
-
-    /**
-     *
-     * {@inheritdoc}
-     *
      * @see \SmartPHP\Collections\IteratorStreamInterface::count()
      */
     public function count(): int
@@ -124,5 +113,16 @@ class IteratorStream implements IteratorStreamInterface
     public function first(): OptionalInterface
     {
         return Iterators::first($this->iterator);
+    }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Collections\IteratorStreamInterface::toArray()
+     */
+    public function toArray(): array
+    {
+        return Iterators::toArray($this->iterator);
     }
 }

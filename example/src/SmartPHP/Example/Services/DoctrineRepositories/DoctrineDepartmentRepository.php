@@ -1,10 +1,12 @@
 <?php
 namespace SmartPHP\Example\Services\DoctrineRepositories;
 
+use SmartPHP\Collections\IteratorStream;
+use SmartPHP\Collections\IteratorStreamInterface;
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
+use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
-use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 
 class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository implements DepartmentRepositoryInterface
 {
@@ -15,9 +17,9 @@ class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository im
      *
      * @see \SmartPHP\Example\Repositories\DepartmentRepositoryInterface::fetchAll()
      */
-    public function fetchAll(): array
+    public function fetchAll(): IteratorStreamInterface
     {
-        return $this->fetchAllEntities();
+        return IteratorStream::create($this->fetchAllEntities());
     }
 
     /**
@@ -37,9 +39,9 @@ class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository im
      *
      * @see \SmartPHP\Example\Repositories\DepartmentRepositoryInterface::fetch()
      */
-    public function fetch(int $startRow, int $endRow): array
+    public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return $this->fetch($startRow, $endRow);
+        return IteratorStream::create($this->fetchEntities($startRow, $endRow));
     }
 
     /**

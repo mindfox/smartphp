@@ -53,4 +53,18 @@ class Optional implements OptionalInterface
     {
         return $this->value;
     }
+
+    /**
+     *
+     * {@inheritdoc}
+     *
+     * @see \SmartPHP\Collections\OptionalInterface::map()
+     */
+    public function map(callable $functor): OptionalInterface
+    {
+        if ($this->isPesent()) {
+            return static::of(call_user_func($functor, $this->getValue()));
+        }
+        return static::absent();
+    }
 }

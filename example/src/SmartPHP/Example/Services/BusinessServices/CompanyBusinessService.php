@@ -1,40 +1,38 @@
 <?php
 namespace SmartPHP\Example\Services\BusinessServices;
 
+use SmartPHP\Collections\IteratorStreamInterface;
 use SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Collections\Collections;
-use SmartPHP\Example\Services\ConverterService;
 use SmartPHP\Example\Models\BusinessModels\CompanyBusinessModel;
+use SmartPHP\Example\Services\ConverterService;
 
 class CompanyBusinessService implements CompanyBusinessServiceInterface
 {
 
     private $companyRepository;
-    
+
     /**
-     * 
+     *
      * @var ConverterService
      */
     private $converter;
-    
+
     public function __construct(CompanyRepositoryInterface $companyRepository, ConverterService $converter)
     {
         $this->companyRepository = $companyRepository;
         $this->converter = $converter;
     }
-    
+
     /**
      *
      * {@inheritdoc}
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::fetchAll()
      */
-    public function fetchAll(): array
+    public function fetchAll(): IteratorStreamInterface
     {
-        $companies = $this->companyRepository->fetchAll();
-        $companies = $this->converter->fromCompanyEntities(Collections::newArrayCollection($companies));
-        return $companies->toArray();
+        return $this->converter->fromCompanyEntityStream($this->companyRepository->fetchAll());
     }
 
     /**
@@ -54,11 +52,9 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\BusinessServices\CompanyBusinessServiceInterface::fetch()
      */
-    public function fetch(int $startRow, int $endRow): array
+    public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        $companies = $this->companyRepository->fetch($startRow, $endRow);
-        $companies = $this->converter->fromCompanyEntities(Collections::newArrayCollection($companies));
-        return $companies->toArray();
+        return $this->converter->fromCompanyEntityStream($this->companyRepository->fetch($startRow, $endRow));
     }
 
     /**
@@ -69,7 +65,10 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      */
     public function add(CompanyBusinessModel $company): CompanyBusinessModel
     {
-        // TODO: Auto-generated method stub
+        $company= $this->converter->toCompanyEntity($company);
+        $company= $this->companyRepository->add($company);
+        $company = $this->converter->fromCompanyEntity($company);
+        return $company;
     }
 
     /**
@@ -80,7 +79,10 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      */
     public function update(CompanyBusinessModel $company): CompanyBusinessModel
     {
-        // TODO: Auto-generated method stub
+        $company = $this->converter->toCompanyEntity($company);
+        $company = $this->companyRepository->update($company);
+        $company = $this->converter->fromCompanyEntity($company);
+        return $company;
     }
 
     /**
@@ -91,6 +93,9 @@ class CompanyBusinessService implements CompanyBusinessServiceInterface
      */
     public function remove(CompanyBusinessModel $company): CompanyBusinessModel
     {
-        // TODO: Auto-generated method stub
+        $company = $this->converter->toCompanyEntity($company);
+        $company = $this->companyRepository->remove($company);
+        $company = $this->converter->fromCompanyEntity($company);
+        return $company;
     }
 }

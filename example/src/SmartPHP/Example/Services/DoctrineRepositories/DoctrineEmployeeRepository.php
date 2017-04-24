@@ -1,9 +1,11 @@
 <?php
 namespace SmartPHP\Example\Services\DoctrineRepositories;
 
+use SmartPHP\Collections\IteratorStream;
+use SmartPHP\Collections\IteratorStreamInterface;
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
-use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
+use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 
 class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository implements EmployeeRepositoryInterface
 {
@@ -14,9 +16,9 @@ class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository impl
      *
      * @see \SmartPHP\Example\Repositories\EmployeeRepositoryInterface::fetchAll()
      */
-    public function fetchAll(): array
+    public function fetchAll(): IteratorStreamInterface
     {
-        return $this->fetchAllEntities();
+        return IteratorStream::create($this->fetchAllEntities());
     }
     
     /**
@@ -36,9 +38,9 @@ class DoctrineEmployeeRepository extends DoctrineDataSourceEntityRepository impl
      *
      * @see \SmartPHP\Example\Repositories\EmployeeRepositoryInterface::fetch()
      */
-    public function fetch(int $startRow, int $endRow): array
+    public function fetch(int $startRow, int $endRow): IteratorStreamInterface
     {
-        return $this->fetch($startRow, $endRow);
+        return IteratorStream::create($this->fetch($startRow, $endRow));
     }
     
     /**
