@@ -59,7 +59,6 @@ class DoctrineDepartmentRepository extends DoctrineDataSourceEntityRepository im
         $company = $this->getEntityManager()->find(CompanyEntity::class, $department->getCompany());
         $company->addDepartment($department);
         $department->setCompany($company);
-        $this->companyRepository->update($company);
         return $this->updateEntity($department);
     }
 

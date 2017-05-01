@@ -9,13 +9,13 @@ use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;
 class CompanyDataSourceService implements CompanyDataSourceServiceInterface
 {
     /**
-     * 
+     *
      * @var CompanyBusinessServiceInterface
      */
     private $companyService;
     
     /**
-     * 
+     *
      * @var ModelConverterServiceInterface
      */
     private $converter;

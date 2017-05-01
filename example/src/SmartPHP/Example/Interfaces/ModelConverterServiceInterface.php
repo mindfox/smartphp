@@ -27,9 +27,9 @@ interface ModelConverterServiceInterface
 
     public function toDepartmentDataSourceModels(IteratorStreamInterface $departments): IteratorStreamInterface;
 
-    public function toDepartmentEntity(DepartmentBusinessModel $department, CompanyEntity $company): DepartmentEntity;
+    public function toDepartmentEntity(DepartmentBusinessModel $department, CompanyEntity $company = null): DepartmentEntity;
 
-    public function toDepartmentEntities(IteratorStreamInterface $departments, CompanyEntity $company): IteratorStreamInterface;
+    public function toDepartmentEntities(IteratorStreamInterface $departments, CompanyEntity $company = null): IteratorStreamInterface;
 
     public function toEmployeeDataSourceModel(EmployeeBusinessModel $employee): EmployeeDataSourceModel;
     
@@ -55,5 +55,5 @@ interface ModelConverterServiceInterface
     
     public function fromEmployeeEntity(EmployeeEntity $employee, DepartmentBusinessModel $department = null): EmployeeBusinessModel;
     
-    public function fromEmployeeEntities(IteratorStreamInterface $employees, DepartmentBusinessModel $department= null): IteratorStreamInterface;
+    public function fromEmployeeEntities(IteratorStreamInterface $employees, DepartmentBusinessModel $department = null): IteratorStreamInterface;
 }

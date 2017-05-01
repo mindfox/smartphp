@@ -1,7 +1,6 @@
 <?php
 namespace SmartPHP\Collections;
 
-
 interface IteratorStreamInterface
 {
     public function all(callable $predicate): bool;

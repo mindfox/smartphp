@@ -115,12 +115,13 @@ class ModelConverterService implements ModelConverterServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\ModelConverterServiceInterface::toDepartmentEntity()
      */
-    public function toDepartmentEntity(DepartmentBusinessModel $department, CompanyEntity $company): DepartmentEntity
+    public function toDepartmentEntity(DepartmentBusinessModel $department, CompanyEntity $company = null): DepartmentEntity
     {
         $entity = new DepartmentEntity();
         $entity->setId($department->getId());
         $entity->setName($department->getName());
-        $entity->setCompany($company);
+        $entity->setCompany($company ?? $this->toCompanyEntity($department->getCompany()));
+//         var_dump($entity); die();
         return $entity;
     }
 
@@ -130,7 +131,7 @@ class ModelConverterService implements ModelConverterServiceInterface
      *
      * @see \SmartPHP\Example\Interfaces\ModelConverterServiceInterface::toDepartmentEntities()
      */
-    public function toDepartmentEntities(IteratorStreamInterface $departments, CompanyEntity $company): IteratorStreamInterface
+    public function toDepartmentEntities(IteratorStreamInterface $departments, CompanyEntity $company = null): IteratorStreamInterface
     {
         $converter = $this;
         return $departments->map(function ($department) use ($converter, $company) {
@@ -255,7 +256,7 @@ class ModelConverterService implements ModelConverterServiceInterface
         $bm = new DepartmentBusinessModel();
         $bm->setId($department->getId());
         $bm->setName($department->getName());
-        // $bm->setCompany($company ?? $this->fromCompanyEntity($department->getCompany()));
+        $bm->setCompany((new CompanyBusinessModel())->setId($department->getCompanyId()));
         return $bm;
     }
 

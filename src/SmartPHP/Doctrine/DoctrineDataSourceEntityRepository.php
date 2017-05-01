@@ -5,10 +5,18 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 abstract class DoctrineDataSourceEntityRepository extends EntityRepository
 {
 
+    public function __construct(EntityManagerInterface $entityManager, ClassMetadata $classMetadata)
+    {
+        parent::__construct($entityManager, $classMetadata);
+    }
+    
     protected function newQueryBuilder(): QueryBuilder
     {
         return $this->getEntityManager()->createQueryBuilder();
@@ -59,7 +67,7 @@ abstract class DoctrineDataSourceEntityRepository extends EntityRepository
 
     protected function removeEntity($entity)
     {
-        $this->getEntityManager()->persist($this->removeEntity($entity));
+        $this->getEntityManager()->remove($this->getEntityManager()->merge($entity));
         $this->getEntityManager()->flush();
         return $entity;
     }
