@@ -4,8 +4,8 @@ namespace SmartPHP\Example\Services\DoctrineRepositories;
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
-use SmartPHP\Collections\IteratorStreamInterface;
-use SmartPHP\Collections\IteratorStream;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStream;
 
 class DoctrineCompanyRepository extends DoctrineDataSourceEntityRepository implements CompanyRepositoryInterface
 {

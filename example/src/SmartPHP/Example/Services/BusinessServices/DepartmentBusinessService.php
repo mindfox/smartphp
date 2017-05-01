@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Example\Services\BusinessServices;
 
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 use SmartPHP\Example\Interfaces\BusinessServices\DepartmentBusinessServiceInterface;
 use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;

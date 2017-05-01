@@ -1,9 +1,9 @@
 <?php
 namespace SmartPHP\Doctrine;
 
-use SmartPHP\Collections\AbstractCollection;
+use Sabertooth\Collections\AbstractCollection;
 use Doctrine\Common\Collections\Collection;
-use SmartPHP\Collections\CollectionInterface;
+use Sabertooth\Collections\CollectionInterface;
 
 class DoctrineCollection extends AbstractCollection
 {

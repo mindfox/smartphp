@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Example\Interfaces;
 
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 use SmartPHP\Example\Models\BusinessModels\CompanyBusinessModel;
 use SmartPHP\Example\Models\BusinessModels\DepartmentBusinessModel;
 use SmartPHP\Example\Models\DataSourceModels\CompanyDataSourceModel;

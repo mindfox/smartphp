@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\Interfaces\Repositories;
 
 use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 
 interface DepartmentRepositoryInterface
 {

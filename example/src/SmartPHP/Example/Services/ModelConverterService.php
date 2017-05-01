@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Example\Services;
 
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 use SmartPHP\Example\Interfaces\ModelConverterServiceInterface;
 use SmartPHP\Example\Models\BusinessModels\CompanyBusinessModel;
 use SmartPHP\Example\Models\BusinessModels\DepartmentBusinessModel;
@@ -13,7 +13,7 @@ use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;
 use SmartPHP\Example\Models\DoctrineEntities\DepartmentEntity;
 use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 use SmartPHP\Doctrine\DoctrineCollection;
-use SmartPHP\Collections\IteratorCollectors;
+use Sabertooth\IteratorCollectors;
 
 class ModelConverterService implements ModelConverterServiceInterface
 {

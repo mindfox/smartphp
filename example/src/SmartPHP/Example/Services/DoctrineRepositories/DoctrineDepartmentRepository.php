@@ -1,8 +1,8 @@
 <?php
 namespace SmartPHP\Example\Services\DoctrineRepositories;
 
-use SmartPHP\Collections\IteratorStream;
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStream;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 use SmartPHP\Doctrine\DoctrineDataSourceEntityRepository;
 use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Models\DoctrineEntities\CompanyEntity;

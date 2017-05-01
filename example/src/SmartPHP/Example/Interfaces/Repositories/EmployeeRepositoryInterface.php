@@ -1,7 +1,7 @@
 <?php
 namespace SmartPHP\Example\Interfaces\Repositories;
 
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 use SmartPHP\Example\Models\DoctrineEntities\EmployeeEntity;
 
 interface EmployeeRepositoryInterface

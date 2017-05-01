@@ -1,8 +1,8 @@
 <?php
 namespace SmartPHP\Example\Models\BusinessModels;
 
-use SmartPHP\Collections\CollectionInterface;
-use SmartPHP\Collections\Collections;
+use Sabertooth\Collections\CollectionInterface;
+use Sabertooth\Collections;
 
 class CompanyBusinessModel
 {

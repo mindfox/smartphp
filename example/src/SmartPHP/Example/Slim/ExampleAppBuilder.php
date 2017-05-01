@@ -1,11 +1,13 @@
 <?php
 namespace SmartPHP\Example\Slim;
 
+use DI\Container;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Interop\Container\ContainerInterface;
 use Slim\App;
 use SmartPHP\DI\DIDefinitionBuilderInterface;
+use SmartPHP\Doctrine\DoctrineDataSourceRepositoryFactory;
 use SmartPHP\Example\Interfaces\Repositories\CompanyRepositoryInterface;
 use SmartPHP\Example\Interfaces\Repositories\DepartmentRepositoryInterface;
 use SmartPHP\Example\Interfaces\Repositories\EmployeeRepositoryInterface;
@@ -21,9 +23,6 @@ use SmartPHP\Example\Services\DataSourceServices\EmployeeDataSourceService;
 use SmartPHP\Example\Services\ModelConverterService;
 use SmartPHP\Example\Slim\Controllers\DataSourceController;
 use SmartPHP\Slim\SlimAppBuilder;
-use DI\Container;
-use SmartPHP\Doctrine\DoctrineDIRepositoryFactory;
-use SmartPHP\Doctrine\DoctrineDataSourceRepositoryFactory;
 
 class ExampleAppBuilder extends SlimAppBuilder
 {
@@ -82,7 +81,6 @@ class ExampleAppBuilder extends SlimAppBuilder
             $useSimpleAnnotationReader = $container->get("doctrine.annotationMetadataConfiguration.useSimpleAnnotationReader");
             $entityNamespaces = $container->get("doctrine.entityNamespaces");
             $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode, $poxyDir, $cache, $useSimpleAnnotationReader);
-            $config->setRepositoryFactory($container->get("DoctrineRepositoryFactory"));
             foreach ($entityNamespaces as $alias => $namespace) {
                 $config->addEntityNamespace($alias, $namespace);
             }

@@ -2,7 +2,7 @@
 namespace SmartPHP\Example\Interfaces\BusinessServices;
 
 use SmartPHP\Example\Models\BusinessModels\EmployeeBusinessModel;
-use SmartPHP\Collections\IteratorStreamInterface;
+use Sabertooth\IteratorStreams\IteratorStreamInterface;
 
 interface EmployeeBusinessServiceInterface
 {
